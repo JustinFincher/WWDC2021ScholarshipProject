@@ -8,9 +8,26 @@
 
 import UIKit
 import PlaygroundSupport
+import SwiftUI
 
 @objc(BookCore_LiveViewController)
 public class LiveViewController: UIViewController, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer {
+    
+    let cameraView : ARCameraView = ARCameraView()
+    let debugViewController = UIHostingController(rootView: ARDebugView())
+    
+    public override func viewDidLoad() {
+        
+        cameraView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size:self.view.bounds.size)
+        cameraView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.view.addSubview(cameraView)
+        
+        debugViewController.view.frame = self.view.frame
+        debugViewController.view.backgroundColor = .clear
+        self.view.addSubview(debugViewController.view)
+        debugViewController.didMove(toParent: self)
+    }
+    
     /*
     public func liveViewMessageConnectionOpened() {
         // Implement this method to be notified when the live view message connection is opened.

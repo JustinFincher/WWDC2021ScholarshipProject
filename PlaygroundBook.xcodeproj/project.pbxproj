@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D16C79E261CCC8600B8BFBB /* ARCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C78A261CBF3B00B8BFBB /* ARCameraView.swift */; };
+		0D16C79F261CCC8600B8BFBB /* ARDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C790261CBF5200B8BFBB /* ARDebugView.swift */; };
 		5E086DCA2051DDAE004D8D25 /* LiveView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E086DCC2051DDAE004D8D25 /* LiveView.storyboard */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E3196F32061DEA40077BBD7 /* LiveViewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3196F22061DEA40077BBD7 /* LiveViewSupport.swift */; };
@@ -132,6 +134,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D16C78A261CBF3B00B8BFBB /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
+		0D16C790261CBF5200B8BFBB /* ARDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugView.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* PlaygroundBook.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaygroundBook.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCD2051DDB8004D8D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LiveView.storyboard; sourceTree = "<group>"; };
@@ -281,6 +285,8 @@
 		5E6F7E5B2367B632008CC191 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0D16C78A261CBF3B00B8BFBB /* ARCameraView.swift */,
+				0D16C790261CBF5200B8BFBB /* ARDebugView.swift */,
 				5E6F7E5C2367B64A008CC191 /* BookAPI.swift */,
 			);
 			path = Sources;
@@ -582,6 +588,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D16C79E261CCC8600B8BFBB /* ARCameraView.swift in Sources */,
+				0D16C79F261CCC8600B8BFBB /* ARDebugView.swift in Sources */,
 				5E6F7E6C2368FC01008CC191 /* BookAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -688,12 +696,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "$(PLAYGROUND_BOOK_CONTENT_VERSION)";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PLAYGROUND_BOOK_CONTENT_IDENTIFIER)";
 				PRODUCT_NAME = "$(PLAYGROUND_BOOK_FILE_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = YES;
 			};
@@ -703,11 +717,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "$(PLAYGROUND_BOOK_CONTENT_VERSION)";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				INSTALL_PATH = /;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PLAYGROUND_BOOK_CONTENT_IDENTIFIER)";
 				PRODUCT_NAME = "$(PLAYGROUND_BOOK_FILE_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = YES;
 			};
@@ -865,7 +885,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = LiveViewTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -892,7 +912,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				INFOPLIST_FILE = LiveViewTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
