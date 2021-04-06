@@ -20,7 +20,7 @@ extension SCNGeometry
     
     func assignReflectiveMaterial() -> Void {
         self.firstMaterial?.lightingModel = .physicallyBased
-        self.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.7)
+        self.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
 //        self.firstMaterial?.metalness.contents = NSNumber.init(value: 0.8)
 //        self.firstMaterial?.roughness.contents = NSNumber.init(value: 0.2)
     }

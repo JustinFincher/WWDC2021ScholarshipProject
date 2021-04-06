@@ -12,6 +12,7 @@ import SwiftUI
 
 open class LiveViewController : UIViewController, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer
 {
+    let debugViewController = UIHostingController(rootView: ARDebugView())
     let cameraView : ARCameraView = ARCameraView()
     
     public override func viewDidLoad() {
@@ -19,6 +20,12 @@ open class LiveViewController : UIViewController, PlaygroundLiveViewMessageHandl
         cameraView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size:self.view.bounds.size)
         cameraView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.view.addSubview(cameraView)
+        
+        debugViewController.view.frame = self.view.frame
+        debugViewController.view.backgroundColor = .clear
+        self.view.addSubview(debugViewController.view)
+        debugViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        debugViewController.didMove(toParent: self)
     }
     
     //MARK: PlaygroundLiveViewMessageHandler

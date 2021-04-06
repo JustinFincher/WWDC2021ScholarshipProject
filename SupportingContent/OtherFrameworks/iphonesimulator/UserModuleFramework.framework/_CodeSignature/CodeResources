@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/UserModuleFramework-Swift.h</key>
 		<data>
-		wK+kH1VSOvMwbU6rsivfCgQ+wsM=
+		NweYpZe8MlerCs2+a98ElYzBZiI=
 		</data>
 		<key>Headers/UserModuleFramework.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		pqgtENZ/dv5BmEVHeGi9npqbzls=
+		up2Deom13SUbH5cNPTwGen4GGWw=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		pqgtENZ/dv5BmEVHeGi9npqbzls=
+		up2Deom13SUbH5cNPTwGen4GGWw=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		XyIZTj4l+jNkHv3HJfjfye5XrrU=
+		aa0tuPg85BtG5XY1Gfm2Lw0K7IY=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		XyIZTj4l+jNkHv3HJfjfye5XrrU=
+		aa0tuPg85BtG5XY1Gfm2Lw0K7IY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cVqZvraJ1o+LNDzwlnywwi/3w/o3TYaouCkM1IZqsV8=
+			y9A1EGe9+UxufRJ5RBdDbliWLwFV/dAxSOJIc98br2k=
 			</data>
 		</dict>
 		<key>Headers/UserModuleFramework.h</key>
@@ -65,14 +65,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bKGS7WqLDY++GJigue320gY8l80FYHjMggBVqfO40AM=
+			7ni5JjH8FA3+o3TEohAr5FLMG5VFX4OeK76XRgH/M2w=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bKGS7WqLDY++GJigue320gY8l80FYHjMggBVqfO40AM=
+			7ni5JjH8FA3+o3TEohAr5FLMG5VFX4OeK76XRgH/M2w=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pbn8+9SL+thwOh+Rm2MjmlA43zjXvzWUgmS/DhcRUDk=
+			s0o+eRKUY1oMIsOAdcLPNlDYspRP86KZI1R1UqPF8L4=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftdoc</key>
@@ -100,7 +100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pbn8+9SL+thwOh+Rm2MjmlA43zjXvzWUgmS/DhcRUDk=
+			s0o+eRKUY1oMIsOAdcLPNlDYspRP86KZI1R1UqPF8L4=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

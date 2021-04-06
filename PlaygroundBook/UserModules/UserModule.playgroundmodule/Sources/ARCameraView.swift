@@ -12,8 +12,6 @@ import SwiftUI
 
 class ARCameraView: ARSCNView, ARSCNViewDelegate, ARSessionDelegate {
     
-    let debugViewController = UIHostingController(rootView: ARDebugView())
-    
     init() {
         super.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
         postInit()
@@ -28,16 +26,12 @@ class ARCameraView: ARSCNView, ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func postInit() -> Void {
-        debugViewController.view.frame = self.frame
-        debugViewController.view.backgroundColor = .clear
-        self.addSubview(debugViewController.view)
-        debugViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
         self.automaticallyUpdatesLighting = true
         self.showsStatistics = true
         self.delegate = self
         self.session.delegate = self
         self.scene = SCNScene()
+        self.scene.background.contents = UIColor.clear
         self.debugOptions = [.renderAsWireframe]
         let configuration = ARWorldTrackingConfiguration()
         configuration.appClipCodeTrackingEnabled = false
