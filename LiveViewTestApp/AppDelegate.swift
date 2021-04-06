@@ -8,7 +8,7 @@
 import UIKit
 import PlaygroundSupport
 import LiveViewHost
-import BookCore
+import UserModuleFramework
 
 @UIApplicationMain
 class AppDelegate: LiveViewHost.AppDelegate {
@@ -18,7 +18,8 @@ class AppDelegate: LiveViewHost.AppDelegate {
         // The view or view controller returned from this method will be automatically be shown on screen,
         // as if it were a live view in Swift Playgrounds. You can control how the live view is shown by
         // changing the implementation of the `liveViewConfiguration` property below.
-        return BookCore.instantiateLiveView()
+//        return UINavigationController(rootViewController: LiveViewController())
+        return LiveViewController()
     }
 
     override var liveViewConfiguration: LiveViewConfiguration {
