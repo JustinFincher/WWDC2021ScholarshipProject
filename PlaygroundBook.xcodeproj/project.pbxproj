@@ -15,6 +15,11 @@
 		0D16C84A261CF32C00B8BFBB /* UserModuleFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */; };
 		0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */; };
+		0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */; };
+		0D16C85A261DB49F00B8BFBB /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */; };
+		0D16C861261DB51800B8BFBB /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */; };
+		0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
+		0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E6F7E592367B529008CC191 /* UserModules in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E6F7E582367B51E008CC191 /* UserModules */; };
@@ -91,6 +96,11 @@
 		0D16C7C6261CEF2600B8BFBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARMeshGeometry+SceneKit.swift"; sourceTree = "<group>"; };
 		0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+ARKit.swift"; sourceTree = "<group>"; };
+		0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeManager.swift; sourceTree = "<group>"; };
+		0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
+		0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeHelper.swift; sourceTree = "<group>"; };
+		0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonView.swift; sourceTree = "<group>"; };
+		0D16C877261DB60200B8BFBB /* View+Conditional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Conditional.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
@@ -140,6 +150,51 @@
 				0D16C7C6261CEF2600B8BFBB /* Info.plist */,
 			);
 			path = UserModuleFramework;
+			sourceTree = "<group>";
+		};
+		0D16C85D261DB4A600B8BFBB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */,
+				0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		0D16C865261DB54B00B8BFBB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		0D16C86A261DB58200B8BFBB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
+				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
+				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D16C86D261DB58C00B8BFBB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0D5F84962469905900050D49 /* LiveViewController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0D16C872261DB5C400B8BFBB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */,
+				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
+				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		0D18D78D24671AF0000B0EBD /* Frameworks */ = {
@@ -241,11 +296,11 @@
 		5E7067A223678E0D0094BDEF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0D5F84962469905900050D49 /* LiveViewController.swift */,
-				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
-				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
-				0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */,
-				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
+				0D16C86D261DB58C00B8BFBB /* App */,
+				0D16C86A261DB58200B8BFBB /* View */,
+				0D16C872261DB5C400B8BFBB /* Utils */,
+				0D16C865261DB54B00B8BFBB /* Helper */,
+				0D16C85D261DB4A600B8BFBB /* Manager */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -468,8 +523,13 @@
 			files = (
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
 				0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */,
+				0D16C861261DB51800B8BFBB /* RuntimeHelper.swift in Sources */,
+				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
 				0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
+				0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */,
+				0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */,
+				0D16C85A261DB49F00B8BFBB /* EnvironmentManager.swift in Sources */,
 				0D16C7D7261CEF4900B8BFBB /* ARCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
