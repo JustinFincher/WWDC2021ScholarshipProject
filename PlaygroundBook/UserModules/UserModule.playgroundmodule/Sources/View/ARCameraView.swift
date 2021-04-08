@@ -10,7 +10,7 @@ import SceneKit
 import ARKit
 import SwiftUI
 
-class ARCameraView: ARSCNView, ARSCNViewDelegate, ARSessionDelegate {
+class ARCameraView: ARSCNView {
     
     init() {
         super.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
@@ -28,40 +28,12 @@ class ARCameraView: ARSCNView, ARSCNViewDelegate, ARSessionDelegate {
     func postInit() -> Void {
         self.automaticallyUpdatesLighting = true
         self.showsStatistics = true
-        self.delegate = self
-        self.session.delegate = self
+        self.session = OperationManager.shared.session
+        self.delegate = OperationManager.shared
         self.scene = SCNScene()
-        self.scene.background.contents = UIColor.clear
-        self.debugOptions = [.renderAsWireframe]
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.appClipCodeTrackingEnabled = false
-        configuration.environmentTexturing = .automatic
-        configuration.isCollaborationEnabled = true
-        configuration.sceneReconstruction = .mesh
-        self.session.run(configuration, options: [])
+//        print("background.contents \(self.scene.background.contents)")
+//        self.scene.background.contents = UIColor.clear
         self.play(nil)
     }
     
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        if let meshAnchor : ARMeshAnchor = anchor as? ARMeshAnchor {
-            let geometry = SCNGeometry(arGeometry: meshAnchor.geometry)
-            geometry.assignReflectiveMaterial()
-            let node = SCNNode()
-            node.geometry = geometry
-            return node
-        }
-        return nil
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        if let meshAnchor : ARMeshAnchor = anchor as? ARMeshAnchor {
-            let geometry = SCNGeometry(arGeometry: meshAnchor.geometry)
-            geometry.assignReflectiveMaterial()
-            node.geometry = geometry
-        }
-    }
 }

@@ -10,22 +10,12 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import ARKit
 
-class DynamicEnvironment: ObservableObject
+class DataEnvironment: ObservableObject
 {
-    @Published var showGlobalView : Bool = false
-    @Published var globalView : AnyView = AnyView(Color.clear)
-    func showView(view: AnyView, forTime: DispatchTimeInterval) -> Void {
-        self.showGlobalView = true
-        self.globalView = view
-        print("showGlobalView \(showGlobalView)")
-        DispatchQueue.global(qos: .background).async {
-            DispatchQueue.main.asyncAfter(deadline: .now() + forTime) {
-                self.showGlobalView = false
-                print("showGlobalView \(self.showGlobalView)")
-            }
-        }
-    }
+    @Published var arOperationMode : AROperationMode = AROperationMode.polygon
+    @Published var arMeshNodes : [SCNNode] = []
     
     init() {
     }
@@ -38,11 +28,18 @@ class EnvironmentManager : RuntimeManagableSingleton
         return instance
     }()
     
-    let env: DynamicEnvironment = DynamicEnvironment()
+    let env: DataEnvironment = DataEnvironment()
     
     private override init() {}
     
     override class func setup() {
         print("EnvironmentManager.setup")
+    }
+    
+    func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
+        DispatchQueue.main.async {
+            content(self.env)
+            self.env.objectWillChange.send()
+        }
     }
 }

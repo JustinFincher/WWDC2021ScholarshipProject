@@ -18,11 +18,18 @@ extension SCNGeometry
            self.init(sources: [verticesSource, normalsSource], elements: [faces])
     }
     
-    func assignReflectiveMaterial() -> Void {
-        self.firstMaterial?.lightingModel = .physicallyBased
-        self.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
-//        self.firstMaterial?.metalness.contents = NSNumber.init(value: 0.8)
-//        self.firstMaterial?.roughness.contents = NSNumber.init(value: 0.2)
+    func withWireframe() -> SCNGeometry {
+        self.firstMaterial?.fillMode = .lines
+        self.firstMaterial?.isDoubleSided = false
+        return self
+    }
+    
+    func getVerticesCount() -> Int {
+        var count = 0
+        self.sources.forEach { source in
+            count += source.vectorCount
+        }
+        return count
     }
 }
 

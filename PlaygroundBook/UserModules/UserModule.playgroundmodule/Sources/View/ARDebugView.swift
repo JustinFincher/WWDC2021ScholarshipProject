@@ -8,23 +8,64 @@
 import SwiftUI
 
 struct ARDebugView: View {
+    
+    @State var expanded : Bool = false
+    
+    func isHorizontal(geometry: GeometryProxy) -> Bool {
+        return geometry.size.width > geometry.size.height
+    }
+    
+    func getBarItemIconName() -> String {
+        return expanded ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right"
+    }
+    
+    func getPanelWidth(geometry: GeometryProxy) -> CGFloat
+    {
+        var multipler : CGFloat = 0.3
+        if isHorizontal(geometry: geometry) {
+            multipler = expanded ? 0.35 : 0.25
+        } else {
+            multipler = expanded ? 1 : 0.25
+        }
+        return geometry.size.width * multipler
+    }
+    func getPanelHeight(geometry: GeometryProxy) -> CGFloat
+    {
+        var multipler : CGFloat = 0.5
+        if isHorizontal(geometry: geometry) {
+            multipler = expanded ? 1.0 : 0.5
+        } else {
+            multipler = expanded ? 0.3 : 0.3
+        }
+        return geometry.size.height * multipler
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 ZStack {
                     NavigationView(content: {
-                        Text("Test")
-                            .navigationBarTitle("AR")
+                        ARDebugStepsView()
+                            .navigationBarItems(trailing: Button(action: {
+                                expanded.toggle()
+                            }, label: {
+                                Image(systemName: getBarItemIconName())
+                            }))
                     })
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
+                .animation(.easeInOut)
+                .transition(.scale)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .background(Color.init(UIColor.systemGroupedBackground))
                 .cornerRadius(25)
                 .shadow(radius: 10)
             }
             .padding()
-            .frame(width: geometry.size.width / 4, height: geometry.size.height / 2, alignment: .topLeading)
+            .frame(width: getPanelWidth(geometry: geometry),
+                   height: getPanelHeight(geometry: geometry),
+                   alignment: .topLeading)
+            .environmentObject(EnvironmentManager.shared.env)
         }
     }
 }

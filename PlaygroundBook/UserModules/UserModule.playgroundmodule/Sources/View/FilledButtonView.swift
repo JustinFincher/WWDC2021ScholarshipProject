@@ -23,7 +23,7 @@ struct FilledButtonView: View
             }
             if text != "" {
                 Text(text)
-                    .font(.system(.body, design: .monospaced))
+                    .font(.system(.body, design: .rounded))
                     .multilineTextAlignment(.leading)
             }
         }
