@@ -52,6 +52,9 @@ struct ARDebugView: View {
                                 Image(systemName: getBarItemIconName())
                             }))
                     })
+                    .onTapGesture(count: 2, perform: {
+                        expanded.toggle()
+                    })
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
                 .animation(.easeInOut)

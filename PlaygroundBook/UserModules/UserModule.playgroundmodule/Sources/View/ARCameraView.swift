@@ -28,11 +28,9 @@ class ARCameraView: ARSCNView {
     func postInit() -> Void {
         self.automaticallyUpdatesLighting = true
         self.showsStatistics = true
-        self.session = OperationManager.shared.session
         self.delegate = OperationManager.shared
-        self.scene = SCNScene()
-//        print("background.contents \(self.scene.background.contents)")
-//        self.scene.background.contents = UIColor.clear
+        self.session = OperationManager.shared.session
+        self.scene = OperationManager.shared.scene
         self.play(nil)
     }
     

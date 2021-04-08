@@ -6,18 +6,20 @@
 //
 
 import SwiftUI
-
+import GameplayKit
+import SceneKit
 struct ARDebugStepsScanView: View {
+    
     @EnvironmentObject var environment: DataEnvironment
     
     var body: some View {
         VStack {
             List {
-                ForEach(environment.arMeshNodes, id: \.self) { node in
+                ForEach(environment.arEntities, id: \.self) { entity in
                     VStack(alignment: .leading) {
-                        Text("Mesh Source Count \(node.geometry?.getVerticesCount() ?? 0)")
+                        Text("Entity")
                             .font(.callout)
-                        Text("Node \(node.name ?? "NULL")")
+                        Text("Node \(entity.component(ofType: GKSCNNodeComponent.self)?.node.name ?? "NULL")")
                             .font(.footnote)
                     }
                 }
@@ -26,7 +28,7 @@ struct ARDebugStepsScanView: View {
             Button(action: {
                 environment.arOperationMode = .colorize
             }, label: {
-                FilledButtonView(icon: "", text: "Save \(environment.arMeshNodes.count) Meshes", color: Color.accentColor, shadow: false, primary: true)
+                FilledButtonView(icon: "", text: "Save \(environment.arEntities.count) Meshes", color: Color.accentColor, shadow: false, primary: true)
             })
             .padding([.horizontal, .bottom])
         }

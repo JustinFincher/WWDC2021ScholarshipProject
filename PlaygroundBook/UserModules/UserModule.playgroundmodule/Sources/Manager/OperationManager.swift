@@ -8,12 +8,14 @@
 import Foundation
 import ARKit
 import Combine
+import GameplayKit
 import SceneKit
 
 class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionDelegate
 {
     private var cancellable: AnyCancellable?
     let session: ARSession = ARSession()
+    let scene: SCNScene = SCNScene()
     
     static let shared: OperationManager = {
         let instance = OperationManager()
@@ -36,16 +38,16 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                 configuration.isLightEstimationEnabled = true
                 configuration.isCollaborationEnabled = false
                 configuration.sceneReconstruction = .mesh
+                OperationManager.shared.scene.background.intensity = 0.0
                 OperationManager.shared.session.run(configuration, options: [])
                 break
             case .colorize:
-                // copy all nodes here?
-                
                 let configuration = ARWorldTrackingConfiguration()
                 configuration.appClipCodeTrackingEnabled = false
                 configuration.environmentTexturing = .automatic
                 configuration.isLightEstimationEnabled = true
                 configuration.isCollaborationEnabled = false
+                OperationManager.shared.scene.background.intensity = 0.4
                 OperationManager.shared.session.run(configuration, options: [])
                 break
             case .rigging:
@@ -53,9 +55,17 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                 configuration.appClipCodeTrackingEnabled = false
                 configuration.environmentTexturing = .automatic
                 configuration.isLightEstimationEnabled = true
+                OperationManager.shared.scene.background.intensity = 1.0
                 OperationManager.shared.session.run(configuration, options: [])
                 break
             case .export:
+                let configuration = ARWorldTrackingConfiguration()
+                configuration.appClipCodeTrackingEnabled = false
+                configuration.environmentTexturing = .automatic
+                configuration.isLightEstimationEnabled = true
+                configuration.isCollaborationEnabled = true
+                OperationManager.shared.scene.background.intensity = 1.0
+                OperationManager.shared.session.run(configuration, options: [])
                 break
             }
         })
@@ -85,15 +95,22 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        let entity = GKEntity()
+        entity.addComponent(GKSCNNodeComponent(node: node))
+        node.entity = entity
         EnvironmentManager.shared.triggerUpdate { env in
-            env.arMeshNodes.append(node)
+            env.arEntities.append(entity)
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         EnvironmentManager.shared.triggerUpdate { env in
-            env.arMeshNodes.removeAll { n -> Bool in
-                n.name == node.name
+            env.arEntities.removeAll { entity -> Bool in
+                if let comp : GKSCNNodeComponent = entity.component(ofType: GKSCNNodeComponent.self)
+                {
+                    return comp.node.name == node.name
+                }
+                return false
             }
         }
     }

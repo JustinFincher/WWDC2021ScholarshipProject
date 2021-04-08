@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Foundation
+import GameplayKit
 import UIKit
 import SwiftUI
 import Combine
@@ -15,7 +16,7 @@ import ARKit
 class DataEnvironment: ObservableObject
 {
     @Published var arOperationMode : AROperationMode = AROperationMode.polygon
-    @Published var arMeshNodes : [SCNNode] = []
+    @Published var arEntities : [GKEntity] = []
     
     init() {
     }
