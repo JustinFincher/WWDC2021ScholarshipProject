@@ -208,6 +208,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+
 @class NSBundle;
 @class NSCoder;
 
@@ -223,6 +225,10 @@ SWIFT_CLASS("_TtC19UserModuleFramework25RuntimeManagableSingleton")
 @interface RuntimeManagableSingleton : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
+
 
 
 

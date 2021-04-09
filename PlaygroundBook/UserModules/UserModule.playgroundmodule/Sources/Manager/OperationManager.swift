@@ -58,7 +58,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                 EnvironmentManager.shared.env.arEntities.forEach { entity in
                     if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node
                     {
-                        node.geometry = node.geometry?.subdivide(level: 1)
+                        node.geometry = node.geometry?.withUV()
                     }
                 }
                 break
