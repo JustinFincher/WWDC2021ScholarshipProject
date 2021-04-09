@@ -12,8 +12,8 @@ struct ARDebugStepsView: View {
     
     func getContentView() -> AnyView {
         switch environment.arOperationMode {
-        case .polygon: return AnyView(ARDebugStepsScanView())
-        case .colorize: return AnyView(ZStack {})
+        case .polygon: return AnyView(ARDebugStepPolygonView())
+        case .colorize: return AnyView(ARDebugStepColorizeView())
         case .rigging: return AnyView(ZStack {})
         case .export: return AnyView(ZStack {})
         }
@@ -30,7 +30,7 @@ struct ARDebugStepsView: View {
             .frame(maxWidth: .infinity, alignment: .center)
             .fixedSize(horizontal: false, vertical: true)
             .pickerStyle(SegmentedPickerStyle())
-            .padding([.horizontal, .bottom])
+            .padding([.horizontal])
             
             getContentView()
             .frame(maxHeight: .infinity, alignment: .center)

@@ -25,7 +25,7 @@ struct ARDebugView: View {
         if isHorizontal(geometry: geometry) {
             multipler = expanded ? 0.35 : 0.25
         } else {
-            multipler = expanded ? 1 : 0.25
+            multipler = expanded ? 1 : 0.4
         }
         return geometry.size.width * multipler
     }
@@ -35,7 +35,7 @@ struct ARDebugView: View {
         if isHorizontal(geometry: geometry) {
             multipler = expanded ? 1.0 : 0.5
         } else {
-            multipler = expanded ? 0.3 : 0.3
+            multipler = expanded ? 0.4 : 0.6
         }
         return geometry.size.height * multipler
     }

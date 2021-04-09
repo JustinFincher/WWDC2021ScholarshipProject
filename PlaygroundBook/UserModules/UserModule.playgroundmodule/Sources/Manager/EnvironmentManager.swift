@@ -18,6 +18,13 @@ class DataEnvironment: ObservableObject
     @Published var arOperationMode : AROperationMode = AROperationMode.polygon
     @Published var arEntities : [GKEntity] = []
     
+    func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
+        DispatchQueue.main.async {
+            content(self)
+            self.objectWillChange.send()
+        }
+    }
+    
     init() {
     }
 }
@@ -36,11 +43,5 @@ class EnvironmentManager : RuntimeManagableSingleton
     override class func setup() {
         print("EnvironmentManager.setup")
     }
-    
-    func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
-        DispatchQueue.main.async {
-            content(self.env)
-            self.env.objectWillChange.send()
-        }
-    }
+
 }

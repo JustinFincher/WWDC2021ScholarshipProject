@@ -13,3 +13,10 @@ enum AROperationMode {
     case rigging
     case export
 }
+
+struct EntityDisplayModel: Hashable, Identifiable {
+    var id: Self { self }
+    var key: String
+    var value: String
+    var children: [EntityDisplayModel]? = nil
+}

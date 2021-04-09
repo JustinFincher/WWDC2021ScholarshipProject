@@ -21,10 +21,15 @@
 		0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
 		0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */; };
-		0D16C88A261DF29700B8BFBB /* ARDebugStepsScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepsScanView.swift */; };
+		0D16C88A261DF29700B8BFBB /* ARDebugStepPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */; };
+		0D4BE14F261FA51200C74125 /* ARDebugStepColorizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */; };
+		0D591F9D262008D900EE4286 /* SCNVector+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
 		0D5B6F40261EC89200EC7B18 /* TexturingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F3F261EC89200EC7B18 /* TexturingComponent.swift */; };
+		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
+		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
+		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E6F7E592367B529008CC191 /* UserModules in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E6F7E582367B51E008CC191 /* UserModules */; };
@@ -107,10 +112,15 @@
 		0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonView.swift; sourceTree = "<group>"; };
 		0D16C877261DB60200B8BFBB /* View+Conditional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Conditional.swift"; sourceTree = "<group>"; };
 		0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepsView.swift; sourceTree = "<group>"; };
-		0D16C889261DF29700B8BFBB /* ARDebugStepsScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepsScanView.swift; sourceTree = "<group>"; };
+		0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepPolygonView.swift; sourceTree = "<group>"; };
+		0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepColorizeView.swift; sourceTree = "<group>"; };
+		0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D5B6F3F261EC89200EC7B18 /* TexturingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexturingComponent.swift; sourceTree = "<group>"; };
+		0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameplayKit+SwiftUI.swift"; sourceTree = "<group>"; };
+		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
+		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
@@ -186,7 +196,9 @@
 				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
 				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
 				0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */,
-				0D16C889261DF29700B8BFBB /* ARDebugStepsScanView.swift */,
+				0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */,
+				0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */,
+				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
 				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
 			);
 			path = View;
@@ -205,6 +217,9 @@
 			children = (
 				0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
+				0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */,
+				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
+				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
 			);
 			path = Utils;
@@ -217,11 +232,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0D4BE156261FA6BE00C74125 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				0D5B6F3F261EC89200EC7B18 /* TexturingComponent.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		0D5B6F3C261EBDD900EC7B18 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				0D5B6F30261E799B00EC7B18 /* Data.swift */,
-				0D5B6F3F261EC89200EC7B18 /* TexturingComponent.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -323,6 +345,7 @@
 				0D16C872261DB5C400B8BFBB /* Utils */,
 				0D16C865261DB54B00B8BFBB /* Helper */,
 				0D16C85D261DB4A600B8BFBB /* Manager */,
+				0D4BE156261FA6BE00C74125 /* Component */,
 				0D5B6F3C261EBDD900EC7B18 /* Data */,
 			);
 			path = Sources;
@@ -547,13 +570,18 @@
 				0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */,
 				0D5B6F40261EC89200EC7B18 /* TexturingComponent.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
-				0D16C88A261DF29700B8BFBB /* ARDebugStepsScanView.swift in Sources */,
+				0D16C88A261DF29700B8BFBB /* ARDebugStepPolygonView.swift in Sources */,
+				0D591F9D262008D900EE4286 /* SCNVector+Lerp.swift in Sources */,
 				0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */,
 				0D16C861261DB51800B8BFBB /* RuntimeHelper.swift in Sources */,
+				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
 				0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
+				0D4BE14F261FA51200C74125 /* ARDebugStepColorizeView.swift in Sources */,
+				0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */,
+				0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */,
 				0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */,
 				0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */,
 				0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */,

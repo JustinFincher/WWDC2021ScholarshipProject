@@ -8,23 +8,13 @@
 import SwiftUI
 import GameplayKit
 import SceneKit
-struct ARDebugStepsScanView: View {
+struct ARDebugStepPolygonView: View {
     
     @EnvironmentObject var environment: DataEnvironment
     
     var body: some View {
         VStack {
-            List {
-                ForEach(environment.arEntities, id: \.self) { entity in
-                    VStack(alignment: .leading) {
-                        Text("Entity")
-                            .font(.callout)
-                        Text("Node \(entity.component(ofType: GKSCNNodeComponent.self)?.node.name ?? "NULL")")
-                            .font(.footnote)
-                    }
-                }
-            }
-            .listStyle(InsetGroupedListStyle())
+            EntityHierarchyView()
             Button(action: {
                 environment.arOperationMode = .colorize
             }, label: {
@@ -35,8 +25,8 @@ struct ARDebugStepsScanView: View {
     }
 }
 
-struct ARDebugStepsScanView_Previews: PreviewProvider {
+struct ARDebugStepScanView_Previews: PreviewProvider {
     static var previews: some View {
-        ARDebugStepsScanView()
+        ARDebugStepPolygonView()
     }
 }
