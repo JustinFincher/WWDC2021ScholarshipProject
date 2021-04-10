@@ -16,7 +16,6 @@ open class LiveViewController : UIViewController, PlaygroundLiveViewMessageHandl
     let cameraView : ARCameraView = ARCameraView()
     
     public override func viewDidLoad() {
-        
         RuntimeManager.shared.spawn()
         
         cameraView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size:self.view.bounds.size)

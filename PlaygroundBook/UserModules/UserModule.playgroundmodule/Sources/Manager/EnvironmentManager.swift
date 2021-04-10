@@ -15,8 +15,7 @@ import ARKit
 
 class DataEnvironment: ObservableObject
 {
-    @Published var arOperationMode : AROperationMode = AROperationMode.polygon
-    @Published var arEntities : [GKEntity] = []
+    @Published var arOperationMode : AROperationMode = AROperationMode.pointCloud
     
     func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
         DispatchQueue.main.async {

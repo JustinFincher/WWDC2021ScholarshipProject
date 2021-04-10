@@ -11,7 +11,7 @@ import ARKit
 import GameplayKit
 import Combine
 
-class OperationComponent: GKComponent {
+class PointCloudComponent: GKComponent {
     
     private var cancellable: AnyCancellable?
     
@@ -24,25 +24,10 @@ class OperationComponent: GKComponent {
     }
     
     override func didAddToEntity() {
-        cancellable = EnvironmentManager.shared.env.$arOperationMode.sink(receiveValue: { mode in
-            switch mode {
-            case .polygon:
-                break
-            case .colorize:
-                if let node = self.entity?.component(ofType: GKSCNNodeComponent.self)?.node {
-                    node.geometry = node.geometry?.withUV().withUVMaterial()
-                }
-                break
-            case .rigging:
-                break
-            case .export:
-                break
-            }
-        })
+        
     }
     
     override func willRemoveFromEntity() {
-        cancellable?.cancel()
     }
     
     func toEntityDisplayModel() -> EntityDisplayModel {

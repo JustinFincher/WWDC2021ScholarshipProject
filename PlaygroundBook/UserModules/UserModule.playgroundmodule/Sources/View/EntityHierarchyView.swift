@@ -6,19 +6,15 @@
 //
 
 import SwiftUI
+import GameplayKit
 
 struct EntityHierarchyView: View {
     
     @EnvironmentObject var environment: DataEnvironment
-    
-    func getDisplayItems() -> [EntityDisplayModel] {
-        return environment.arEntities.map { entity -> EntityDisplayModel in
-            entity.toEntityDisplayModel()
-        }
-    }
+    var entity : GKEntity
     
     var body: some View {
-        List(getDisplayItems(), children: \.children) { item in
+        List([entity.toEntityDisplayModel()], children: \.children) { item in
             Text("\(item.key)").font(.body)
             if item.value != ""
             {
@@ -26,11 +22,5 @@ struct EntityHierarchyView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-    }
-}
-
-struct EntityHierarchyView_Previews: PreviewProvider {
-    static var previews: some View {
-        EntityHierarchyView()
     }
 }

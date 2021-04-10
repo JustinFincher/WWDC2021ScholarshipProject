@@ -12,20 +12,18 @@ struct ARDebugStepsView: View {
     
     func getContentView() -> AnyView {
         switch environment.arOperationMode {
-        case .polygon: return AnyView(ARDebugStepPolygonView())
-        case .colorize: return AnyView(ARDebugStepColorizeView())
-        case .rigging: return AnyView(ZStack {})
-        case .export: return AnyView(ZStack {})
+        case .pointCloud: return AnyView(ARDebugStepPointCloudView())
+        case .skeletonRig: return AnyView(ZStack {})
+        case .presentHuman: return AnyView(ZStack {})
         }
    }
         
     var body: some View {
         VStack(content: {
             Picker(selection: $environment.arOperationMode, label: Text("Step")) {
-                Text("Scan").tag(AROperationMode.polygon)
-                Text("Color").tag(AROperationMode.colorize)
-                Text("Rig").tag(AROperationMode.rigging)
-                Text("Export").tag(AROperationMode.export)
+                Text("PointCloud").tag(AROperationMode.pointCloud)
+                Text("SkeletonRig").tag(AROperationMode.skeletonRig)
+                Text("Presenration").tag(AROperationMode.presentHuman)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .fixedSize(horizontal: false, vertical: true)

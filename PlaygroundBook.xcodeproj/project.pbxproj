@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D16C7C7261CEF2600B8BFBB /* UserModuleFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D16C7C5261CEF2600B8BFBB /* UserModuleFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0D16C7CA261CEF2600B8BFBB /* UserModuleFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */; };
 		0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */; };
 		0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5F84962469905900050D49 /* LiveViewController.swift */; };
 		0D16C7D7261CEF4900B8BFBB /* ARCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */; };
 		0D16C84A261CF32C00B8BFBB /* UserModuleFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */; };
 		0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */; };
 		0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */; };
 		0D16C85A261DB49F00B8BFBB /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */; };
@@ -21,16 +19,21 @@
 		0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
 		0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */; };
-		0D16C88A261DF29700B8BFBB /* ARDebugStepPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */; };
-		0D4BE14F261FA51200C74125 /* ARDebugStepColorizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */; };
-		0D591F9D262008D900EE4286 /* SCNVector+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */; };
+		0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */; };
+		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
-		0D5B6F40261EC89200EC7B18 /* OperationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F3F261EC89200EC7B18 /* OperationComponent.swift */; };
+		0D5B6F40261EC89200EC7B18 /* PointCloudComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */; };
 		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
 		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
 		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
-		0D96B56E2621649700B7A079 /* UIColor+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D96B56D2621649700B7A079 /* UIColor+Util.swift */; };
+		0D85295126222966004DB4B0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295026222966004DB4B0 /* Shaders.metal */; };
+		0D8529552622296F004DB4B0 /* ShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D8529542622296F004DB4B0 /* ShaderTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
+		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
+		0D85295D26222992004DB4B0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
+		0D85296F26222AA5004DB4B0 /* UserModuleFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D85298326224891004DB4B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85298226224891004DB4B0 /* ViewController.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
@@ -106,7 +109,6 @@
 		0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UserModuleFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D16C7C5261CEF2600B8BFBB /* UserModuleFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModuleFramework.h; sourceTree = "<group>"; };
 		0D16C7C6261CEF2600B8BFBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARMeshGeometry+SceneKit.swift"; sourceTree = "<group>"; };
 		0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+ARKit.swift"; sourceTree = "<group>"; };
 		0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeManager.swift; sourceTree = "<group>"; };
 		0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
@@ -114,17 +116,22 @@
 		0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonView.swift; sourceTree = "<group>"; };
 		0D16C877261DB60200B8BFBB /* View+Conditional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Conditional.swift"; sourceTree = "<group>"; };
 		0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepsView.swift; sourceTree = "<group>"; };
-		0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepPolygonView.swift; sourceTree = "<group>"; };
-		0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepColorizeView.swift; sourceTree = "<group>"; };
-		0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+Lerp.swift"; sourceTree = "<group>"; };
+		0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepPointCloudView.swift; sourceTree = "<group>"; };
+		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
-		0D5B6F3F261EC89200EC7B18 /* OperationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationComponent.swift; sourceTree = "<group>"; };
+		0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudComponent.swift; sourceTree = "<group>"; };
 		0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameplayKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
 		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
-		0D96B56D2621649700B7A079 /* UIColor+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Util.swift"; sourceTree = "<group>"; };
+		0D85295026222966004DB4B0 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0D8529542622296F004DB4B0 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
+		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
+		0D85295A26222992004DB4B0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModuleFramework.h; sourceTree = "<group>"; };
+		0D85298226224891004DB4B0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCF2051DF0F004D8D25 /* Manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Manifest.plist; sourceTree = "<group>"; };
@@ -188,6 +195,9 @@
 		0D16C865261DB54B00B8BFBB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0D85295A26222992004DB4B0 /* Helpers.swift */,
+				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
+				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
 				0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */,
 			);
 			path = Helper;
@@ -199,8 +209,7 @@
 				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
 				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
 				0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */,
-				0D16C889261DF29700B8BFBB /* ARDebugStepPolygonView.swift */,
-				0D4BE14E261FA51200C74125 /* ARDebugStepColorizeView.swift */,
+				0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */,
 				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
 				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
 			);
@@ -211,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				0D5F84962469905900050D49 /* LiveViewController.swift */,
+				0D85298226224891004DB4B0 /* ViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -218,10 +228,8 @@
 		0D16C872261DB5C400B8BFBB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
-				0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */,
-				0D96B56D2621649700B7A079 /* UIColor+Util.swift */,
+				0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */,
 				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
 				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
@@ -239,7 +247,7 @@
 		0D4BE156261FA6BE00C74125 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				0D5B6F3F261EC89200EC7B18 /* OperationComponent.swift */,
+				0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -250,6 +258,15 @@
 				0D5B6F30261E799B00EC7B18 /* Data.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		0D85294F26222959004DB4B0 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				0D8529542622296F004DB4B0 /* ShaderTypes.h */,
+				0D85295026222966004DB4B0 /* Shaders.metal */,
+			);
+			path = Shader;
 			sourceTree = "<group>";
 		};
 		5E086DA4204F706E004D8D25 /* Products */ = {
@@ -350,7 +367,9 @@
 				0D16C865261DB54B00B8BFBB /* Helper */,
 				0D16C85D261DB4A600B8BFBB /* Manager */,
 				0D4BE156261FA6BE00C74125 /* Component */,
+				0D85294F26222959004DB4B0 /* Shader */,
 				0D5B6F3C261EBDD900EC7B18 /* Data */,
+				0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -416,7 +435,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D16C7C7261CEF2600B8BFBB /* UserModuleFramework.h in Headers */,
+				0D85296F26222AA5004DB4B0 /* UserModuleFramework.h in Headers */,
+				0D8529552622296F004DB4B0 /* ShaderTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +509,7 @@
 				TargetAttributes = {
 					0D16C7C2261CEF2600B8BFBB = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					5E086DBF2051C5A7004D8D25 = {
 						CreatedOnToolsVersion = 9.3;
@@ -572,21 +593,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D85295126222966004DB4B0 /* Shaders.metal in Sources */,
 				0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */,
-				0D5B6F40261EC89200EC7B18 /* OperationComponent.swift in Sources */,
+				0D5B6F40261EC89200EC7B18 /* PointCloudComponent.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
-				0D16C88A261DF29700B8BFBB /* ARDebugStepPolygonView.swift in Sources */,
-				0D591F9D262008D900EE4286 /* SCNVector+Lerp.swift in Sources */,
+				0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */,
+				0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */,
+				0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */,
+				0D85298326224891004DB4B0 /* ViewController.swift in Sources */,
 				0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */,
 				0D16C861261DB51800B8BFBB /* RuntimeHelper.swift in Sources */,
+				0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */,
 				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
-				0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
-				0D96B56E2621649700B7A079 /* UIColor+Util.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
-				0D4BE14F261FA51200C74125 /* ARDebugStepColorizeView.swift in Sources */,
 				0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */,
+				0D85295D26222992004DB4B0 /* Helpers.swift in Sources */,
 				0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */,
 				0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */,
 				0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */,
@@ -637,6 +660,7 @@
 		0D16C7CD261CEF2600B8BFBB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -662,6 +686,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -672,6 +698,7 @@
 		0D16C7CE261CEF2600B8BFBB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -694,6 +721,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.justzht.UserModuleFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
