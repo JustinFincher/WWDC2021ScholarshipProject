@@ -28,6 +28,7 @@ extension SCNGeometry
     
     func withConstantMaterial() -> SCNGeometry {
         self.firstMaterial?.fillMode = .fill
+        self.firstMaterial?.isDoubleSided = true
         self.firstMaterial?.lightingModel = .constant
         self.firstMaterial?.isDoubleSided = false
         return self
@@ -55,27 +56,91 @@ extension SCNGeometry
         return self
     }
     
+    func withIndependentMaterial() -> SCNGeometry {
+        self.firstMaterial = SCNMaterial()
+        return self
+    }
+    
+    func withBlankDiffuseContent() -> SCNGeometry {
+        UIGraphicsBeginImageContextWithOptions(CGSize.init(width: 128, height: 128), false, 1)
+        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        self.firstMaterial?.diffuse.contents = image
+        return self
+    }
+    
+    func applyDiffuseContent(list:  [(CGPoint, CGColor)]) -> Void {
+        guard let uiImage = (self.firstMaterial?.diffuse.contents) as? UIImage,
+              let cgImage = uiImage.cgImage else { return }
+        let imageRect : CGRect = CGRect.init(x: 0, y: 0, width: cgImage.width, height: cgImage.height)
+        UIGraphicsBeginImageContextWithOptions(CGSize.init(width: cgImage.width, height: cgImage.height), false, 1.0)
+        guard let context : CGContext = UIGraphicsGetCurrentContext() else { return }
+        context.saveGState()
+        context.draw(cgImage, in: imageRect)
+        list.forEach { (i : (CGPoint, CGColor)) in
+            context.setFillColor(i.1)
+            context.fill(CGRect.init(x: i.0.x * CGFloat(cgImage.width), y: i.0.y * CGFloat(cgImage.height), width: 1.0, height: 1.0))
+        }
+        context.restoreGState()
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+        UIGraphicsEndImageContext()
+        self.firstMaterial?.diffuse.contents = image
+    }
+    
+//    func applyDiffuseContent(position: CGPoint, color: CGColor) -> Void {
+//        guard let uiImage = (self.firstMaterial?.diffuse.contents) as? UIImage,
+//              let cgImage = uiImage.cgImage else { return }
+//        let imageRect : CGRect = CGRect.init(x: 0, y: 0, width: cgImage.width, height: cgImage.height)
+//        UIGraphicsBeginImageContextWithOptions(CGSize.init(width: cgImage.width, height: cgImage.height), false, 1.0)
+//        guard let context : CGContext = UIGraphicsGetCurrentContext() else { return }
+//        context.saveGState()
+//        context.draw(cgImage, in: imageRect)
+//        context.setFillColor(color)
+//        context.fill(CGRect.init(x: position.x, y: position.y, width: 1, height: 1))
+//        context.restoreGState()
+//        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+//        UIGraphicsEndImageContext()
+//        self.firstMaterial?.diffuse.contents = image
+//    }
+    
+    func withUVDebugMaterial() -> SCNGeometry {
+        self.firstMaterial?.fillMode = .fill
+        self.firstMaterial?.lightingModel = .constant
+        self.firstMaterial?.isDoubleSided = false
+        self.firstMaterial?.shaderModifiers = [
+            SCNShaderModifierEntryPoint.fragment : """
+                float2 uv = _surface.diffuseTexcoord;
+                float4 color = _surface.diffuse;
+                if (uv.x < 0 || uv.y < 0 || uv.x > 1 || uv.y > 1)
+                {
+                _output.color.rgba = float4(0,0,1,0.4);
+                }
+                else if (color.w < 0.5)
+                {
+                _output.color.rgba = float4(uv.x,uv.y,0,0.4);
+                }
+                else
+                {
+                _output.color.rgba = float4(color.x,color.y,color.z,0.8);
+                }
+                """
+        ]
+        return self
+    }
+    
     func withUVMaterial() -> SCNGeometry {
         self.firstMaterial?.fillMode = .fill
         self.firstMaterial?.lightingModel = .constant
         self.firstMaterial?.shaderModifiers = [
             SCNShaderModifierEntryPoint.fragment : """
                 float2 uv = _surface.diffuseTexcoord;
-                if (uv.x < 0 || uv.y < 0) {
+                if (uv.x < 0 || uv.y < 0 || uv.x > 1 || uv.y > 1) {
                 _output.color.rgba = float4(0,0,1,0.5);
                 } else {
                 _output.color.rgba = float4(uv.x,uv.y,0,0.5); }
                 """
         ]
         return self
-    }
-    
-    func getVerticesCount() -> Int {
-        var count = 0
-        self.sources.forEach { source in
-            count += source.vectorCount
-        }
-        return count
     }
     
     func withUV() -> SCNGeometry {

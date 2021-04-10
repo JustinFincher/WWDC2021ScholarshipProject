@@ -30,6 +30,7 @@
 		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
 		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
 		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
+		0D96B56E2621649700B7A079 /* UIColor+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D96B56D2621649700B7A079 /* UIColor+Util.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
@@ -123,6 +124,7 @@
 		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
 		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
+		0D96B56D2621649700B7A079 /* UIColor+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Util.swift"; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCF2051DF0F004D8D25 /* Manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Manifest.plist; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				0D16C84F261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
 				0D591F9C262008D900EE4286 /* SCNVector+Lerp.swift */,
+				0D96B56D2621649700B7A079 /* UIColor+Util.swift */,
 				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
 				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
@@ -580,6 +583,7 @@
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
 				0D16C850261CF78800B8BFBB /* ARMeshGeometry+SceneKit.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
+				0D96B56E2621649700B7A079 /* UIColor+Util.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
 				0D4BE14F261FA51200C74125 /* ARDebugStepColorizeView.swift in Sources */,
 				0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */,

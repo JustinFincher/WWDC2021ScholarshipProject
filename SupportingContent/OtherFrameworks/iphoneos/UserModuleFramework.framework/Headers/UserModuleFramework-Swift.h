@@ -233,6 +233,7 @@ SWIFT_CLASS("_TtC19UserModuleFramework25RuntimeManagableSingleton")
 
 
 
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
