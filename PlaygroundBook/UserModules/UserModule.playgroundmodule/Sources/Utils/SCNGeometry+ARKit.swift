@@ -20,24 +20,53 @@ extension SCNGeometry
         self.init(sources: [verticesSource, normalsSource], elements: [faces])
     }
     
-    func withWireframe() -> SCNGeometry {
+    func withWireframeMaterial() -> SCNGeometry {
         self.firstMaterial?.fillMode = .lines
         self.firstMaterial?.isDoubleSided = false
         return self
     }
     
-    func withConstant() -> SCNGeometry {
+    func withConstantMaterial() -> SCNGeometry {
         self.firstMaterial?.fillMode = .fill
         self.firstMaterial?.lightingModel = .constant
         self.firstMaterial?.isDoubleSided = false
         return self
     }
     
-    func withGrid() -> SCNGeometry {
+    func withGridMaterial() -> SCNGeometry {
         self.firstMaterial?.fillMode = .fill
         self.firstMaterial?.lightingModel = .constant
-        self.firstMaterial?.diffuse.contents = UIImage(named: "grid")
-        self.firstMaterial?.isDoubleSided = false
+        let image = UIImage(named: "grid.jpeg" )
+        self.firstMaterial?.diffuse.contents = image
+        self.firstMaterial?.emission.contents = image
+        self.firstMaterial?.isDoubleSided = true
+        return self
+    }
+    
+    func withNormalMaterial() -> SCNGeometry {
+        self.firstMaterial?.fillMode = .fill
+        self.firstMaterial?.lightingModel = .constant
+        self.firstMaterial?.shaderModifiers = [
+            SCNShaderModifierEntryPoint.fragment : """
+                float3 normal = _surface.normal;
+                _output.color.rgba = float4(normal.x,normal.y,normal.z,0.5);
+                """
+        ]
+        return self
+    }
+    
+    func withUVMaterial() -> SCNGeometry {
+        self.firstMaterial?.fillMode = .fill
+        self.firstMaterial?.lightingModel = .constant
+        self.firstMaterial?.shaderModifiers = [
+            SCNShaderModifierEntryPoint.fragment : """
+                float2 uv = _surface.diffuseTexcoord;
+                if (uv.x < 0 || uv.y < 0) {
+                _output.color.rgba = float4(0,0,1,0.5);
+                } else {
+                _output.color.rgba = float4(uv.x,uv.y,0,0.5); }
+                """
+        ]
         return self
     }
     
@@ -56,63 +85,36 @@ extension SCNGeometry
         } catch let err {
             print(err)
         }
+        mesh.addNormals(withAttributeNamed: MDLVertexAttributeNormal, creaseThreshold: 0.0)
         let scnGeometry = SCNGeometry(mdlMesh: mesh)
         
         if scnGeometry.sources(for: .texcoord).count == 0 {
             var sources = scnGeometry.sources
-            var vertexs = scnGeometry.sources(for: .vertex)
-            var elements = scnGeometry.elements
+            let vertexs = scnGeometry.sources(for: .vertex)
+            let elements = scnGeometry.elements
             if let element = scnGeometry.elements.first,
                let vertex = vertexs.first
             {
                 var uvList:[Float] = []
-                let vertexArray = vertex.data.withUnsafeBytes { (pointer:UnsafeRawBufferPointer) -> [SCNVector3] in
-                    return Array(pointer.bindMemory(to: SCNVector3.self))
-                }
                 let elementArray = element.data.withUnsafeBytes { (pointer:UnsafeRawBufferPointer) -> [SCNVector3] in
                     return Array(pointer.bindMemory(to: SCNVector3.self))
                 }
+                let sqrt : Float = sqrtf(Float(elementArray.count))
+                let width : Int = Int(ceilf(sqrt))
+                let height : Int = Int(floorf(sqrt))
                 for i in 0..<elementArray.count {
-                    let a : simd_float3 = simd_float3.init(vertexArray[3*i])
-                    let b : simd_float3 = simd_float3.init(vertexArray[3*i+1])
-                    let c : simd_float3 = simd_float3.init(vertexArray[3*i+2])
-                    let side1 = b - a
-                    let side2 = c - a
-                    var n = simd_cross(side1, side2)
-                    n = simd_normalize(simd_abs(n))
-                    
-                    if (n.x > n.y && n.x > n.z)
-                    {
-                        uvList.append(a.z)
-                        uvList.append(a.y)
-                        uvList.append(b.z)
-                        uvList.append(b.y)
-                        uvList.append(c.z)
-                        uvList.append(c.y)
-                    }
-                    else if (n.y > n.x && n.y > n.z)
-                    {
-                        uvList.append(a.x)
-                        uvList.append(a.z)
-                        uvList.append(b.x)
-                        uvList.append(b.z)
-                        uvList.append(c.x)
-                        uvList.append(c.z)
-                    }
-                    else if (n.z > n.x && n.z > n.y)
-                    {
-                        uvList.append(a.x)
-                        uvList.append(a.y)
-                        uvList.append(b.x)
-                        uvList.append(b.y)
-                        uvList.append(c.x)
-                        uvList.append(c.y)
-                    }
+                    let y : Int = i / width
+                    let x : Int = i % width
+                    uvList.append(Float(x) / Float(width))
+                    uvList.append(Float(y) / Float(height))
+                    uvList.append((Float(x) + 1) / Float(width))
+                    uvList.append(Float(y) / Float(height))
+                    uvList.append((Float(x)  + 0.5) / Float(width))
+                    uvList.append((Float(y) + 1) / Float(height))
                 }
                 let uvData = uvList.withUnsafeMutableBufferPointer { (pointer) -> Data in
                     Data(buffer: pointer)
                 }
-//                let uvData = NSData(bytes: uvList, length: uvList.count * MemoryLayout.size(ofValue: simd_float2.self))
                 let uv = SCNGeometrySource(data: uvData, semantic: .texcoord, vectorCount: vertex.vectorCount, usesFloatComponents: true, componentsPerVector: 2, bytesPerComponent: 4, dataOffset: 0, dataStride: 4 * 2)
                 sources.append(uv)
                 let mesh = SCNGeometry(sources: sources, elements: elements)

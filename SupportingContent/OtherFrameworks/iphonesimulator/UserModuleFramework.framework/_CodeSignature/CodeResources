@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/UserModuleFramework-Swift.h</key>
 		<data>
-		NweYpZe8MlerCs2+a98ElYzBZiI=
+		SAZ67PB9qBtP07yhjhNhVZ8uLGw=
 		</data>
 		<key>Headers/UserModuleFramework.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		up2Deom13SUbH5cNPTwGen4GGWw=
+		iyuUVbkCQsQJs5us+vW5VCwngWE=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		up2Deom13SUbH5cNPTwGen4GGWw=
+		iyuUVbkCQsQJs5us+vW5VCwngWE=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		aa0tuPg85BtG5XY1Gfm2Lw0K7IY=
+		oJxTVQewZGzXfGkmRhm0KrCSBQs=
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		aa0tuPg85BtG5XY1Gfm2Lw0K7IY=
+		oJxTVQewZGzXfGkmRhm0KrCSBQs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			y9A1EGe9+UxufRJ5RBdDbliWLwFV/dAxSOJIc98br2k=
+			fOOm29olf+XSvnHjG6noqPpr+6oRqwRdjP3/J81zMVg=
 			</data>
 		</dict>
 		<key>Headers/UserModuleFramework.h</key>
@@ -65,14 +65,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ni5JjH8FA3+o3TEohAr5FLMG5VFX4OeK76XRgH/M2w=
+			cEqWHmQHsElB0KQhxk0pNhP4gUCRa85huocqeVj0RuQ=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ni5JjH8FA3+o3TEohAr5FLMG5VFX4OeK76XRgH/M2w=
+			cEqWHmQHsElB0KQhxk0pNhP4gUCRa85huocqeVj0RuQ=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s0o+eRKUY1oMIsOAdcLPNlDYspRP86KZI1R1UqPF8L4=
+			6DalPeFzatO5JBS9h5wtMsh4sZCTM/41kGXInRDSU9Q=
 			</data>
 		</dict>
 		<key>Modules/UserModuleFramework.swiftmodule/arm64.swiftdoc</key>
@@ -100,7 +100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s0o+eRKUY1oMIsOAdcLPNlDYspRP86KZI1R1UqPF8L4=
+			6DalPeFzatO5JBS9h5wtMsh4sZCTM/41kGXInRDSU9Q=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
