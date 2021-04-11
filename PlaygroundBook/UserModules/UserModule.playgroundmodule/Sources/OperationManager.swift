@@ -21,6 +21,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     let scene: SCNScene = SCNScene()
     let scanNode : SCNNode = SCNNode()
     let humanNode : SCNNode = SCNNode()
+    let boundingBoxNode : SCNNode = SCNNode()
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
     var pointCloudCollector: PointCloudCollector?
     
@@ -32,6 +33,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     private override init() {
         scene.rootNode.addChildNode(scanNode)
         scene.rootNode.addChildNode(humanNode)
+        scene.rootNode.addChildNode(boundingBoxNode)
     }
     
     deinit {

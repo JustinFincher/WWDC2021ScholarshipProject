@@ -45,9 +45,6 @@ open class ViewController: UIViewController, ARSessionDelegate {
 
         // Run the view's session
         session.run(configuration)
-        
-        // The screen shouldn't dim during AR experiences.
-        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     // Auto-hide the home indicator to maximize immersion in AR experiences.

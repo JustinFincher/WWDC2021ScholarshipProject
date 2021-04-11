@@ -10,19 +10,6 @@ Types and enums that are shared between shaders and the host app code.
 
 #include <simd/simd.h>
 
-enum TextureIndices {
-    kTextureY = 0,
-    kTextureCbCr = 1,
-    kTextureDepth = 2,
-    kTextureConfidence = 3
-};
-
-enum BufferIndices {
-    kPointCloudUniforms = 0,
-    kParticleUniforms = 1,
-    kGridPoints = 2,
-};
-
 struct PointCloudUniforms {
     matrix_float4x4 viewProjectionMatrix;
     matrix_float4x4 localToWorld;

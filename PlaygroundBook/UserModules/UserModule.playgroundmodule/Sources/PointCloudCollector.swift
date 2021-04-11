@@ -9,6 +9,38 @@ import Metal
 import MetalKit
 import ARKit
 
+enum TextureIndices : UInt32 {
+    case kTextureY = 0
+    case kTextureCbCr = 1
+    case kTextureDepth = 2
+    case kTextureConfidence = 3
+}
+
+enum BufferIndices : UInt32 {
+    case kPointCloudUniforms = 0
+    case kParticleUniforms = 1
+    case kGridPoints = 2
+}
+
+
+struct PointCloudUniforms {
+    var viewProjectionMatrix : matrix_float4x4;
+    var localToWorld : matrix_float4x4;
+    var cameraIntrinsicsInversed : matrix_float3x3;
+    var cameraResolution : simd_float2;
+    
+    var particleSize : Float;
+    var maxPoints: Int32; // int in metal -> A signed two’s complement 32-bit integer. // https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
+    var pointCloudCurrentIndex : Int32;
+}
+
+struct ParticleUniforms {
+    var position : simd_float3;
+    var color : simd_float3;
+    var confidence : Float;
+}
+
+
 final class PointCloudCollector {
     // Maximum number of points we store in the point cloud
     private let maxPoints = 100000
@@ -29,7 +61,7 @@ final class PointCloudCollector {
     
     // Metal objects and textures
     private let device: MTLDevice
-    private let library: MTLLibrary
+    private var library: MTLLibrary
     private let depthStencilState: MTLDepthStencilState
     private let commandQueue: MTLCommandQueue
     private lazy var unprojectPipelineState = makeUnprojectionPipelineState()!
@@ -52,15 +84,12 @@ final class PointCloudCollector {
     // The grid of sample points
     private lazy var gridPointsBuffer = MetalBuffer<Float2>(device: device,
                                                             array: makeGridPoints(),
-                                                            index: kGridPoints.rawValue, options: [])
+                                                            index: BufferIndices.kGridPoints.rawValue, options: [])
     
 
     // Point Cloud buffer
     private lazy var pointCloudUniforms: PointCloudUniforms = {
-        var uniforms = PointCloudUniforms()
-        uniforms.maxPoints = Int32(maxPoints)
-        uniforms.particleSize = particleSize
-        uniforms.cameraResolution = cameraResolution
+        var uniforms = PointCloudUniforms(viewProjectionMatrix: matrix_identity_float4x4, localToWorld: matrix_identity_float4x4, cameraIntrinsicsInversed: matrix_identity_float3x3, cameraResolution: cameraResolution, particleSize: particleSize, maxPoints: Int32(maxPoints), pointCloudCurrentIndex: 0)
         return uniforms
     }()
     private var pointCloudUniformsBuffers = [MetalBuffer<PointCloudUniforms>]()
@@ -91,19 +120,29 @@ final class PointCloudCollector {
         } catch let error {
             print(error)
         }
+        
         if let tempLib = tempLib {
             library = tempLib
-        } else {
-            library = device.makeDefaultLibrary()!
+        } else if let path = Bundle.main.path(forResource: "Shaders", ofType: "metal") {
+            do {
+                try tempLib = device.makeLibrary(filepath: path)
+            } catch let error {
+                print(error)
+            }
+        }
+        
+        if let tempLib = tempLib {
+            library = tempLib
+        } else { library = device.makeDefaultLibrary()!
         }
         
         commandQueue = device.makeCommandQueue()!
         
         // initialize our buffers
         for _ in 0 ..< maxInFlightBuffers {
-            pointCloudUniformsBuffers.append(.init(device: device, count: 1, index: kPointCloudUniforms.rawValue))
+            pointCloudUniformsBuffers.append(.init(device: device, count: 1, index: BufferIndices.kPointCloudUniforms.rawValue))
         }
-        particlesBuffer = .init(device: device, count: maxPoints, index: kParticleUniforms.rawValue)
+        particlesBuffer = .init(device: device, count: maxPoints, index: BufferIndices.kParticleUniforms.rawValue)
 
         
         // setup depth test for point cloud
@@ -221,10 +260,10 @@ final class PointCloudCollector {
         renderEncoder.setVertexBuffer(pointCloudUniformsBuffers[currentBufferIndex])
         renderEncoder.setVertexBuffer(particlesBuffer)
         renderEncoder.setVertexBuffer(gridPointsBuffer)
-        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(capturedImageTextureY!), index: Int(kTextureY.rawValue))
-        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(capturedImageTextureCbCr!), index: Int(kTextureCbCr.rawValue))
-        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(depthTexture!), index: Int(kTextureDepth.rawValue))
-        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(confidenceTexture!), index: Int(kTextureConfidence.rawValue))
+        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(capturedImageTextureY!), index: Int(TextureIndices.kTextureY.rawValue))
+        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(capturedImageTextureCbCr!), index: Int(TextureIndices.kTextureCbCr.rawValue))
+        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(depthTexture!), index: Int(TextureIndices.kTextureDepth.rawValue))
+        renderEncoder.setVertexTexture(CVMetalTextureGetTexture(confidenceTexture!), index: Int(TextureIndices.kTextureConfidence.rawValue))
         renderEncoder.drawPrimitives(type: .point, vertexStart: 0, vertexCount: gridPointsBuffer.count)
         
         currentPointIndex = (currentPointIndex + gridPointsBuffer.count) % maxPoints

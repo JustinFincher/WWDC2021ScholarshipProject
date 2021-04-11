@@ -23,8 +23,8 @@ struct ARDebugStepsView: View {
         VStack(content: {
             Picker(selection: $environment.arOperationMode, label: Text("Step")) {
                 Text("Capture Skeleton").tag(AROperationMode.captureSekeleton)
-                Text("Set Bounding Box").tag(AROperationMode.setBoundingBox)
                 Text("Add Point Cloud").tag(AROperationMode.attachPointCloud)
+                Text("Set Bounding Box").tag(AROperationMode.setBoundingBox)
                 Text("Rig Animation").tag(AROperationMode.rigAnimation)
             }
             .frame(maxWidth: .infinity, alignment: .center)

@@ -7,7 +7,36 @@ The sample app's shaders.
 
 #include <metal_stdlib>
 #include <simd/simd.h>
-#import "ShaderTypes.h"
+
+enum TextureIndices {
+    kTextureY = 0,
+    kTextureCbCr = 1,
+    kTextureDepth = 2,
+    kTextureConfidence = 3
+};
+
+enum BufferIndices {
+    kPointCloudUniforms = 0,
+    kParticleUniforms = 1,
+    kGridPoints = 2,
+};
+
+struct PointCloudUniforms {
+    matrix_float4x4 viewProjectionMatrix;
+    matrix_float4x4 localToWorld;
+    matrix_float3x3 cameraIntrinsicsInversed;
+    simd_float2 cameraResolution;
+    
+    float particleSize;
+    int maxPoints;
+    int pointCloudCurrentIndex;
+};
+
+struct ParticleUniforms {
+    simd_float3 position;
+    simd_float3 color;
+    float confidence;
+};
 
 using namespace metal;
 

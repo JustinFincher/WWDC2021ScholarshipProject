@@ -19,7 +19,7 @@ class AppDelegate: LiveViewHost.AppDelegate {
         // as if it were a live view in Swift Playgrounds. You can control how the live view is shown by
         // changing the implementation of the `liveViewConfiguration` property below.
 //        return ViewController()
-        return LiveViewController()
+        return PlaygroundManager.shared.vc
     }
 
     override var liveViewConfiguration: LiveViewConfiguration {

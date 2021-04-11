@@ -5,15 +5,9 @@
 //  Instantiates a live view and passes it to the PlaygroundSupport framework.
 //
 
-import UIKit
 import PlaygroundSupport
 import SwiftUI
+import UserModule
 
 
-struct ContentView: View {
-    var body: some View {
-        
-    }
-}
-
-PlaygroundPage.current.setLiveView(ContentView())
+PlaygroundPage.current.setLiveView(PlaygroundManager.shared.vc)

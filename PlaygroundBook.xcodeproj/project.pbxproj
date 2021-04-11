@@ -11,7 +11,9 @@
 		0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */; };
 		0D0B6A842622A6A4001104E3 /* HumanBodyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */; };
 		0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */; };
-		0D0B6A8C2622AEC2001104E3 /* Bboy Hip Hop Move.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D0B6A8B2622AEC2001104E3 /* Bboy Hip Hop Move.dae */; };
+		0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
+		0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
+		0D0DA9022622D335001D5CB9 /* PlaygroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */; };
 		0D16C7CA261CEF2600B8BFBB /* UserModuleFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */; };
 		0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */; };
 		0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5F84962469905900050D49 /* LiveViewController.swift */; };
@@ -32,12 +34,9 @@
 		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
 		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
 		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
-		0D85295126222966004DB4B0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295026222966004DB4B0 /* Shaders.metal */; };
-		0D8529552622296F004DB4B0 /* ShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D8529542622296F004DB4B0 /* ShaderTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
 		0D85295D26222992004DB4B0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
-		0D85296F26222AA5004DB4B0 /* UserModuleFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0D85298326224891004DB4B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85298226224891004DB4B0 /* ViewController.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
@@ -113,11 +112,13 @@
 		0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Human.swift"; sourceTree = "<group>"; };
 		0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanBodyComponent.swift; sourceTree = "<group>"; };
 		0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepHumanBodyView.swift; sourceTree = "<group>"; };
-		0D0B6A8B2622AEC2001104E3 /* Bboy Hip Hop Move.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Bboy Hip Hop Move.dae"; sourceTree = "<group>"; };
+		0D0DA8D12622C613001D5CB9 /* PrivateResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PrivateResources; sourceTree = "<group>"; };
+		0D0DA8DB2622C6DA001D5CB9 /* PublicResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PublicResources; sourceTree = "<group>"; };
+		0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundManager.swift; sourceTree = "<group>"; };
 		0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugView.swift; sourceTree = "<group>"; };
 		0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
 		0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UserModuleFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D16C7C5261CEF2600B8BFBB /* UserModuleFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModuleFramework.h; sourceTree = "<group>"; };
 		0D16C7C6261CEF2600B8BFBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+ARKit.swift"; sourceTree = "<group>"; };
 		0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeManager.swift; sourceTree = "<group>"; };
@@ -135,12 +136,9 @@
 		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
 		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
-		0D85295026222966004DB4B0 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		0D8529542622296F004DB4B0 /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
 		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
 		0D85295A26222992004DB4B0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModuleFramework.h; sourceTree = "<group>"; };
 		0D85298226224891004DB4B0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
@@ -183,71 +181,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0DA8DF2622C6FA001D5CB9 /* PublicResources */ = {
+			isa = PBXGroup;
+			children = (
+				0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */,
+			);
+			path = PublicResources;
+			sourceTree = "<group>";
+		};
 		0D16C7C4261CEF2600B8BFBB /* UserModuleFramework */ = {
 			isa = PBXGroup;
 			children = (
-				0D16C7C5261CEF2600B8BFBB /* UserModuleFramework.h */,
 				0D16C7C6261CEF2600B8BFBB /* Info.plist */,
 			);
 			path = UserModuleFramework;
-			sourceTree = "<group>";
-		};
-		0D16C85D261DB4A600B8BFBB /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */,
-				0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */,
-				0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		0D16C865261DB54B00B8BFBB /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				0D85295A26222992004DB4B0 /* Helpers.swift */,
-				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
-				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
-				0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
-		0D16C86A261DB58200B8BFBB /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
-				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
-				0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */,
-				0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */,
-				0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */,
-				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
-				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0D16C86D261DB58C00B8BFBB /* App */ = {
-			isa = PBXGroup;
-			children = (
-				0D5F84962469905900050D49 /* LiveViewController.swift */,
-				0D85298226224891004DB4B0 /* ViewController.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		0D16C872261DB5C400B8BFBB /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
-				0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */,
-				0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */,
-				0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */,
-				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
-				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
-				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		0D18D78D24671AF0000B0EBD /* Frameworks */ = {
@@ -255,33 +202,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0D4BE156261FA6BE00C74125 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */,
-				0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */,
-			);
-			path = Component;
-			sourceTree = "<group>";
-		};
-		0D5B6F3C261EBDD900EC7B18 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				0D0B6A8B2622AEC2001104E3 /* Bboy Hip Hop Move.dae */,
-				0D5B6F30261E799B00EC7B18 /* Data.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		0D85294F26222959004DB4B0 /* Shader */ = {
-			isa = PBXGroup;
-			children = (
-				0D8529542622296F004DB4B0 /* ShaderTypes.h */,
-				0D85295026222966004DB4B0 /* Shaders.metal */,
-			);
-			path = Shader;
 			sourceTree = "<group>";
 		};
 		5E086DA4204F706E004D8D25 /* Products */ = {
@@ -299,7 +219,10 @@
 			children = (
 				5E086DCF2051DF0F004D8D25 /* Manifest.plist */,
 				5E7067A023678DED0094BDEF /* UserModules */,
+				0D0DA8DF2622C6FA001D5CB9 /* PublicResources */,
 				5EF2F9792054B64800191409 /* PrivateResources */,
+				0D0DA8D12622C613001D5CB9 /* PrivateResources */,
+				0D0DA8DB2622C6DA001D5CB9 /* PublicResources */,
 				5EF2F9B62054E6F900191409 /* Chapters */,
 				5EF2F9A42054BB9500191409 /* Supporting Content */,
 			);
@@ -376,15 +299,33 @@
 		5E7067A223678E0D0094BDEF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0D16C86D261DB58C00B8BFBB /* App */,
-				0D16C86A261DB58200B8BFBB /* View */,
-				0D16C872261DB5C400B8BFBB /* Utils */,
-				0D16C865261DB54B00B8BFBB /* Helper */,
-				0D16C85D261DB4A600B8BFBB /* Manager */,
-				0D4BE156261FA6BE00C74125 /* Component */,
-				0D85294F26222959004DB4B0 /* Shader */,
-				0D5B6F3C261EBDD900EC7B18 /* Data */,
-				0D85296E26222AA5004DB4B0 /* UserModuleFramework.h */,
+				0D5F84962469905900050D49 /* LiveViewController.swift */,
+				0D85298226224891004DB4B0 /* ViewController.swift */,
+				0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */,
+				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
+				0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */,
+				0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */,
+				0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */,
+				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
+				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
+				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
+				0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */,
+				0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */,
+				0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */,
+				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
+				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
+				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
+				0D85295A26222992004DB4B0 /* Helpers.swift */,
+				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
+				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
+				0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */,
+				0D16C858261DB49F00B8BFBB /* EnvironmentManager.swift */,
+				0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */,
+				0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */,
+				0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */,
+				0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */,
+				0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */,
+				0D5B6F30261E799B00EC7B18 /* Data.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -450,8 +391,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D85296F26222AA5004DB4B0 /* UserModuleFramework.h in Headers */,
-				0D8529552622296F004DB4B0 /* ShaderTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +500,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D0B6A8C2622AEC2001104E3 /* Bboy Hip Hop Move.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +507,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */,
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */,
 			);
@@ -609,9 +548,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D85295126222966004DB4B0 /* Shaders.metal in Sources */,
 				0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */,
 				0D5B6F40261EC89200EC7B18 /* PointCloudComponent.swift in Sources */,
+				0D0DA9022622D335001D5CB9 /* PlaygroundManager.swift in Sources */,
 				0D0B6A7826225EFC001104E3 /* SCNGeometry+PointCloud.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
 				0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */,
@@ -625,6 +564,7 @@
 				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0D0B6A842622A6A4001104E3 /* HumanBodyComponent.swift in Sources */,
 				0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */,
+				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
