@@ -19,6 +19,22 @@ extension SCNGeometry
         let faces = SCNGeometryElement(arGeometry.faces)
         self.init(sources: [verticesSource, normalsSource], elements: [faces])
     }
+    
+    func withAlphaMaterial() -> SCNGeometry {
+        self.firstMaterial?.fillMode = .fill
+        self.firstMaterial?.lightingModel = .constant
+        self.firstMaterial?.shaderModifiers = [
+            SCNShaderModifierEntryPoint.fragment : """
+                float4 color = _surface.diffuse;
+                if (color.a == 0)
+                {
+                    discard_fragment();
+                }
+                _output.color.rgba = color;
+                """
+        ]
+        return self
+    }
 }
 
 extension  SCNGeometrySource {

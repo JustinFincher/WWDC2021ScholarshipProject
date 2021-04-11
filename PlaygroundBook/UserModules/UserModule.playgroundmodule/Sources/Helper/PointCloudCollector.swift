@@ -11,9 +11,9 @@ import ARKit
 
 final class PointCloudCollector {
     // Maximum number of points we store in the point cloud
-    private let maxPoints = 500_000
+    private let maxPoints = 100000
     // Number of sample points on the grid
-    private let numGridPoints = 500
+    private let numGridPoints = 1000
     // Particle's size in pixels
     private let particleSize: Float = 10
     // We only use landscape orientation in this app
@@ -22,7 +22,7 @@ final class PointCloudCollector {
     private let cameraRotationThreshold = cos(2 * .degreesToRadian)
     private let cameraTranslationThreshold: Float = pow(0.02, 2)   // (meter-squared)
     // The max number of command buffers in flight
-    private let maxInFlightBuffers = 3
+    private let maxInFlightBuffers = 4
     
     private lazy var rotateToARCamera = Self.makeRotateToARCameraMatrix(orientation: orientation)
     private let session: ARSession
@@ -59,16 +59,15 @@ final class PointCloudCollector {
     private lazy var pointCloudUniforms: PointCloudUniforms = {
         var uniforms = PointCloudUniforms()
         uniforms.maxPoints = Int32(maxPoints)
-        uniforms.confidenceThreshold = Int32(confidenceThreshold)
         uniforms.particleSize = particleSize
         uniforms.cameraResolution = cameraResolution
         return uniforms
     }()
     private var pointCloudUniformsBuffers = [MetalBuffer<PointCloudUniforms>]()
     // Particles buffer
-    private var particlesBuffer: MetalBuffer<ParticleUniforms>
-    private var currentPointIndex = 0
-    private var currentPointCount = 0
+    public var particlesBuffer: MetalBuffer<ParticleUniforms>
+    public var currentPointIndex = 0
+    public var currentPointCount = 0
     
     // Camera data
     private var sampleFrame: ARFrame { session.currentFrame! }
@@ -76,13 +75,7 @@ final class PointCloudCollector {
     private lazy var viewToCamera = sampleFrame.displayTransform(for: orientation, viewportSize: viewportSize).inverted()
     private lazy var lastCameraTransform = sampleFrame.camera.transform
     
-    // interfaces
-    var confidenceThreshold = 1 {
-        didSet {
-            // apply the change for the shader
-            pointCloudUniforms.confidenceThreshold = Int32(confidenceThreshold)
-        }
-    }
+    var pointCloudsUpdated: (() -> Void)?
     
     init(session: ARSession, metalDevice device: MTLDevice) {
         self.session = session
@@ -123,13 +116,16 @@ final class PointCloudCollector {
     }
     
     func drawRectResized(size: CGSize) {
-        viewportSize = size
         if size.width == 0 || size.height == 0 {
             return
         }
+        if viewportSize.width == size.width && viewportSize.height == size.height {
+            return
+        }
+        print("drawRectResized \(size)")
+        viewportSize = size
         offlineTextureDescriptor.width = Int(viewportSize.width)
         offlineTextureDescriptor.height = Int(viewportSize.height)
-        
         offlineTexture = device.makeTexture(descriptor: offlineTextureDescriptor)
         offlineRenderPassDescriptor.colorAttachments[0].texture = offlineTexture
         offlineRenderPassDescriptor.colorAttachments[0].loadAction = .load
@@ -176,6 +172,7 @@ final class PointCloudCollector {
         let renderDescriptor = offlineRenderPassDescriptor
         guard let currentFrame = session.currentFrame,
             let commandBuffer = commandQueue.makeCommandBuffer(),
+            let _ = offlineTexture,
             let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderDescriptor) else {
                 return
         }
@@ -200,7 +197,6 @@ final class PointCloudCollector {
         }
        
         renderEncoder.endEncoding()
-            
         commandBuffer.commit()
     }
     
@@ -217,8 +213,8 @@ final class PointCloudCollector {
         var retainingTextures = [capturedImageTextureY, capturedImageTextureCbCr, depthTexture, confidenceTexture]
         commandBuffer.addCompletedHandler { buffer in
             retainingTextures.removeAll()
-            let index = self.currentPointIndex / 2
-            print("particlesBuffer \(index) \(self.particlesBuffer[index].position) \(self.particlesBuffer[index].color)")
+            self.pointCloudsUpdated?()
+            print("pointCloudsUpdated \(self.currentPointIndex)/\(self.currentPointCount)")
         }
         
         renderEncoder.setRenderPipelineState(unprojectPipelineState)

@@ -11,10 +11,12 @@ import GameplayKit
 struct EntityHierarchyView: View {
     
     @EnvironmentObject var environment: DataEnvironment
-    var entity : GKEntity
+    var entities : [GKEntity?]
     
     var body: some View {
-        List([entity.toEntityDisplayModel()], children: \.children) { item in
+        List(entities.compactMap({ (ent) -> EntityDisplayModel? in
+            ent?.toEntityDisplayModel()
+        }), children: \.children) { item in
             Text("\(item.key)").font(.body)
             if item.value != ""
             {

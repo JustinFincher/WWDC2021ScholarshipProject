@@ -23,7 +23,7 @@ struct ARDebugView: View {
     {
         var multipler : CGFloat = 0.3
         if isHorizontal(geometry: geometry) {
-            multipler = expanded ? 0.35 : 0.25
+            multipler = expanded ? 0.4 : 0.3
         } else {
             multipler = expanded ? 1 : 0.4
         }

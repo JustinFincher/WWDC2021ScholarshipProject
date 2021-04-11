@@ -23,12 +23,6 @@ enum BufferIndices {
     kGridPoints = 2,
 };
 
-struct RGBUniforms {
-    matrix_float3x3 viewToCamera;
-    float viewRatio;
-    float radius;
-};
-
 struct PointCloudUniforms {
     matrix_float4x4 viewProjectionMatrix;
     matrix_float4x4 localToWorld;
@@ -38,7 +32,6 @@ struct PointCloudUniforms {
     float particleSize;
     int maxPoints;
     int pointCloudCurrentIndex;
-    int confidenceThreshold;
 };
 
 struct ParticleUniforms {

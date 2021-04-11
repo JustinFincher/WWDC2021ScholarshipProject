@@ -10,7 +10,7 @@ import ARKit
 import Combine
 import GameplayKit
 import SceneKit
-import Accelerate
+import MetalKit
 
 class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionDelegate
 {
@@ -18,8 +18,11 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     private let ciContext = CIContext(options: nil)
     
     let session: ARSession = ARSession()
-    let scanNode : SCNNode = SCNNode()
     let scene: SCNScene = SCNScene()
+    let scanNode : SCNNode = SCNNode()
+    let humanNode : SCNNode = SCNNode()
+    let device: MTLDevice = MTLCreateSystemDefaultDevice()!
+    var pointCloudCollector: PointCloudCollector?
     
     static let shared: OperationManager = {
         let instance = OperationManager()
@@ -28,6 +31,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     
     private override init() {
         scene.rootNode.addChildNode(scanNode)
+        scene.rootNode.addChildNode(humanNode)
     }
     
     deinit {
@@ -36,27 +40,79 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     
     override class func setup() {
         print("OperationManager.setup")
-        OperationManager.shared.cancellable = EnvironmentManager.shared.env.$arOperationMode.sink(receiveValue: { mode in
-            print("mode now \(mode)")
-            switch mode {
-            case .pointCloud:
-                break
-            case .skeletonRig:
-                break
-            case .presentHuman:
-                break
-            }})
+        let manager = OperationManager.shared
+        manager.pointCloudCollector = PointCloudCollector(session: manager.session, metalDevice: manager.device)
+        manager.pointCloudCollector?.pointCloudsUpdated = {() in
+            if let pointCloudCollector = manager.pointCloudCollector {
+                manager.scanNode.geometry = SCNGeometry(buffer: pointCloudCollector.particlesBuffer).withAlphaMaterial()
+            }
+        }
+        OperationManager.shared.cancellable = EnvironmentManager.shared.env.$arOperationMode
+            .sink(receiveValue: { mode in
+                    print("mode now \(mode)")
+                    switch mode {
+                    case .pointCloud:
+                        OperationManager.shared.scene.background.intensity = 0.01
+                        let configuration = ARWorldTrackingConfiguration()
+                        configuration.frameSemantics = .sceneDepth
+                        manager.session.run(configuration)
+                        break
+                    case .skeletonRig:
+                        OperationManager.shared.scene.background.intensity = 0.2
+                        let configuration = ARBodyTrackingConfiguration()
+                        configuration.frameSemantics = [.bodyDetection]
+                        manager.session.run(configuration)
+                        break
+                    case .presentHuman:
+                        break
+                    }})
         OperationManager.shared.session.delegate = OperationManager.shared
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+    
+    //MARK: - ARSessionDelegate
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        pointCloudCollector?.drawRectResized(size: frame.camera.imageResolution)
         switch EnvironmentManager.shared.env.arOperationMode {
         case .pointCloud:
+            pointCloudCollector?.draw()
             break
         case .skeletonRig:
             break
         case .presentHuman:
             break
         }
+    }
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+            anchor as? ARBodyAnchor
+        }
+        if let body = bodies.first {
+            print("add body \(body)")
+            humanNode.update(bodyAnchor: body)
+        }
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+            anchor as? ARBodyAnchor
+        }
+        if let body = bodies.first {
+            print("add body \(body)")
+            humanNode.update(bodyAnchor: body)
+        }
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        
+    }
+    
+    //MARK: - ARSCNViewDelegate
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
     }
 }

@@ -15,7 +15,7 @@ import ARKit
 
 class DataEnvironment: ObservableObject
 {
-    @Published var arOperationMode : AROperationMode = AROperationMode.pointCloud
+    @Published var arOperationMode : AROperationMode = AROperationMode.skeletonRig
     
     func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
         DispatchQueue.main.async {

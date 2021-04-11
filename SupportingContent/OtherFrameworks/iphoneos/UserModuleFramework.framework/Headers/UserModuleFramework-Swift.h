@@ -236,6 +236,8 @@ SWIFT_CLASS("_TtC19UserModuleFramework25RuntimeManagableSingleton")
 
 
 
+
+
 @class ARSession;
 @class ARFrame;
 

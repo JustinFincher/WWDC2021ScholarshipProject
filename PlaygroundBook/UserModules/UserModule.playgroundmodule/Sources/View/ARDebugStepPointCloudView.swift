@@ -14,6 +14,12 @@ struct ARDebugStepPointCloudView: View {
     
     var body: some View {
         VStack {
+            
+            EntityHierarchyView(entities: [
+                OperationManager.shared.scanNode.entity,
+                OperationManager.shared.humanNode.entity
+            ])
+            
             Button(action: {
                 environment.arOperationMode = .skeletonRig
             }, label: {
