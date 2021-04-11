@@ -8,9 +8,10 @@
 import Foundation
 
 enum AROperationMode {
-    case pointCloud
-    case skeletonRig
-    case presentHuman
+    case captureSekeleton
+    case setBoundingBox
+    case attachPointCloud
+    case rigAnimation
 }
 
 struct EntityDisplayModel: Hashable, Identifiable {

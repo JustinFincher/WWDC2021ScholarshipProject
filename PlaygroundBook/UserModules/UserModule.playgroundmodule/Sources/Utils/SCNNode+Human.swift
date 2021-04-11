@@ -34,6 +34,10 @@ extension SCNNode
         }
     }
     
+    func preserveBodyPointCloud() -> Void {
+        
+    }
+    
     func getBones() -> [SCNNode] {
         var joints : [SCNNode] = [self]
         for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root

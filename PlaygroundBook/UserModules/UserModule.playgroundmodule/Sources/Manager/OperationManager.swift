@@ -51,19 +51,21 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
             .sink(receiveValue: { mode in
                     print("mode now \(mode)")
                     switch mode {
-                    case .pointCloud:
+                    case .attachPointCloud:
                         OperationManager.shared.scene.background.intensity = 0.01
                         let configuration = ARWorldTrackingConfiguration()
                         configuration.frameSemantics = .sceneDepth
                         manager.session.run(configuration)
                         break
-                    case .skeletonRig:
+                    case .captureSekeleton:
                         OperationManager.shared.scene.background.intensity = 0.2
                         let configuration = ARBodyTrackingConfiguration()
                         configuration.frameSemantics = [.bodyDetection]
                         manager.session.run(configuration)
                         break
-                    case .presentHuman:
+                    case .setBoundingBox:
+                        break
+                    case .rigAnimation:
                         break
                     }})
         OperationManager.shared.session.delegate = OperationManager.shared
@@ -74,12 +76,14 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         pointCloudCollector?.drawRectResized(size: frame.camera.imageResolution)
         switch EnvironmentManager.shared.env.arOperationMode {
-        case .pointCloud:
+        case .attachPointCloud:
             pointCloudCollector?.draw()
             break
-        case .skeletonRig:
+        case .captureSekeleton:
             break
-        case .presentHuman:
+        case .setBoundingBox:
+            break
+        case .rigAnimation:
             break
         }
     }

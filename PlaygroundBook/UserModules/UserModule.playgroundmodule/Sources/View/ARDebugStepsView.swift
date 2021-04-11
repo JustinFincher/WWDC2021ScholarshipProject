@@ -12,18 +12,20 @@ struct ARDebugStepsView: View {
     
     func getContentView() -> AnyView {
         switch environment.arOperationMode {
-        case .pointCloud: return AnyView(ARDebugStepPointCloudView())
-        case .skeletonRig: return AnyView(ARDebugStepHumanBodyView())
-        case .presentHuman: return AnyView(ZStack {})
+        case .attachPointCloud: return AnyView(ARDebugStepPointCloudView())
+        case .captureSekeleton: return AnyView(ARDebugStepHumanBodyView())
+        case .rigAnimation: return AnyView(ZStack {})
+        case .setBoundingBox: return AnyView(ZStack {})
         }
    }
         
     var body: some View {
         VStack(content: {
             Picker(selection: $environment.arOperationMode, label: Text("Step")) {
-                Text("SkeletonRig").tag(AROperationMode.skeletonRig)
-                Text("PointCloud").tag(AROperationMode.pointCloud)
-                Text("Presenration").tag(AROperationMode.presentHuman)
+                Text("Capture Skeleton").tag(AROperationMode.captureSekeleton)
+                Text("Set Bounding Box").tag(AROperationMode.setBoundingBox)
+                Text("Add Point Cloud").tag(AROperationMode.attachPointCloud)
+                Text("Rig Animation").tag(AROperationMode.rigAnimation)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .fixedSize(horizontal: false, vertical: true)

@@ -15,7 +15,7 @@ import ARKit
 
 class DataEnvironment: ObservableObject
 {
-    @Published var arOperationMode : AROperationMode = AROperationMode.skeletonRig
+    @Published var arOperationMode : AROperationMode = AROperationMode.captureSekeleton
     
     func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
         DispatchQueue.main.async {

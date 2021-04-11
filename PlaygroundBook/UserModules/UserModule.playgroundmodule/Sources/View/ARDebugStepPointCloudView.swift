@@ -14,18 +14,10 @@ struct ARDebugStepPointCloudView: View {
     
     var body: some View {
         VStack {
-            
             EntityHierarchyView(entities: [
                 OperationManager.shared.scanNode.entity,
                 OperationManager.shared.humanNode.entity
             ])
-            
-            Button(action: {
-                environment.arOperationMode = .skeletonRig
-            }, label: {
-                FilledButtonView(icon: "", text: "Save Cloud Points", color: Color.accentColor, shadow: false, primary: true)
-            })
-            .padding([.horizontal, .bottom])
         }
     }
 }
