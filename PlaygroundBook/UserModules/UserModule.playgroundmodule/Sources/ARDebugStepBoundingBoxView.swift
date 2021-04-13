@@ -1,16 +1,17 @@
 //
-//  ARDebugStepHumanBodyView.swift
+//  ARDebugStepBoundingBoxView.swift
 //  UserModuleFramework
 //
-//  Created by fincher on 4/10/21.
+//  Created by fincher on 4/13/21.
 //
 
 import SwiftUI
 
-struct ARDebugStepHumanBodyView: View {
+struct ARDebugStepBoundingBoxView: View {
+    @EnvironmentObject var environment: DataEnvironment
     var body: some View {
         VStack {
-            Text("Capture Skeleton")
+            Text("Set Bounding Box")
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -22,8 +23,8 @@ struct ARDebugStepHumanBodyView: View {
     }
 }
 
-struct ARDebugStepHumanBodyView_Previews: PreviewProvider {
+struct ARDebugStepBoundingBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        ARDebugStepHumanBodyView()
+        ARDebugStepBoundingBoxView()
     }
 }

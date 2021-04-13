@@ -14,6 +14,10 @@ struct ARDebugStepPointCloudView: View {
     
     var body: some View {
         VStack {
+            Text("Add Point Cloud")
+                .font(.subheadline)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
             EntityHierarchyView(entities: [
                 OperationManager.shared.scanNode.entity,
                 OperationManager.shared.humanNode.entity
