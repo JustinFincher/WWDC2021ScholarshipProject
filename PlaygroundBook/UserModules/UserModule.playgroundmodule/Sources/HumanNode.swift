@@ -12,11 +12,11 @@ import SwiftUI
 
 class HumanNode: SCNNode, SCNCustomNode
 {
-    var skeletonRoot : SCNNode? = nil
+    var skeleton : SCNNode? = nil
     var boundingBox : SCNNode? = nil
+    var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
     var jointsParentalPath: [Int32: (indice:simd_int4, weight:simd_float4)] = [Int32: (indice:simd_int4, weight:simd_float4)]()
-    var headsUp : SCNNode? = nil
     let riggingJointIndex : [Int] = [
         0, //"root"
     ]
@@ -24,10 +24,10 @@ class HumanNode: SCNNode, SCNCustomNode
     func setup() {
         name = "human"
         
-        skeletonRoot = SCNNode()
-        if let skeletonRoot = skeletonRoot {
-            skeletonRoot.name = "skeleton"
-            addChildNode(skeletonRoot)
+        skeleton = SCNNode()
+        if let skeleton = skeleton {
+            skeleton.name = "skeleton"
+            addChildNode(skeleton)
         }
         
         headsUp = SCNNode()
@@ -39,9 +39,10 @@ class HumanNode: SCNNode, SCNCustomNode
             let parentView = UIView(frame: view.bounds)
             view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             parentView.addSubview(view)
-            headsUp.geometry = SCNPlane(width: 0.6, height: 0.3)
+            headsUp.geometry = SCNPlane(width: 0.3, height: 0.15)
             headsUp.geometry?.firstMaterial?.diffuse.contents = parentView
             headsUp.geometry?.firstMaterial?.isDoubleSided = true
+            headsUp.isHidden = true
             addChildNode(headsUp)
         }
         
@@ -56,7 +57,7 @@ class HumanNode: SCNNode, SCNCustomNode
             var indiceArray : [Int32] = [currentJointIndex]
             var weightArray : [Float] = []
             for _ in Int32(1)..<Int32(4) {
-                currentJointIndex = Int32(getParentIndexOfJoint(index: Int(currentJointIndex)))
+                currentJointIndex = currentJointIndex >= 0 ? Int32(getParentIndexOfJoint(index: Int(currentJointIndex))) : -1
                 indiceArray.append(currentJointIndex)
             }
             switch indiceArray.filter({ index -> Bool in index == -1 }).count { // get count for no parent
@@ -86,10 +87,10 @@ class HumanNode: SCNNode, SCNCustomNode
     }
     
     func pose(bodyAnchor: ARBodyAnchor, reuse: Bool = false) -> Void {
-        if let skeletonRoot = skeletonRoot {
+        if let skeleton = skeleton {
             if !reuse {
                 joints.removeAll()
-                skeletonRoot.childNodes.forEach { node in
+                skeleton.childNodes.forEach { node in
                     node.removeFromParentNode()
                 }
             }
@@ -97,19 +98,19 @@ class HumanNode: SCNNode, SCNCustomNode
             self.simdTransform = bodyAnchor.transform
             
             if !reuse {
-                for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
+                for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // with root
                     let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                    let jointNode : SCNNode = jointIndex == 0 ? skeletonRoot : SCNNode()
+                    let jointNode : SCNNode = SCNNode()
                     jointNode.name = name
                     joints[name] = jointNode
                 }
             }
             
-            let keys = Array(joints.keys)
-            for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let parentJointIndex = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
-                if let currentJoint = joints[keys[jointIndex]],
-                   let parentJoint = joints[keys[parentJointIndex]]
+            for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
+                let name : String = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+                let parentJointIndex : Int = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
+                if let currentJoint = joints[name],
+                   let parentJoint = jointIndex == 0 ? skeleton : joints[ARSkeletonDefinition.defaultBody3D.jointNames[parentJointIndex]]
                 {
                     if !reuse {
                         parentJoint.addChildNode(currentJoint)
@@ -117,8 +118,21 @@ class HumanNode: SCNNode, SCNCustomNode
                     currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
                     let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
                     currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
+                    currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+                    
+                    let markNode = SCNNode().withName(name: "mark")
+                    markNode.geometry = SCNSphere(radius: 0.01)
+                    currentJoint.addChildNode(markNode)
                 }
                 
+            }
+            
+            if let headsUp = headsUp,
+               let headJoint = joints["head_joint"],
+               let rootJoint = joints["root"]
+            {
+//                headsUp.isHidden = joints.count == 0
+                headsUp.simdWorldPosition = headJoint.simdWorldPosition + rootJoint.simdWorldUp
             }
         }
     }
@@ -181,7 +195,6 @@ class HumanNode: SCNNode, SCNCustomNode
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if let pointOfView = renderer.pointOfView,
            let headsUp = headsUp {
-            headsUp.isHidden = joints.count == 0
             headsUp.simdLook(at: pointOfView.simdPosition)
         }
     }
@@ -203,7 +216,7 @@ class HumanNode: SCNNode, SCNCustomNode
             anchor as? ARBodyAnchor
         }
         if let body = bodies.first {
-            print("add body \(body)")
+            print("update body \(body)")
             pose(bodyAnchor: body)
         }
     }

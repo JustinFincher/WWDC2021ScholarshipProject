@@ -15,7 +15,6 @@ import MetalKit
 class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionDelegate
 {
     private var cancellable: AnyCancellable?
-    private let ciContext = CIContext(options: nil)
     
     let session: ARSession = ARSession()
     let scene: SCNScene = SCNScene()

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D0B6A7826225EFC001104E3 /* SCNGeometry+PointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */; };
-		0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */; };
+		0D0B6A7826225EFC001104E3 /* SCNGeometry+Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7726225EFC001104E3 /* SCNGeometry+Procedural.swift */; };
+		0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7F2622A53D001104E3 /* SCNNode+Utils.swift */; };
 		0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */; };
 		0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
 		0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
@@ -26,6 +26,10 @@
 		0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */; };
 		0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */; };
+		0D4B2E932626B7DB0027A0F8 /* MacTestBedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2E922626B7DB0027A0F8 /* MacTestBedApp.swift */; };
+		0D4B2E952626B7DB0027A0F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2E942626B7DB0027A0F8 /* ContentView.swift */; };
+		0D4B2E972626B7DC0027A0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4B2E962626B7DC0027A0F8 /* Assets.xcassets */; };
+		0D4B2E9A2626B7DC0027A0F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4B2E992626B7DC0027A0F8 /* Preview Assets.xcassets */; };
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
@@ -114,8 +118,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+PointCloud.swift"; sourceTree = "<group>"; };
-		0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Human.swift"; sourceTree = "<group>"; };
+		0D0B6A7726225EFC001104E3 /* SCNGeometry+Procedural.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Procedural.swift"; sourceTree = "<group>"; };
+		0D0B6A7F2622A53D001104E3 /* SCNNode+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Utils.swift"; sourceTree = "<group>"; };
 		0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepHumanBodyView.swift; sourceTree = "<group>"; };
 		0D0DA8D12622C613001D5CB9 /* PrivateResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PrivateResources; sourceTree = "<group>"; };
 		0D0DA8DB2622C6DA001D5CB9 /* PublicResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PublicResources; sourceTree = "<group>"; };
@@ -133,6 +137,13 @@
 		0D16C877261DB60200B8BFBB /* View+Conditional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Conditional.swift"; sourceTree = "<group>"; };
 		0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepsView.swift; sourceTree = "<group>"; };
 		0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepPointCloudView.swift; sourceTree = "<group>"; };
+		0D4B2E902626B7DB0027A0F8 /* MacTestBed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacTestBed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D4B2E922626B7DB0027A0F8 /* MacTestBedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacTestBedApp.swift; sourceTree = "<group>"; };
+		0D4B2E942626B7DB0027A0F8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0D4B2E962626B7DC0027A0F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D4B2E992626B7DC0027A0F8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0D4B2E9B2626B7DC0027A0F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D4B2E9C2626B7DC0027A0F8 /* MacTestBed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacTestBed.entitlements; sourceTree = "<group>"; };
 		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
@@ -182,6 +193,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0D4B2E8D2626B7DB0027A0F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EA2E3BA2056F35A00416A35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,12 +234,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0D4B2E912626B7DB0027A0F8 /* MacTestBed */ = {
+			isa = PBXGroup;
+			children = (
+				0D4B2E922626B7DB0027A0F8 /* MacTestBedApp.swift */,
+				0D4B2E942626B7DB0027A0F8 /* ContentView.swift */,
+				0D4B2E962626B7DC0027A0F8 /* Assets.xcassets */,
+				0D4B2E9B2626B7DC0027A0F8 /* Info.plist */,
+				0D4B2E9C2626B7DC0027A0F8 /* MacTestBed.entitlements */,
+				0D4B2E982626B7DC0027A0F8 /* Preview Content */,
+			);
+			path = MacTestBed;
+			sourceTree = "<group>";
+		};
+		0D4B2E982626B7DC0027A0F8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0D4B2E992626B7DC0027A0F8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		5E086DA4204F706E004D8D25 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				5E086DC02051C5A7004D8D25 /* AR.playgroundbook */,
 				5EA2E3BD2056F35A00416A35 /* LiveViewTestApp.app */,
 				0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */,
+				0D4B2E902626B7DB0027A0F8 /* MacTestBed.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +316,7 @@
 				5E1004BD208E7F6E00BCFE70 /* LICENSE */,
 				5EA2E3D52056F83400416A35 /* Supporting Content */,
 				0D16C7C4261CEF2600B8BFBB /* UserModuleFramework */,
+				0D4B2E912626B7DB0027A0F8 /* MacTestBed */,
 				5E086DA4204F706E004D8D25 /* Products */,
 				0D18D78D24671AF0000B0EBD /* Frameworks */,
 			);
@@ -326,8 +367,8 @@
 				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
 				0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
-				0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */,
-				0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */,
+				0D0B6A7726225EFC001104E3 /* SCNGeometry+Procedural.swift */,
+				0D0B6A7F2622A53D001104E3 /* SCNNode+Utils.swift */,
 				0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */,
 				0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */,
 				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
@@ -433,6 +474,23 @@
 			productReference = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		0D4B2E8F2626B7DB0027A0F8 /* MacTestBed */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D4B2E9F2626B7DC0027A0F8 /* Build configuration list for PBXNativeTarget "MacTestBed" */;
+			buildPhases = (
+				0D4B2E8C2626B7DB0027A0F8 /* Sources */,
+				0D4B2E8D2626B7DB0027A0F8 /* Frameworks */,
+				0D4B2E8E2626B7DB0027A0F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacTestBed;
+			productName = MacTestBed;
+			productReference = 0D4B2E902626B7DB0027A0F8 /* MacTestBed.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5E086DBF2051C5A7004D8D25 /* PlaygroundBook */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E086DC52051C5A7004D8D25 /* Build configuration list for PBXNativeTarget "PlaygroundBook" */;
@@ -476,12 +534,15 @@
 		5E2A7ADD204F611300F4E17A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1110;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					0D16C7C2261CEF2600B8BFBB = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1240;
+					};
+					0D4B2E8F2626B7DB0027A0F8 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 					5E086DBF2051C5A7004D8D25 = {
 						CreatedOnToolsVersion = 9.3;
@@ -509,6 +570,7 @@
 				5E086DBF2051C5A7004D8D25 /* PlaygroundBook */,
 				5EA2E3BC2056F35A00416A35 /* LiveViewTestApp */,
 				0D16C7C2261CEF2600B8BFBB /* UserModuleFramework */,
+				0D4B2E8F2626B7DB0027A0F8 /* MacTestBed */,
 			);
 		};
 /* End PBXProject section */
@@ -518,6 +580,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D4B2E8E2626B7DB0027A0F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D4B2E9A2626B7DC0027A0F8 /* Preview Assets.xcassets in Resources */,
+				0D4B2E972626B7DC0027A0F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,7 +641,7 @@
 				0DA26CD726260F3A008E6447 /* HumanHeadFloatingView.swift in Sources */,
 				0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */,
 				0D0DA9022622D335001D5CB9 /* PlaygroundManager.swift in Sources */,
-				0D0B6A7826225EFC001104E3 /* SCNGeometry+PointCloud.swift in Sources */,
+				0D0B6A7826225EFC001104E3 /* SCNGeometry+Procedural.swift in Sources */,
 				0DA26CCF262608F2008E6447 /* ActivityViewControllerView.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
 				0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */,
@@ -584,7 +655,7 @@
 				0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */,
 				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */,
-				0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */,
+				0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */,
 				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
 				0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */,
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
@@ -600,6 +671,15 @@
 				0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */,
 				0D16C85A261DB49F00B8BFBB /* EnvironmentManager.swift in Sources */,
 				0D16C7D7261CEF4900B8BFBB /* ARCameraView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D4B2E8C2626B7DB0027A0F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D4B2E952626B7DB0027A0F8 /* ContentView.swift in Sources */,
+				0D4B2E932626B7DB0027A0F8 /* MacTestBedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +791,61 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		0D4B2E9D2626B7DC0027A0F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacTestBed/MacTestBed.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"MacTestBed/Preview Content\"";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				INFOPLIST_FILE = MacTestBed/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.MacTestBed;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0D4B2E9E2626B7DC0027A0F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacTestBed/MacTestBed.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"MacTestBed/Preview Content\"";
+				DEVELOPMENT_TEAM = 9QJ8M25J77;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = MacTestBed/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.MacTestBed;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -957,6 +1092,15 @@
 			buildConfigurations = (
 				0D16C7CD261CEF2600B8BFBB /* Debug */,
 				0D16C7CE261CEF2600B8BFBB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D4B2E9F2626B7DC0027A0F8 /* Build configuration list for PBXNativeTarget "MacTestBed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D4B2E9D2626B7DC0027A0F8 /* Debug */,
+				0D4B2E9E2626B7DC0027A0F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
