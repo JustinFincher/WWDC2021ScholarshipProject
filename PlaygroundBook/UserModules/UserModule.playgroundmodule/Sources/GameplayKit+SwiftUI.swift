@@ -15,9 +15,6 @@ extension GKEntity {
         if let comp = self.component(ofType: GKSCNNodeComponent.self) {
             model.children?.append(comp.toEntityDisplayModel())
         }
-        if let comp = self.component(ofType: PointCloudComponent.self) {
-            model.children?.append(comp.toEntityDisplayModel())
-        }
         return model
     }
 }

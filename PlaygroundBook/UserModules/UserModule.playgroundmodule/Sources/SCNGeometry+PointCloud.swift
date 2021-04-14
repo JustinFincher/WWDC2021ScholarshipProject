@@ -13,25 +13,35 @@ extension SCNGeometry {
     {
         let positionOffset : Int = MemoryLayout.offset(of: \ParticleUniforms.position) ?? 0
         let vertexSource : SCNGeometrySource = SCNGeometrySource(buffer: buffer.getMTLBuffer(),
-                                                           vertexFormat: .float3,
-                                                           semantic: .vertex,
-                                                           vertexCount: buffer.count,
-                                                           dataOffset: positionOffset,
-                                                           dataStride: buffer.stride)
+                                                                 vertexFormat: .float3,
+                                                                 semantic: .vertex,
+                                                                 vertexCount: buffer.count,
+                                                                 dataOffset: positionOffset,
+                                                                 dataStride: buffer.stride)
         let colorOffset : Int = MemoryLayout.offset(of: \ParticleUniforms.color) ?? 12
         let colorSource : SCNGeometrySource = SCNGeometrySource(buffer: buffer.getMTLBuffer(),
-                                                           vertexFormat: .float3,
-                                                           semantic: .color,
-                                                           vertexCount: buffer.count,
-                                                           dataOffset: colorOffset,
-                                                           dataStride: buffer.stride)
+                                                                vertexFormat: .float3,
+                                                                semantic: .color,
+                                                                vertexCount: buffer.count,
+                                                                dataOffset: colorOffset,
+                                                                dataStride: buffer.stride)
         let indices = Array(ClosedRange<Int32>.init(0..<Int32(buffer.count)))
         let indiceData = indices.withUnsafeBufferPointer { Data(buffer: $0) }
         let element = SCNGeometryElement(data: indiceData, primitiveType: .point, primitiveCount: buffer.count, bytesPerIndex: MemoryLayout.size(ofValue: Int32(0)))
         element.pointSize = 15
         element.minimumPointScreenSpaceRadius = 2
         element.maximumPointScreenSpaceRadius = 15
-            
+        
         self.init(sources: [vertexSource, colorSource], elements: [element])
+    }
+    
+    convenience init(line from: SCNVector3, to: SCNVector3) {
+        let indices: [Int32] = [0, 1]
+        let source = SCNGeometrySource(vertices: [from, to])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+        element.pointSize = 15
+        element.minimumPointScreenSpaceRadius = 2
+        element.maximumPointScreenSpaceRadius = 15
+        self.init(sources: [source], elements: [element])
     }
 }

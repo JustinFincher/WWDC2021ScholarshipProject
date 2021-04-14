@@ -8,80 +8,203 @@
 import Foundation
 import SceneKit
 import ARKit
+import SwiftUI
 
-class HumanNode: SCNNode
+class HumanNode: SCNNode, SCNCustomNode
 {
     var skeletonRoot : SCNNode? = nil
+    var boundingBox : SCNNode? = nil
+    var joints: [String:SCNNode] = [String:SCNNode]()
+    var jointsParentalPath: [Int32: (indice:simd_int4, weight:simd_float4)] = [Int32: (indice:simd_int4, weight:simd_float4)]()
+    var headsUp : SCNNode? = nil
+    let riggingJointIndex : [Int] = [
+        0, //"root"
+    ]
     
-    override init() {
-        super.init()
-        postInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func postInit() -> Void {
+    func setup() {
         name = "human"
+        
         skeletonRoot = SCNNode()
         if let skeletonRoot = skeletonRoot {
             skeletonRoot.name = "skeleton"
             addChildNode(skeletonRoot)
         }
-    }
-    
-    func update(bodyAnchor: ARBodyAnchor) -> Void {
-        if let skeletonRoot = skeletonRoot {
-            skeletonRoot.childNodes.forEach { node in
-                node.removeFromParentNode()
+        
+        headsUp = SCNNode()
+        if let headsUp = headsUp {
+            headsUp.name = "headsUp"
+            let view : UIView = UIHostingController(rootView: HumanHeadFloatingView().environmentObject(EnvironmentManager.shared.env)).view
+            view.backgroundColor = UIColor.clear
+            view.frame = CGRect.init(x: 0, y: 0, width: 600, height: 300)
+            let parentView = UIView(frame: view.bounds)
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            parentView.addSubview(view)
+            headsUp.geometry = SCNPlane(width: 0.6, height: 0.3)
+            headsUp.geometry?.firstMaterial?.diffuse.contents = parentView
+            headsUp.geometry?.firstMaterial?.isDoubleSided = true
+            addChildNode(headsUp)
+        }
+        
+        boundingBox = SCNNode()
+        if let boundingBox = boundingBox {
+            boundingBox.name = "boundingBox"
+            addChildNode(boundingBox)
+        }
+        
+        for jointIndex in Int32(1)..<Int32(ARSkeletonDefinition.defaultBody3D.jointCount) {
+            var currentJointIndex = jointIndex
+            var indiceArray : [Int32] = [currentJointIndex]
+            var weightArray : [Float] = []
+            for _ in Int32(1)..<Int32(4) {
+                currentJointIndex = Int32(getParentIndexOfJoint(index: Int(currentJointIndex)))
+                indiceArray.append(currentJointIndex)
             }
-            self.simdTransform = bodyAnchor.transform
-            var joints : [SCNNode] = [skeletonRoot]
-            skeletonRoot.name =  ARSkeletonDefinition.defaultBody3D.jointNames[0]
-            for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                let jointNode : SCNNode = SCNNode()
-                jointNode.name = name
-                joints.append(jointNode)
-                jointNode.geometry = SCNSphere(radius: 0.02 * bodyAnchor.estimatedScaleFactor)
+            switch indiceArray.filter({ index -> Bool in index == -1 }).count { // get count for no parent
+            case 0:
+                weightArray = [0.7,0.2,0.06,0.04] // joint, joint, joint, joint or root
+                break
+            case 1:
+                weightArray = [0.7,0.2,0.1,0.0] // joint, joint, root
+                break
+            case 2:
+                weightArray = [0.7,0.3,0,0] // joint, root
+                break
+            case 3:
+                weightArray = [1.0,0,0,0] // root
+                break
+            default:
+                break
             }
-            for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let parentJointIndex = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
-                let currentJoint = joints[jointIndex]
-                let parentJoint = joints[parentJointIndex]
-                parentJoint.addChildNode(currentJoint)
-                currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
-            }
+            let indice : simd_int4 = simd_int4(indiceArray[0], indiceArray[1], indiceArray[2], indiceArray[3])
+            let weight : simd_float4 = simd_float4(weightArray[0], weightArray[1], weightArray[2], weightArray[3])
+            jointsParentalPath[jointIndex] = (indice, weight)
         }
     }
     
-    func getBones() -> [SCNNode] {
-        var joints : [SCNNode] = []
+    func getParentIndexOfJoint(index: Int) -> Int {
+        return ARSkeletonDefinition.defaultBody3D.parentIndices[index]
+    }
+    
+    func pose(bodyAnchor: ARBodyAnchor, reuse: Bool = false) -> Void {
         if let skeletonRoot = skeletonRoot {
-            joints.append(skeletonRoot)
-            for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                if let joint = skeletonRoot.childNode(withName: name, recursively: true)
-                {
-                    joints.append(joint)
+            if !reuse {
+                joints.removeAll()
+                skeletonRoot.childNodes.forEach { node in
+                    node.removeFromParentNode()
                 }
             }
+            
+            self.simdTransform = bodyAnchor.transform
+            
+            if !reuse {
+                for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
+                    let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+                    let jointNode : SCNNode = jointIndex == 0 ? skeletonRoot : SCNNode()
+                    jointNode.name = name
+                    joints[name] = jointNode
+                }
+            }
+            
+            let keys = Array(joints.keys)
+            for jointIndex in 1..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
+                let parentJointIndex = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
+                if let currentJoint = joints[keys[jointIndex]],
+                   let parentJoint = joints[keys[parentJointIndex]]
+                {
+                    if !reuse {
+                        parentJoint.addChildNode(currentJoint)
+                    }
+                    currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
+                    let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
+                    currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
+                }
+                
+            }
         }
-        return joints
     }
     
-    func rig(geometry: SCNGeometry, bodyAnchor: ARBodyAnchor) -> Void
+    func rig(cloudPointNode: SCNNode) -> Void
     {
-        let jointTransforms = bodyAnchor.skeleton.jointModelTransforms
+        guard let geometry = cloudPointNode.geometry else {
+            return
+        }
         let vertex = geometry.sources(for: .vertex).first!
         let vertexCount = vertex.vectorCount
-        for vertexIndex in 0..<vertexCount {
-            
+        let data = vertex.data
+        var vertexArray = Array<simd_float3>(repeating: simd_float3(0, 0, 0), count: data.count/MemoryLayout<simd_float3>.stride)
+        vertexArray.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) -> Void in
+            data.copyBytes(to: pointer)
         }
-//        let boneWeights = SCNGeometrySource(data: <#T##Data#>, semantic: .boneWeights, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: <#T##Int#>, dataOffset: <#T##Int#>, dataStride: <#T##Int#>)
-//        let boneIndices = SCNGeometrySource(data: <#T##Data#>, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: <#T##Int#>, dataOffset: <#T##Int#>, dataStride: <#T##Int#>)
-//        let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: nil, boneWeights: <#T##SCNGeometrySource#>, boneIndices: <#T##SCNGeometrySource#>)
+        assert(vertexArray.count == vertexCount)
+        var boneWeightsArray : [simd_float4] = []
+        var boneIndicesArray : [simd_int4] = []
+        
+        var jointsDistanceDict : [Int : Float] = [Int : Float]()
+        for vertexIndex in 0..<vertexCount {
+            jointsDistanceDict.removeAll()
+            
+            let vertexPos : simd_float3 = vertexArray[vertexIndex]
+            let vertexLocalPos = self.simdConvertPosition(vertexPos, from: cloudPointNode)
+            for jointIndex in riggingJointIndex {
+                let jointName = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+                let jointNode = joints[jointName]
+                let jointLocalPos : simd_float3 = jointNode!.simdConvertPosition(simd_float3(0, 0, 0), to: self)
+                let distance = simd_distance(vertexLocalPos, jointLocalPos)
+                jointsDistanceDict[jointIndex] = distance
+            }
+            
+            let jointsDistanceDictSorted = jointsDistanceDict.sorted { (p1:(key: Int, value: Float), p2:(key: Int, value: Float)) -> Bool in
+                p1.value < p2.value
+            }
+            let skinJointIndex : Int = jointsDistanceDictSorted.first!.key
+            let boneIndice : simd_int4 = jointsParentalPath[Int32(skinJointIndex)]!.indice
+            let boneWeight : simd_float4 = jointsParentalPath[Int32(skinJointIndex)]!.weight
+            boneIndicesArray.append(boneIndice)
+            boneWeightsArray.append(boneWeight)
+        }
+        
+        let boneWeightsData = boneWeightsArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_float4>) -> Data in
+            Data(buffer: pointer)
+        })
+        let boneIndicesData = boneIndicesArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_int4>) -> Data in
+            Data(buffer: pointer)
+        })
+        
+        let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
+        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Int32>.size, dataOffset: 0, dataStride: MemoryLayout<simd_int4>.size)
+        let skinner = SCNSkinner(baseGeometry: geometry, bones: Array(joints.values), boneInverseBindTransforms: nil, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
+        self.geometry = cloudPointNode.geometry
+        self.skinner = skinner
     }
-
+    
+    //MARK: - SCNCustomNode
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if let pointOfView = renderer.pointOfView,
+           let headsUp = headsUp {
+            headsUp.isHidden = joints.count == 0
+            headsUp.simdLook(at: pointOfView.simdPosition)
+        }
+    }
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
+    }
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+            anchor as? ARBodyAnchor
+        }
+        if let body = bodies.first {
+            print("add body \(body)")
+            pose(bodyAnchor: body)
+        }
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+            anchor as? ARBodyAnchor
+        }
+        if let body = bodies.first {
+            print("add body \(body)")
+            pose(bodyAnchor: body)
+        }
+    }
 }

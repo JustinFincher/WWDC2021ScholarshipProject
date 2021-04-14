@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0D0B6A7826225EFC001104E3 /* SCNGeometry+PointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */; };
 		0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */; };
-		0D0B6A842622A6A4001104E3 /* HumanBodyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */; };
 		0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */; };
 		0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
 		0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
@@ -30,7 +29,6 @@
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
-		0D5B6F40261EC89200EC7B18 /* PointCloudComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */; };
 		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
 		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
 		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
@@ -43,6 +41,9 @@
 		0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */; };
 		0DA26CCF262608F2008E6447 /* ActivityViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CCE262608F2008E6447 /* ActivityViewControllerView.swift */; };
 		0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD226260C66008E6447 /* HumanNode.swift */; };
+		0DA26CD726260F3A008E6447 /* HumanHeadFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */; };
+		0DA26CDB26261165008E6447 /* SCNCustomNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */; };
+		0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDE262611E4008E6447 /* ScanNode.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
@@ -115,7 +116,6 @@
 /* Begin PBXFileReference section */
 		0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+PointCloud.swift"; sourceTree = "<group>"; };
 		0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Human.swift"; sourceTree = "<group>"; };
-		0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanBodyComponent.swift; sourceTree = "<group>"; };
 		0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepHumanBodyView.swift; sourceTree = "<group>"; };
 		0D0DA8D12622C613001D5CB9 /* PrivateResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PrivateResources; sourceTree = "<group>"; };
 		0D0DA8DB2622C6DA001D5CB9 /* PublicResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PublicResources; sourceTree = "<group>"; };
@@ -136,7 +136,6 @@
 		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
-		0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudComponent.swift; sourceTree = "<group>"; };
 		0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameplayKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
 		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
@@ -150,6 +149,9 @@
 		0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRiggingView.swift; sourceTree = "<group>"; };
 		0DA26CCE262608F2008E6447 /* ActivityViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewControllerView.swift; sourceTree = "<group>"; };
 		0DA26CD226260C66008E6447 /* HumanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanNode.swift; sourceTree = "<group>"; };
+		0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanHeadFloatingView.swift; sourceTree = "<group>"; };
+		0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNCustomNodeProtocol.swift; sourceTree = "<group>"; };
+		0DA26CDE262611E4008E6447 /* ScanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanNode.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCF2051DF0F004D8D25 /* Manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Manifest.plist; sourceTree = "<group>"; };
@@ -319,8 +321,10 @@
 				0DA26CC426260694008E6447 /* ARDebugStepBoundingBoxView.swift */,
 				0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */,
 				0DA26CCE262608F2008E6447 /* ActivityViewControllerView.swift */,
+				0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */,
 				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
 				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
+				0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
 				0D0B6A7726225EFC001104E3 /* SCNGeometry+PointCloud.swift */,
 				0D0B6A7F2622A53D001104E3 /* SCNNode+Human.swift */,
@@ -330,6 +334,7 @@
 				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
 				0DA26CD226260C66008E6447 /* HumanNode.swift */,
+				0DA26CDE262611E4008E6447 /* ScanNode.swift */,
 				0D85295A26222992004DB4B0 /* Helpers.swift */,
 				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
 				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
@@ -338,8 +343,6 @@
 				0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */,
 				0D16C857261DB49F00B8BFBB /* RuntimeManager.swift */,
 				0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */,
-				0D5B6F3F261EC89200EC7B18 /* PointCloudComponent.swift */,
-				0D0B6A832622A6A4001104E3 /* HumanBodyComponent.swift */,
 				0D5B6F30261E799B00EC7B18 /* Data.swift */,
 			);
 			path = Sources;
@@ -563,12 +566,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DA26CDB26261165008E6447 /* SCNCustomNodeProtocol.swift in Sources */,
+				0DA26CD726260F3A008E6447 /* HumanHeadFloatingView.swift in Sources */,
 				0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */,
-				0D5B6F40261EC89200EC7B18 /* PointCloudComponent.swift in Sources */,
 				0D0DA9022622D335001D5CB9 /* PlaygroundManager.swift in Sources */,
 				0D0B6A7826225EFC001104E3 /* SCNGeometry+PointCloud.swift in Sources */,
 				0DA26CCF262608F2008E6447 /* ActivityViewControllerView.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
+				0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */,
 				0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */,
 				0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */,
 				0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */,
@@ -579,7 +584,6 @@
 				0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */,
 				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */,
-				0D0B6A842622A6A4001104E3 /* HumanBodyComponent.swift in Sources */,
 				0D0B6A802622A53D001104E3 /* SCNNode+Human.swift in Sources */,
 				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
 				0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */,
