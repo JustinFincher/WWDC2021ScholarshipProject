@@ -24,7 +24,7 @@ class HumanNode: SCNNode
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
-    var jointsParentalPath: [Int: (indice:simd_int4, weight:simd_float4)] = [Int: (indice:simd_int4, weight:simd_float4)]()
+    var jointsParentalPath: [Int: (indice:SIMD4<uint16>, weight:simd_float4)] = [Int: (indice:SIMD4<uint16>, weight:simd_float4)]()
     let riggingJointIndex : [Int] = [
         2, //"left_upLeg_joint"
         3, //"right_upLeg_joint"
@@ -124,31 +124,37 @@ class HumanNode: SCNNode
     }
     
     func generateLookupTable() -> Void {
-        for jointIndex in 0..<jointCount {
+        for jointIndex in 1..<jointCount {
+//            var currentJointIndex = jointIndex
+//            var indiceArray : [Int] = [currentJointIndex]
+//            var weightArray : [Float] = []
+//            for _ in 1..<4 {
+//                currentJointIndex = getParentIndexOfJoint(index: Int(currentJointIndex))
+//                currentJointIndex = max(currentJointIndex, 0)
+//                indiceArray.append(currentJointIndex)
+//            }
+//            switch indiceArray.filter({ index -> Bool in index == 0 }).count { // get count for no parent
+//            case 0:
+//                weightArray = [0.7,0.2,0.06,0.04] // joint, joint, joint, joint or root
+//                break
+//            case 1:
+//                weightArray = [0.7,0.2,0.1,0.0] // joint, joint, root
+//                break
+//            case 2:
+//                weightArray = [0.7,0.3,0,0] // joint, root
+//                break
+//            case 3:
+//                weightArray = [1.0,0,0,0] // root
+//                break
+//            default:
+//                break
+//            }
+            
             var currentJointIndex = jointIndex
-            var indiceArray : [Int] = [currentJointIndex]
-            var weightArray : [Float] = []
-            for _ in 1..<4 {
-                currentJointIndex = currentJointIndex >= 0 ? getParentIndexOfJoint(index: Int(currentJointIndex)) : -1
-                indiceArray.append(currentJointIndex)
-            }
-            switch indiceArray.filter({ index -> Bool in index == -1 }).count { // get count for no parent
-            case 0:
-                weightArray = [0.7,0.2,0.06,0.04] // joint, joint, joint, joint or root
-                break
-            case 1:
-                weightArray = [0.7,0.2,0.1,0.0] // joint, joint, root
-                break
-            case 2:
-                weightArray = [0.7,0.3,0,0] // joint, root
-                break
-            case 3:
-                weightArray = [1.0,0,0,0] // root
-                break
-            default:
-                break
-            }
-            let indice : simd_int4 = simd_int4(Int32(indiceArray[0]), Int32(indiceArray[1]), Int32(indiceArray[2]), Int32(indiceArray[3]))
+            var indiceArray : [Int] = [currentJointIndex, 0,0,0]
+            var weightArray : [Float] = [1.0,0,0,0]
+            
+            let indice : SIMD4<uint16> = SIMD4<uint16>(uint16(indiceArray[0]), uint16(indiceArray[1]), uint16(indiceArray[2]), uint16(indiceArray[3]))
             let weight : simd_float4 = simd_float4(weightArray[0], weightArray[1], weightArray[2], weightArray[3])
             jointsParentalPath[jointIndex] = (indice, weight)
         }
@@ -282,7 +288,7 @@ class HumanNode: SCNNode
         }
         assert(vertexArray.count == vertexCount)
         var boneWeightsArray : [simd_float4] = []
-        var boneIndicesArray : [simd_int4] = []
+        var boneIndicesArray : [SIMD4<uint16>] = []
         
         var jointsDistanceDict : [Int : Float] = [Int : Float]()
         for vertexIndex in 0..<vertexCount {
@@ -301,7 +307,7 @@ class HumanNode: SCNNode
                 p1.value < p2.value
             }
             let skinJointIndex : Int = jointsDistanceDictSorted.first!.key
-            let boneIndice : simd_int4 = jointsParentalPath[skinJointIndex]!.indice
+            let boneIndice : SIMD4<uint16> = jointsParentalPath[skinJointIndex]!.indice
             let boneWeight : simd_float4 = jointsParentalPath[skinJointIndex]!.weight
             boneIndicesArray.append(boneIndice)
             boneWeightsArray.append(boneWeight)
@@ -312,7 +318,7 @@ class HumanNode: SCNNode
         let boneWeightsData = boneWeightsArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_float4>) -> Data in
             Data(buffer: pointer)
         })
-        let boneIndicesData = boneIndicesArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_int4>) -> Data in
+        let boneIndicesData = boneIndicesArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SIMD4<uint16>>) -> Data in
             Data(buffer: pointer)
         })
         vertexData = vertexArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SCNVector3>) -> Data in
@@ -320,8 +326,14 @@ class HumanNode: SCNNode
         })
         
         let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
-        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Int32>.size, dataOffset: 0, dataStride: MemoryLayout<simd_int4>.size)
-        let skinner = SCNSkinner(baseGeometry: geometry, bones: Array(joints.values), boneInverseBindTransforms: nil, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
+        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<uint16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<uint16>>.size)
+        let bones : [SCNNode] = riggingJointIndex.map({ (boneIndex:Int) -> SCNNode in
+            joints[jointNames[boneIndex]]!
+        })
+        let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
+            NSValue(scnMatrix4: SCNMatrix4(simd_inverse(joint.simdConvertTransform(joint.simdWorldTransform, to: self))))
+        }
+        let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
         vertex = SCNGeometrySource(data: vertexData, semantic: .vertex, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
         
