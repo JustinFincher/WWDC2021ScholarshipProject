@@ -20,38 +20,39 @@ class HumanNode: SCNNode
         -1,0,1,2,3,4,5,1,7,8,9,10,1,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,22,28,29,30,31,22,33,34,35,36,22,38,39,40,41,22,43,44,45,18,47,48,49,50,51,52,51,54,54,54,51,51,59,59,59,18,63,64,65,66,67,68,69,70,66,72,73,74,75,66,77,78,79,80,66,82,83,84,85,66,87,88,89
     ]
     
-    var skeleton : SCNNode? = nil
-    var boundingBoxNode : SCNNode? = nil
-    var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
     var jointsParentalPath: [Int: (indice:SIMD4<uint16>, weight:simd_float4)] = [Int: (indice:SIMD4<uint16>, weight:simd_float4)]()
     let riggingJointIndex : [Int] = [
+        0, //"root"
+        1, //"hips_joint"
         2, //"left_upLeg_joint"
-        3, //"right_upLeg_joint"
-        2, //"left_leg_joint"
+        7, //"right_upLeg_joint"
+        3, //"left_leg_joint"
         8, //"right_leg_joint"
         4, //"left_foot_joint"
-        9, //"right_foot_joint"
-        5, //"left_toes_joint"
-        10, //"right_toes_joint"
-        6, //"left_toesEnd_joint"
-        11, //"right_toesEnd_joint"
+//        9, //"right_foot_joint"
+//        5, //"left_toes_joint"
+//        10, //"right_toes_joint"
+//        6, //"left_toesEnd_joint"
+//        11, //"right_toesEnd_joint"
         12, //"spine_1_joint"
-        15, //"spine_4_joint"
-        18, //"spine_7_joint"
-        48, //"neck_2_joint"
-        50, //"neck_4_joint"
-        51, //"head_joint"
-        19, //"left_shoulder_1_joint"
-        63, //"right_shoulder_1_joint"
-        20, //"left_arm_joint"
-        64, //"right_arm_joint"
-        20, //"left_arm_joint"
-        64, //"right_arm_joint"
-        21, //"left_forearm_joint"
-        65, //"right_forearm_joint"
-        22, //"left_hand_joint"
-        66, //"right_forearm_joint"
+        13, //"spine_2_joint"
+        14, //"spine_3_joint"
+//        15, //"spine_4_joint"
+//        18, //"spine_7_joint"
+//        48, //"neck_2_joint"
+//        50, //"neck_4_joint"
+//        51, //"head_joint"
+//        19, //"left_shoulder_1_joint"
+//        63, //"right_shoulder_1_joint"
+//        20, //"left_arm_joint"
+//        64, //"right_arm_joint"
+//        20, //"left_arm_joint"
+//        64, //"right_arm_joint"
+//        21, //"left_forearm_joint"
+//        65, //"right_forearm_joint"
+//        22, //"left_hand_joint"
+//        66, //"right_forearm_joint"
     ]
     let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
         (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
@@ -68,63 +69,35 @@ class HumanNode: SCNNode
     ]
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
+        renderingOrder = Int.max
         simdTransform = anotherHuman.simdTransform
         joints.removeAll()
         childNodes.forEach { (child: SCNNode) in
             child.removeFromParentNode()
         }
         anotherHuman.childNodes.forEach { (child: SCNNode) in
-            addChildNode(child.clone())
+            let clone = child.clone()
+            addChildNode(clone)
+            clone.transform = child.transform
         }
-        name = "human"
-        skeleton = self.childNode(withName: "skeleton", recursively: true)
-        headsUp = self.childNode(withName: "headsUp", recursively: true)
-        boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
+        name = jointNames[0]
         generateLookupTable()
-        for jointIndex in 0..<jointCount {
+        joints[name!] = self
+        for jointIndex in 1..<jointCount {
             let jointName = jointNames[jointIndex]
-            let node = skeleton?.childNode(withName: jointName, recursively: true)!
+            let node = self.childNode(withName: jointName, recursively: true)!
             joints[jointName] = node
         }
     }
     
     func setup() {
-        name = "human"
-        
-        skeleton = SCNNode()
-        if let skeleton = skeleton {
-            skeleton.name = "skeleton"
-            skeleton.renderingOrder = Int.max
-            addChildNode(skeleton)
-        }
-        
-        headsUp = SCNNode()
-        if let headsUp = headsUp {
-            headsUp.name = "headsUp"
-            let view : UIView = UIHostingController(rootView: HumanHeadFloatingView().environmentObject(EnvironmentManager.shared.env)).view
-            view.backgroundColor = UIColor.clear
-            view.frame = CGRect.init(x: 0, y: 0, width: 600, height: 300)
-            let parentView = UIView(frame: view.bounds)
-            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            parentView.addSubview(view)
-            headsUp.geometry = SCNPlane(width: 0.3, height: 0.15)
-            headsUp.geometry?.firstMaterial?.diffuse.contents = parentView
-            headsUp.geometry?.firstMaterial?.isDoubleSided = true
-            headsUp.isHidden = true
-            addChildNode(headsUp)
-        }
-        
-        boundingBoxNode = SCNNode()
-        if let boundingBoxNode = boundingBoxNode {
-            boundingBoxNode.name = "boundingBox"
-            addChildNode(boundingBoxNode)
-        }
-        
+        name = jointNames[0]
+        renderingOrder = Int.max
         generateLookupTable()
     }
     
     func generateLookupTable() -> Void {
-        for jointIndex in 1..<jointCount {
+        for jointIndex in 0..<jointCount {
 //            var currentJointIndex = jointIndex
 //            var indiceArray : [Int] = [currentJointIndex]
 //            var weightArray : [Float] = []
@@ -165,35 +138,34 @@ class HumanNode: SCNNode
     }
     
     func generateBoundingBoxes() -> Void {
-        if let boundingBoxNode = boundingBoxNode {
-            boundingBoxNode.childNodes.forEach { (child: SCNNode) in
-                child.removeFromParentNode()
-            }
-            
-            boundingBoxIndex.forEach { (item: (startJoint: Int, endJoint: Int, radius: Float)) in
-                let startJointName : String = jointNames[item.startJoint]
-                let endJointName : String = jointNames[item.endJoint]
-                let startJointNode : SCNNode = joints[startJointName]!
-                let endJointNode : SCNNode = joints[endJointName]!
-                let boxNode = SCNNode()
-                boundingBoxNode.addChildNode(boxNode)
-                if (item.startJoint == item.endJoint)
-                {
-                    boxNode.geometry = SCNSphere(radius: CGFloat(item.radius))
-                    boxNode.simdWorldPosition = startJointNode.simdWorldPosition
-                } else {
-                    let distance = simd_distance(startJointNode.simdWorldPosition, endJointNode.simdWorldPosition) + 0.1
-                    boxNode.geometry = SCNBox(width: CGFloat(item.radius), height: CGFloat(item.radius), length: CGFloat(distance), chamferRadius: 0)
-                    boxNode.simdWorldPosition = (startJointNode.simdWorldPosition + endJointNode.simdWorldPosition) / 2.0
-                    boxNode.simdLook(at: endJointNode.simdWorldPosition)
-                }
-                boxNode.isHidden = true
-            }
-        }
+//        if let boundingBoxNode = boundingBoxNode {
+//            boundingBoxNode.childNodes.forEach { (child: SCNNode) in
+//                child.removeFromParentNode()
+//            }
+//
+//            boundingBoxIndex.forEach { (item: (startJoint: Int, endJoint: Int, radius: Float)) in
+//                let startJointName : String = jointNames[item.startJoint]
+//                let endJointName : String = jointNames[item.endJoint]
+//                let startJointNode : SCNNode = joints[startJointName]!
+//                let endJointNode : SCNNode = joints[endJointName]!
+//                let boxNode = SCNNode()
+//                boundingBoxNode.addChildNode(boxNode)
+//                if (item.startJoint == item.endJoint)
+//                {
+//                    boxNode.geometry = SCNSphere(radius: CGFloat(item.radius))
+//                    boxNode.simdWorldPosition = startJointNode.simdWorldPosition
+//                } else {
+//                    let distance = simd_distance(startJointNode.simdWorldPosition, endJointNode.simdWorldPosition) + 0.1
+//                    boxNode.geometry = SCNBox(width: CGFloat(item.radius), height: CGFloat(item.radius), length: CGFloat(distance), chamferRadius: 0)
+//                    boxNode.simdWorldPosition = (startJointNode.simdWorldPosition + endJointNode.simdWorldPosition) / 2.0
+//                    boxNode.simdLook(at: endJointNode.simdWorldPosition)
+//                }
+//                boxNode.isHidden = true
+//            }
+//        }
     }
     
     func filterPoints(cloudPointNode: SCNNode) -> Void {
-        generateBoundingBoxes()
         guard let geometry = cloudPointNode.geometry else {
             print("error")
             return
@@ -277,7 +249,7 @@ class HumanNode: SCNNode
         guard let geometry = cloudPointNode.geometry else {
             return
         }
-        var color = geometry.sources(for: .color).first!
+        let color = geometry.sources(for: .color).first!
         var vertex = geometry.sources(for: .vertex).first!
         let vertexCount = vertex.vectorCount
         var vertexData = vertex.data
@@ -298,7 +270,7 @@ class HumanNode: SCNNode
             for jointIndex in riggingJointIndex {
                 let jointName = jointNames[jointIndex]
                 let jointNode = joints[jointName]
-                let jointPosInSkeletonSpace : simd_float3 = jointNode!.simdConvertPosition(simd_float3(0, 0, 0), to: self)
+                let jointPosInSkeletonSpace : simd_float3 = self.simdConvertPosition(simd_float3(0, 0, 0), from: jointNode)
                 let distance = simd_distance(vertexPosInSkeletonSpace, jointPosInSkeletonSpace)
                 jointsDistanceDict[jointIndex] = distance
             }
@@ -331,9 +303,8 @@ class HumanNode: SCNNode
             joints[jointNames[boneIndex]]!
         })
         let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
-            NSValue(scnMatrix4: SCNMatrix4(simd_inverse(joint.simdConvertTransform(joint.simdWorldTransform, to: self))))
+            NSValue(scnMatrix4: SCNMatrix4Invert(joint.transform))
         }
-        let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
         vertex = SCNGeometrySource(data: vertexData, semantic: .vertex, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
         
@@ -341,8 +312,12 @@ class HumanNode: SCNNode
         newGeometry.firstMaterial?.lightingModel = .constant
         newGeometry.firstMaterial?.diffuse.contents = UIColor.white
         
-        self.geometry = newGeometry
-        self.skinner = skinner
+        let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
+        skinner.skeleton = self
+        
+        cloudPointNode.simdWorldTransform = self.simdWorldTransform
+        cloudPointNode.geometry = newGeometry
+        cloudPointNode.skinner = skinner
     }
     
     func animate(animation: SCNAnimation) -> Void {

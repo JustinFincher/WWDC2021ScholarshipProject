@@ -46,7 +46,7 @@ class OperationManager: RuntimeManagableSingleton
         loadSceneNode.unload()
         loadSceneNode.referenceURL = url
         loadSceneNode.load()
-        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "human", recursively: false)!)
+        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "root", recursively: false)!)
         
         let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
         scanNode.simdWorldTransform = targetScan.simdWorldTransform
@@ -61,6 +61,5 @@ class OperationManager: RuntimeManagableSingleton
     
     func rig() -> Void {
         humanNode.rig(cloudPointNode: scanNode)
-        scanNode.isHidden = true
     }
 }
