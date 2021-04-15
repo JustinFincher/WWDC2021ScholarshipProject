@@ -30,29 +30,27 @@ class HumanNode: SCNNode
         3, //"left_leg_joint"
         8, //"right_leg_joint"
         4, //"left_foot_joint"
-//        9, //"right_foot_joint"
-//        5, //"left_toes_joint"
-//        10, //"right_toes_joint"
+        9, //"right_foot_joint"
+        5, //"left_toes_joint"
+        10, //"right_toes_joint"
 //        6, //"left_toesEnd_joint"
 //        11, //"right_toesEnd_joint"
         12, //"spine_1_joint"
-        13, //"spine_2_joint"
-        14, //"spine_3_joint"
+//        13, //"spine_2_joint"
+//        14, //"spine_3_joint"
 //        15, //"spine_4_joint"
-//        18, //"spine_7_joint"
-//        48, //"neck_2_joint"
+        18, //"spine_7_joint"
+        48, //"neck_2_joint"
 //        50, //"neck_4_joint"
-//        51, //"head_joint"
-//        19, //"left_shoulder_1_joint"
-//        63, //"right_shoulder_1_joint"
-//        20, //"left_arm_joint"
-//        64, //"right_arm_joint"
-//        20, //"left_arm_joint"
-//        64, //"right_arm_joint"
-//        21, //"left_forearm_joint"
-//        65, //"right_forearm_joint"
-//        22, //"left_hand_joint"
-//        66, //"right_forearm_joint"
+        51, //"head_joint"
+        19, //"left_shoulder_1_joint"
+        63, //"right_shoulder_1_joint"
+        20, //"left_arm_joint"
+        64, //"right_arm_joint"
+        21, //"left_forearm_joint"
+        65, //"right_forearm_joint"
+        22, //"left_hand_joint"
+        66, //"right_forearm_joint"
     ]
     let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
         (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
@@ -216,7 +214,7 @@ class HumanNode: SCNNode
                 if withInSDF { break }
             }
             if withInSDF {
-                newVertexArray.append(vertexArray[i])
+                newVertexArray.append(self.convertPosition(vertexArray[i], from: cloudPointNode))
                 newColorArray.append(colorArray[i])
             }
         }
@@ -242,6 +240,7 @@ class HumanNode: SCNNode
         newGeometry.firstMaterial?.lightingModel = .constant
         newGeometry.firstMaterial?.diffuse.contents = UIColor.white
         cloudPointNode.geometry = newGeometry
+        cloudPointNode.simdWorldTransform = self.simdWorldTransform
     }
     
     func rig(cloudPointNode: SCNNode) -> Void
@@ -249,10 +248,21 @@ class HumanNode: SCNNode
         guard let geometry = cloudPointNode.geometry else {
             return
         }
-        let color = geometry.sources(for: .color).first!
-        var vertex = geometry.sources(for: .vertex).first!
+        
+//        var jointWorldPosBackup : [simd_float3] = []
+//        for jointIndex in 0..<jointCount {
+//            jointWorldPosBackup.append(joints[jointNames[jointIndex]]!.simdWorldPosition)
+//        }
+//        for jointIndex in 0..<jointCount {
+//            joints[jointNames[jointIndex]]!.setWorldTransform(SCNMatrix4Identity)
+//        }
+//        for jointIndex in 0..<jointCount {
+//            joints[jointNames[jointIndex]]!.simdWorldPosition = jointWorldPosBackup[jointIndex]
+//        }
+        
+        let vertex = geometry.sources(for: .vertex).first!
         let vertexCount = vertex.vectorCount
-        var vertexData = vertex.data
+        let vertexData = vertex.data
         
         var vertexArray = Array<SCNVector3>(repeating: SCNVector3(0, 0, 0), count: vertexData.count/MemoryLayout<SCNVector3>.stride)
         vertexArray.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) -> Void in
@@ -264,27 +274,28 @@ class HumanNode: SCNNode
         
         var jointsDistanceDict : [Int : Float] = [Int : Float]()
         for vertexIndex in 0..<vertexCount {
-            jointsDistanceDict.removeAll()
-            let vertexPosInScanSpace : simd_float3 = simd_float3(vertexArray[vertexIndex])
-            let vertexPosInSkeletonSpace = self.simdConvertPosition(vertexPosInScanSpace, from: cloudPointNode)
-            for jointIndex in riggingJointIndex {
-                let jointName = jointNames[jointIndex]
-                let jointNode = joints[jointName]
-                let jointPosInSkeletonSpace : simd_float3 = self.simdConvertPosition(simd_float3(0, 0, 0), from: jointNode)
-                let distance = simd_distance(vertexPosInSkeletonSpace, jointPosInSkeletonSpace)
-                jointsDistanceDict[jointIndex] = distance
-            }
+//            jointsDistanceDict.removeAll()
+//            let vertexPosInScanSpace : simd_float3 = simd_float3(vertexArray[vertexIndex])
+//            let vertexPosInSkeletonSpace = self.simdConvertPosition(vertexPosInScanSpace, from: cloudPointNode)
+//            for jointIndex in riggingJointIndex {
+//                let jointName = jointNames[jointIndex]
+//                let jointNode = joints[jointName]
+//                let jointPosInSkeletonSpace : simd_float3 = self.simdConvertPosition(simd_float3(0, 0, 0), from: jointNode)
+//                let distance = simd_distance(vertexPosInSkeletonSpace, jointPosInSkeletonSpace)
+//                jointsDistanceDict[jointIndex] = distance
+//            }
+//
+//            let jointsDistanceDictSorted = jointsDistanceDict.sorted { (p1:(key: Int, value: Float), p2:(key: Int, value: Float)) -> Bool in
+//                p1.value < p2.value
+//            }
+//            let skinJointIndex : Int = jointsDistanceDictSorted.first!.key
+//            let boneIndice : SIMD4<uint16> = jointsParentalPath[skinJointIndex]!.indice
+//            let boneWeight : simd_float4 = jointsParentalPath[skinJointIndex]!.weight
             
-            let jointsDistanceDictSorted = jointsDistanceDict.sorted { (p1:(key: Int, value: Float), p2:(key: Int, value: Float)) -> Bool in
-                p1.value < p2.value
-            }
-            let skinJointIndex : Int = jointsDistanceDictSorted.first!.key
-            let boneIndice : SIMD4<uint16> = jointsParentalPath[skinJointIndex]!.indice
-            let boneWeight : simd_float4 = jointsParentalPath[skinJointIndex]!.weight
-            boneIndicesArray.append(boneIndice)
-            boneWeightsArray.append(boneWeight)
+            //TODO: - Should use SDF to manually build up bones
             
-            vertexArray[vertexIndex] = SCNVector3(vertexPosInSkeletonSpace)
+//            boneIndicesArray.append(boneIndice)
+//            boneWeightsArray.append(boneWeight)
         }
         
         let boneWeightsData = boneWeightsArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_float4>) -> Data in
@@ -293,30 +304,22 @@ class HumanNode: SCNNode
         let boneIndicesData = boneIndicesArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SIMD4<uint16>>) -> Data in
             Data(buffer: pointer)
         })
-        vertexData = vertexArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SCNVector3>) -> Data in
-            Data(buffer: pointer)
-        })
         
         let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
         let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<uint16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<uint16>>.size)
+        
+        assert(MemoryLayout<SIMD4<uint16>>.size == MemoryLayout<uint16>.size * 4)
+        
         let bones : [SCNNode] = riggingJointIndex.map({ (boneIndex:Int) -> SCNNode in
             joints[jointNames[boneIndex]]!
         })
         let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
-            NSValue(scnMatrix4: SCNMatrix4Invert(joint.transform))
+            NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
         }
         
-        vertex = SCNGeometrySource(data: vertexData, semantic: .vertex, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
+        let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
-        let newGeometry = SCNGeometry(sources: [color, vertex], elements: geometry.elements)
-        newGeometry.firstMaterial?.lightingModel = .constant
-        newGeometry.firstMaterial?.diffuse.contents = UIColor.white
-        
-        let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         skinner.skeleton = self
-        
-        cloudPointNode.simdWorldTransform = self.simdWorldTransform
-        cloudPointNode.geometry = newGeometry
         cloudPointNode.skinner = skinner
     }
     
