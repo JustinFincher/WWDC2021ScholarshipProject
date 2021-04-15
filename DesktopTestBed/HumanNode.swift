@@ -24,9 +24,34 @@ class HumanNode: SCNNode
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
-    var jointsParentalPath: [Int32: (indice:simd_int4, weight:simd_float4)] = [Int32: (indice:simd_int4, weight:simd_float4)]()
+    var jointsParentalPath: [Int: (indice:simd_int4, weight:simd_float4)] = [Int: (indice:simd_int4, weight:simd_float4)]()
     let riggingJointIndex : [Int] = [
-        0, //"root"
+        2, //"left_upLeg_joint"
+        3, //"right_upLeg_joint"
+        2, //"left_leg_joint"
+        8, //"right_leg_joint"
+        4, //"left_foot_joint"
+        9, //"right_foot_joint"
+        5, //"left_toes_joint"
+        10, //"right_toes_joint"
+        6, //"left_toesEnd_joint"
+        11, //"right_toesEnd_joint"
+        12, //"spine_1_joint"
+        15, //"spine_4_joint"
+        18, //"spine_7_joint"
+        48, //"neck_2_joint"
+        50, //"neck_4_joint"
+        51, //"head_joint"
+        19, //"left_shoulder_1_joint"
+        63, //"right_shoulder_1_joint"
+        20, //"left_arm_joint"
+        64, //"right_arm_joint"
+        20, //"left_arm_joint"
+        64, //"right_arm_joint"
+        21, //"left_forearm_joint"
+        65, //"right_forearm_joint"
+        22, //"left_hand_joint"
+        66, //"right_forearm_joint"
     ]
     let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
         (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
@@ -36,10 +61,10 @@ class HumanNode: SCNNode
         (29, 29, 0.16), // "left_handMid_1_joint" sphere
         (63, 66, 0.25), // "right_shoulder_1_joint" to "right_hand_joint"
         (73, 73, 0.16), // "right_handMid_1_joint" sphere
-        (2, 4, 0.4), // "left_upLeg_joint" to "left_foot_joint"
-        (4, 6, 0.2), // ""left_foot_joint"" to "left_toesEnd_joint"
-        (7, 9, 0.4), // "right_upLeg_joint" to "right_foot_joint"
-        (9, 11, 0.2), // ""right_foot_joint"" to "right_toesEnd_joint"
+        (2, 4, 0.1), // "left_upLeg_joint" to "left_foot_joint"
+        (4, 6, 0.1), // ""left_foot_joint"" to "left_toesEnd_joint"
+        (7, 9, 0.1), // "right_upLeg_joint" to "right_foot_joint"
+        (9, 11, 0.1), // ""right_foot_joint"" to "right_toesEnd_joint"
     ]
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
@@ -99,12 +124,12 @@ class HumanNode: SCNNode
     }
     
     func generateLookupTable() -> Void {
-        for jointIndex in Int32(1)..<Int32(jointCount) {
+        for jointIndex in 0..<jointCount {
             var currentJointIndex = jointIndex
-            var indiceArray : [Int32] = [currentJointIndex]
+            var indiceArray : [Int] = [currentJointIndex]
             var weightArray : [Float] = []
-            for _ in Int32(1)..<Int32(4) {
-                currentJointIndex = currentJointIndex >= 0 ? Int32(getParentIndexOfJoint(index: Int(currentJointIndex))) : -1
+            for _ in 1..<4 {
+                currentJointIndex = currentJointIndex >= 0 ? getParentIndexOfJoint(index: Int(currentJointIndex)) : -1
                 indiceArray.append(currentJointIndex)
             }
             switch indiceArray.filter({ index -> Bool in index == -1 }).count { // get count for no parent
@@ -123,7 +148,7 @@ class HumanNode: SCNNode
             default:
                 break
             }
-            let indice : simd_int4 = simd_int4(indiceArray[0], indiceArray[1], indiceArray[2], indiceArray[3])
+            let indice : simd_int4 = simd_int4(Int32(indiceArray[0]), Int32(indiceArray[1]), Int32(indiceArray[2]), Int32(indiceArray[3]))
             let weight : simd_float4 = simd_float4(weightArray[0], weightArray[1], weightArray[2], weightArray[3])
             jointsParentalPath[jointIndex] = (indice, weight)
         }
@@ -156,7 +181,7 @@ class HumanNode: SCNNode
                     boxNode.simdWorldPosition = (startJointNode.simdWorldPosition + endJointNode.simdWorldPosition) / 2.0
                     boxNode.simdLook(at: endJointNode.simdWorldPosition)
                 }
-                boxNode.opacity = 0.1
+                boxNode.isHidden = true
             }
         }
     }
@@ -235,10 +260,10 @@ class HumanNode: SCNNode
         element.minimumPointScreenSpaceRadius = 2
         element.maximumPointScreenSpaceRadius = 15
         
-        
         let newGeometry = SCNGeometry(sources: [color, vertex], elements: [element])
+        newGeometry.firstMaterial?.lightingModel = .constant
+        newGeometry.firstMaterial?.diffuse.contents = UIColor.white
         cloudPointNode.geometry = newGeometry
-        
     }
     
     func rig(cloudPointNode: SCNNode) -> Void
@@ -246,12 +271,14 @@ class HumanNode: SCNNode
         guard let geometry = cloudPointNode.geometry else {
             return
         }
-        let vertex = geometry.sources(for: .vertex).first!
+        var color = geometry.sources(for: .color).first!
+        var vertex = geometry.sources(for: .vertex).first!
         let vertexCount = vertex.vectorCount
-        let data = vertex.data
-        var vertexArray = Array<simd_float3>(repeating: simd_float3(0, 0, 0), count: data.count/MemoryLayout<simd_float3>.stride)
+        var vertexData = vertex.data
+        
+        var vertexArray = Array<SCNVector3>(repeating: SCNVector3(0, 0, 0), count: vertexData.count/MemoryLayout<SCNVector3>.stride)
         vertexArray.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) -> Void in
-            data.copyBytes(to: pointer)
+            vertexData.copyBytes(to: pointer)
         }
         assert(vertexArray.count == vertexCount)
         var boneWeightsArray : [simd_float4] = []
@@ -260,14 +287,13 @@ class HumanNode: SCNNode
         var jointsDistanceDict : [Int : Float] = [Int : Float]()
         for vertexIndex in 0..<vertexCount {
             jointsDistanceDict.removeAll()
-            
-            let vertexPos : simd_float3 = vertexArray[vertexIndex]
-            let vertexLocalPos = self.simdConvertPosition(vertexPos, from: cloudPointNode)
+            let vertexPosInScanSpace : simd_float3 = simd_float3(vertexArray[vertexIndex])
+            let vertexPosInSkeletonSpace = self.simdConvertPosition(vertexPosInScanSpace, from: cloudPointNode)
             for jointIndex in riggingJointIndex {
                 let jointName = jointNames[jointIndex]
                 let jointNode = joints[jointName]
-                let jointLocalPos : simd_float3 = jointNode!.simdConvertPosition(simd_float3(0, 0, 0), to: self)
-                let distance = simd_distance(vertexLocalPos, jointLocalPos)
+                let jointPosInSkeletonSpace : simd_float3 = jointNode!.simdConvertPosition(simd_float3(0, 0, 0), to: self)
+                let distance = simd_distance(vertexPosInSkeletonSpace, jointPosInSkeletonSpace)
                 jointsDistanceDict[jointIndex] = distance
             }
             
@@ -275,10 +301,12 @@ class HumanNode: SCNNode
                 p1.value < p2.value
             }
             let skinJointIndex : Int = jointsDistanceDictSorted.first!.key
-            let boneIndice : simd_int4 = jointsParentalPath[Int32(skinJointIndex)]!.indice
-            let boneWeight : simd_float4 = jointsParentalPath[Int32(skinJointIndex)]!.weight
+            let boneIndice : simd_int4 = jointsParentalPath[skinJointIndex]!.indice
+            let boneWeight : simd_float4 = jointsParentalPath[skinJointIndex]!.weight
             boneIndicesArray.append(boneIndice)
             boneWeightsArray.append(boneWeight)
+            
+            vertexArray[vertexIndex] = SCNVector3(vertexPosInSkeletonSpace)
         }
         
         let boneWeightsData = boneWeightsArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_float4>) -> Data in
@@ -287,11 +315,21 @@ class HumanNode: SCNNode
         let boneIndicesData = boneIndicesArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<simd_int4>) -> Data in
             Data(buffer: pointer)
         })
+        vertexData = vertexArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SCNVector3>) -> Data in
+            Data(buffer: pointer)
+        })
         
         let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
         let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Int32>.size, dataOffset: 0, dataStride: MemoryLayout<simd_int4>.size)
         let skinner = SCNSkinner(baseGeometry: geometry, bones: Array(joints.values), boneInverseBindTransforms: nil, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
-        self.geometry = cloudPointNode.geometry
+        
+        vertex = SCNGeometrySource(data: vertexData, semantic: .vertex, vectorCount: vertexCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
+        
+        let newGeometry = SCNGeometry(sources: [color, vertex], elements: geometry.elements)
+        newGeometry.firstMaterial?.lightingModel = .constant
+        newGeometry.firstMaterial?.diffuse.contents = UIColor.white
+        
+        self.geometry = newGeometry
         self.skinner = skinner
     }
     

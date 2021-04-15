@@ -38,10 +38,11 @@ class OperationManager: RuntimeManagableSingleton
         }
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.loadSceneNode)
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.humanNode)
-        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.scanNode)
+        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.scanNode.withName(name: "scan"))
     }
     
     func loadScene(url: URL) -> Void {
+        loadSceneNode.isHidden = true
         loadSceneNode.unload()
         loadSceneNode.referenceURL = url
         loadSceneNode.load()
@@ -59,6 +60,7 @@ class OperationManager: RuntimeManagableSingleton
     }
     
     func rig() -> Void {
-        
+        humanNode.rig(cloudPointNode: scanNode)
+        scanNode.isHidden = true
     }
 }

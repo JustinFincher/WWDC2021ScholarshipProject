@@ -31,7 +31,9 @@ struct TestDebugView: View {
                 FilledButtonView(icon: "", text: "filter points", color: Color.accentColor, shadow: false, primary: false)
             })
             
-            Button(action: {}, label: {
+            Button(action: {
+                OperationManager.shared.rig()
+            }, label: {
                 FilledButtonView(icon: "", text: "rig", color: Color.accentColor, shadow: false, primary: false)
             })
             
