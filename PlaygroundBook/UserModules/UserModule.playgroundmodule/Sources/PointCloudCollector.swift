@@ -82,7 +82,7 @@ final class PointCloudCollector {
     // The current viewport size
     private var viewportSize = CGSize()
     // The grid of sample points
-    private lazy var gridPointsBuffer = MetalBuffer<Float2>(device: device,
+    private lazy var gridPointsBuffer = MetalBuffer<simd_float2>(device: device,
                                                             array: makeGridPoints(),
                                                             index: BufferIndices.kGridPoints.rawValue, options: [])
     
@@ -100,7 +100,7 @@ final class PointCloudCollector {
     
     // Camera data
     private var sampleFrame: ARFrame { session.currentFrame! }
-    private lazy var cameraResolution = Float2(Float(sampleFrame.camera.imageResolution.width), Float(sampleFrame.camera.imageResolution.height))
+    private lazy var cameraResolution = simd_float2(Float(sampleFrame.camera.imageResolution.width), Float(sampleFrame.camera.imageResolution.height))
     private lazy var viewToCamera = sampleFrame.displayTransform(for: orientation, viewportSize: viewportSize).inverted()
     private lazy var lastCameraTransform = sampleFrame.camera.transform
     
@@ -290,17 +290,17 @@ private extension PointCloudCollector {
     }
     
     /// Makes sample points on camera image, also precompute the anchor point for animation
-    func makeGridPoints() -> [Float2] {
+    func makeGridPoints() -> [simd_float2] {
         let gridArea = cameraResolution.x * cameraResolution.y
         let spacing = sqrt(gridArea / Float(numGridPoints))
         let deltaX = Int(round(cameraResolution.x / spacing))
         let deltaY = Int(round(cameraResolution.y / spacing))
         
-        var points = [Float2]()
+        var points = [simd_float2]()
         for gridY in 0 ..< deltaY {
             let alternatingOffsetX = Float(gridY % 2) * spacing / 2
             for gridX in 0 ..< deltaX {
-                let cameraPoint = Float2(alternatingOffsetX + (Float(gridX) + 0.5) * spacing, (Float(gridY) + 0.5) * spacing)
+                let cameraPoint = simd_float2(alternatingOffsetX + (Float(gridX) + 0.5) * spacing, (Float(gridY) + 0.5) * spacing)
                 
                 points.append(cameraPoint)
             }
@@ -353,6 +353,6 @@ private extension PointCloudCollector {
             [0, 0, 0, 1] )
 
         let rotationAngle = Float(cameraToDisplayRotation(orientation: orientation)) * .degreesToRadian
-        return flipYZ * matrix_float4x4(simd_quaternion(rotationAngle, Float3(0, 0, 1)))
+        return flipYZ * matrix_float4x4(simd_quaternion(rotationAngle, simd_float3(0, 0, 1)))
     }
 }

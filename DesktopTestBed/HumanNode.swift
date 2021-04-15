@@ -7,11 +7,19 @@
 
 import Foundation
 import SceneKit
-import ARKit
 import SwiftUI
 
-class HumanNode: SCNNode, SCNCustomNode
+class HumanNode: SCNNode
 {
+    var jointCount = 91
+    var jointNames : [String] = [
+        "root","hips_joint","left_upLeg_joint","left_leg_joint","left_foot_joint","left_toes_joint","left_toesEnd_joint","right_upLeg_joint","right_leg_joint","right_foot_joint","right_toes_joint","right_toesEnd_joint","spine_1_joint","spine_2_joint","spine_3_joint","spine_4_joint","spine_5_joint","spine_6_joint","spine_7_joint","left_shoulder_1_joint","left_arm_joint","left_forearm_joint","left_hand_joint","left_handIndexStart_joint","left_handIndex_1_joint","left_handIndex_2_joint","left_handIndex_3_joint","left_handIndexEnd_joint","left_handMidStart_joint","left_handMid_1_joint","left_handMid_2_joint","left_handMid_3_joint","left_handMidEnd_joint","left_handPinkyStart_joint","left_handPinky_1_joint","left_handPinky_2_joint","left_handPinky_3_joint","left_handPinkyEnd_joint","left_handRingStart_joint","left_handRing_1_joint","left_handRing_2_joint","left_handRing_3_joint","left_handRingEnd_joint","left_handThumbStart_joint","left_handThumb_1_joint","left_handThumb_2_joint","left_handThumbEnd_joint","neck_1_joint","neck_2_joint","neck_3_joint","neck_4_joint","head_joint","jaw_joint","chin_joint","left_eye_joint","left_eyeLowerLid_joint","left_eyeUpperLid_joint","left_eyeball_joint","nose_joint","right_eye_joint","right_eyeLowerLid_joint","right_eyeUpperLid_joint","right_eyeball_joint","right_shoulder_1_joint","right_arm_joint","right_forearm_joint","right_hand_joint","right_handIndexStart_joint","right_handIndex_1_joint","right_handIndex_2_joint","right_handIndex_3_joint","right_handIndexEnd_joint","right_handMidStart_joint","right_handMid_1_joint","right_handMid_2_joint","right_handMid_3_joint","right_handMidEnd_joint","right_handPinkyStart_joint","right_handPinky_1_joint","right_handPinky_2_joint","right_handPinky_3_joint","right_handPinkyEnd_joint","right_handRingStart_joint","right_handRing_1_joint","right_handRing_2_joint","right_handRing_3_joint","right_handRingEnd_joint","right_handThumbStart_joint","right_handThumb_1_joint","right_handThumb_2_joint","right_handThumbEnd_joint"
+    ]
+    
+    var parentIndices : [Int] = [
+        -1,0,1,2,3,4,5,1,7,8,9,10,1,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,22,28,29,30,31,22,33,34,35,36,22,38,39,40,41,22,43,44,45,18,47,48,49,50,51,52,51,54,54,54,51,51,59,59,59,18,63,64,65,66,67,68,69,70,66,72,73,74,75,66,77,78,79,80,66,82,83,84,85,66,87,88,89
+    ]
+    
     var skeleton : SCNNode? = nil
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
@@ -21,20 +29,21 @@ class HumanNode: SCNNode, SCNCustomNode
         0, //"root"
     ]
     let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 47, 0.8), // "hips_joint" to "neck_1_joint"
-        (47, 51, 0.4), // "neck_1_joint" to "head_joint"
-        (51, 51, 0.5), // "head_joint" sphere
-        (19, 22, 0.3), // "left_shoulder_1_joint" to "left_hand_joint"
-        (29, 29, 0.6), // "left_handMid_1_joint" sphere
-        (63, 66, 0.3), // "right_shoulder_1_joint" to "right_hand_joint"
-        (66, 66, 0.6), // "right_hand_joint" sphere
-        (2, 4, 0.3), // "left_upLeg_joint" to "left_foot_joint"
-        (4, 6, 0.3), // ""left_foot_joint"" to "left_toesEnd_joint"
-        (7, 9, 0.3), // "right_upLeg_joint" to "right_foot_joint"
-        (9, 11, 0.3), // ""right_foot_joint"" to "right_toesEnd_joint"
+        (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
+        (47, 51, 0.25), // "neck_1_joint" to "head_joint"
+        (51, 51, 0.2), // "head_joint" sphere
+        (19, 22, 0.25), // "left_shoulder_1_joint" to "left_hand_joint"
+        (29, 29, 0.16), // "left_handMid_1_joint" sphere
+        (63, 66, 0.25), // "right_shoulder_1_joint" to "right_hand_joint"
+        (73, 73, 0.16), // "right_handMid_1_joint" sphere
+        (2, 4, 0.4), // "left_upLeg_joint" to "left_foot_joint"
+        (4, 6, 0.2), // ""left_foot_joint"" to "left_toesEnd_joint"
+        (7, 9, 0.4), // "right_upLeg_joint" to "right_foot_joint"
+        (9, 11, 0.2), // ""right_foot_joint"" to "right_toesEnd_joint"
     ]
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
+        simdTransform = anotherHuman.simdTransform
         joints.removeAll()
         childNodes.forEach { (child: SCNNode) in
             child.removeFromParentNode()
@@ -47,8 +56,8 @@ class HumanNode: SCNNode, SCNCustomNode
         headsUp = self.childNode(withName: "headsUp", recursively: true)
         boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
         generateLookupTable()
-        for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount {
-            let jointName = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+        for jointIndex in 0..<jointCount {
+            let jointName = jointNames[jointIndex]
             let node = skeleton?.childNode(withName: jointName, recursively: true)!
             joints[jointName] = node
         }
@@ -90,10 +99,7 @@ class HumanNode: SCNNode, SCNCustomNode
     }
     
     func generateLookupTable() -> Void {
-        for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount {
-            print("\(ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex])")
-        }
-        for jointIndex in Int32(1)..<Int32(ARSkeletonDefinition.defaultBody3D.jointCount) {
+        for jointIndex in Int32(1)..<Int32(jointCount) {
             var currentJointIndex = jointIndex
             var indiceArray : [Int32] = [currentJointIndex]
             var weightArray : [Float] = []
@@ -124,58 +130,7 @@ class HumanNode: SCNNode, SCNCustomNode
     }
     
     func getParentIndexOfJoint(index: Int) -> Int {
-        return ARSkeletonDefinition.defaultBody3D.parentIndices[index]
-    }
-    
-    func pose(bodyAnchor: ARBodyAnchor, reuse: Bool = false) -> Void {
-        if let skeleton = skeleton {
-            if !reuse {
-                joints.removeAll()
-                skeleton.childNodes.forEach { node in
-                    node.removeFromParentNode()
-                }
-            }
-            
-            self.simdTransform = bodyAnchor.transform
-            
-            if !reuse {
-                for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // with root
-                    let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                    let jointNode : SCNNode = SCNNode()
-                    jointNode.name = name
-                    joints[name] = jointNode
-                }
-            }
-            
-            for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let name : String = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                let parentJointIndex : Int = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
-                if let currentJoint = joints[name],
-                   let parentJoint = jointIndex == 0 ? skeleton : joints[ARSkeletonDefinition.defaultBody3D.jointNames[parentJointIndex]]
-                {
-                    if !reuse {
-                        parentJoint.addChildNode(currentJoint)
-                    }
-                    currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
-                    let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
-                    currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
-                    currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-                    
-                    let markNode = SCNNode().withName(name: "mark")
-                    markNode.geometry = SCNSphere(radius: 0.01)
-                    currentJoint.addChildNode(markNode)
-                }
-                
-            }
-            
-            if let headsUp = headsUp,
-               let headJoint = joints["head_joint"],
-               let rootJoint = joints["root"]
-            {
-                headsUp.isHidden = joints.count == 0
-                headsUp.simdWorldPosition = headJoint.simdWorldPosition + rootJoint.simdWorldUp * 0.5
-            }
-        }
+        return parentIndices[index]
     }
     
     func generateBoundingBoxes() -> Void {
@@ -185,8 +140,8 @@ class HumanNode: SCNNode, SCNCustomNode
             }
             
             boundingBoxIndex.forEach { (item: (startJoint: Int, endJoint: Int, radius: Float)) in
-                let startJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[item.startJoint]
-                let endJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[item.endJoint]
+                let startJointName : String = jointNames[item.startJoint]
+                let endJointName : String = jointNames[item.endJoint]
                 let startJointNode : SCNNode = joints[startJointName]!
                 let endJointNode : SCNNode = joints[endJointName]!
                 let boxNode = SCNNode()
@@ -196,17 +151,22 @@ class HumanNode: SCNNode, SCNCustomNode
                     boxNode.geometry = SCNSphere(radius: CGFloat(item.radius))
                     boxNode.simdWorldPosition = startJointNode.simdWorldPosition
                 } else {
-                    let distance = simd_distance(startJointNode.simdPosition, endJointNode.simdPosition)
-                    boxNode.geometry = SCNCylinder(radius: CGFloat(item.radius), height: CGFloat(distance))
-                    boxNode.simdWorldPosition = startJointNode.simdWorldPosition
+                    let distance = simd_distance(startJointNode.simdWorldPosition, endJointNode.simdWorldPosition) + 0.1
+                    boxNode.geometry = SCNBox(width: CGFloat(item.radius), height: CGFloat(item.radius), length: CGFloat(distance), chamferRadius: 0)
+                    boxNode.simdWorldPosition = (startJointNode.simdWorldPosition + endJointNode.simdWorldPosition) / 2.0
                     boxNode.simdLook(at: endJointNode.simdWorldPosition)
                 }
+                boxNode.opacity = 0.1
             }
         }
     }
     
     func filterPoints(cloudPointNode: SCNNode) -> Void {
-        
+        generateBoundingBoxes()
+        if let geometry = cloudPointNode.geometry
+        {
+            
+        }
     }
     
     func rig(cloudPointNode: SCNNode) -> Void
@@ -232,7 +192,7 @@ class HumanNode: SCNNode, SCNCustomNode
             let vertexPos : simd_float3 = vertexArray[vertexIndex]
             let vertexLocalPos = self.simdConvertPosition(vertexPos, from: cloudPointNode)
             for jointIndex in riggingJointIndex {
-                let jointName = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+                let jointName = jointNames[jointIndex]
                 let jointNode = joints[jointName]
                 let jointLocalPos : simd_float3 = jointNode!.simdConvertPosition(simd_float3(0, 0, 0), to: self)
                 let distance = simd_distance(vertexLocalPos, jointLocalPos)
@@ -265,35 +225,5 @@ class HumanNode: SCNNode, SCNCustomNode
     
     func animate(animation: SCNAnimation) -> Void {
         
-    }
-    
-    //MARK: - SCNCustomNode
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if let pointOfView = renderer.pointOfView,
-           let headsUp = headsUp {
-            headsUp.simdLook(at: pointOfView.simdWorldPosition)
-        }
-    }
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        
-    }
-    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
-            anchor as? ARBodyAnchor
-        }
-        if let body = bodies.first {
-            print("add body \(body)")
-            pose(bodyAnchor: body)
-        }
-    }
-    
-    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
-        let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
-            anchor as? ARBodyAnchor
-        }
-        if let body = bodies.first {
-            print("update body \(body)")
-            pose(bodyAnchor: body)
-        }
     }
 }
