@@ -163,10 +163,82 @@ class HumanNode: SCNNode
     
     func filterPoints(cloudPointNode: SCNNode) -> Void {
         generateBoundingBoxes()
-        if let geometry = cloudPointNode.geometry
-        {
-            
+        guard let geometry = cloudPointNode.geometry else {
+            print("error")
+            return
         }
+        var color = geometry.sources(for: .color).first!
+        let colorData = color.data
+        var vertex = geometry.sources(for: .vertex).first!
+        let vertexData = vertex.data
+        
+        let initialCount : Int = vertex.vectorCount
+        var finalCount : Int  = 0
+        
+        assert(vertex.vectorCount == color.vectorCount)
+        
+        assert(vertexData.count/MemoryLayout<SCNVector3>.stride == vertex.vectorCount)
+        var vertexArray = Array<SCNVector3>(repeating: SCNVector3(0, 0, 0), count: vertex.vectorCount)
+        var newVertexArray : [SCNVector3] = []
+        vertexArray.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) -> Void in
+            vertexData.copyBytes(to: pointer)
+        }
+        
+        assert(colorData.count/MemoryLayout<SCNVector3>.stride == color.vectorCount)
+        var colorArray = Array<SCNVector3>(repeating: SCNVector3(0, 0, 0), count: color.vectorCount)
+        var newColorArray : [SCNVector3] = []
+        colorArray.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) -> Void in
+            colorData.copyBytes(to: pointer)
+        }
+        
+        for i in 0..<initialCount {
+            var withInSDF = false
+            let vertexWorldPosition : simd_float3 = cloudPointNode.simdConvertPosition(simd_float3(vertexArray[i]), to: nil)
+            for b in 0..<boundingBoxIndex.count {
+                let bounding : (startJoint: Int, endJoint: Int, radius: Float) = boundingBoxIndex[b]
+                let startJointName : String = jointNames[bounding.startJoint]
+                let startJointNode : SCNNode = joints[startJointName]!
+                let startJointWorldPosition = startJointNode.simdConvertPosition(simd_float3(0,0,0), to: nil)
+                if (bounding.startJoint == bounding.endJoint)
+                {
+                    // sdf sphere
+                    withInSDF = withInSDF || (sdSphere(p: vertexWorldPosition, c: startJointWorldPosition, r: bounding.radius) <= 0)
+                } else {
+                    // sdf cone
+                    let endJointName : String = jointNames[bounding.endJoint]
+                    let endJointNode : SCNNode = joints[endJointName]!
+                    let endJointWorldPosition = endJointNode.simdConvertPosition(simd_float3(0,0,0), to: nil)
+                    withInSDF = withInSDF || (sdCapsule(p: vertexWorldPosition, a: startJointWorldPosition, b: endJointWorldPosition, r: bounding.radius) <= 0)
+                }
+                if withInSDF { break }
+            }
+            if withInSDF {
+                newVertexArray.append(vertexArray[i])
+                newColorArray.append(colorArray[i])
+            }
+        }
+        
+        assert(newVertexArray.count == newColorArray.count)
+        finalCount = newVertexArray.count
+        
+        color = SCNGeometrySource(data: newColorArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SCNVector3>) -> Data in
+            Data(buffer: pointer)
+        }), semantic: .color, vectorCount: finalCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
+        vertex = SCNGeometrySource(data: newVertexArray.withUnsafeMutableBufferPointer({ (pointer: inout UnsafeMutableBufferPointer<SCNVector3>) -> Data in
+            Data(buffer: pointer)
+        }), semantic: .vertex, vectorCount: finalCount, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<SCNVector3>.size)
+        
+        let indices = Array(ClosedRange<Int32>.init(0..<Int32(finalCount)))
+        let indiceData = indices.withUnsafeBufferPointer { Data(buffer: $0) }
+        let element = SCNGeometryElement(data: indiceData, primitiveType: .point, primitiveCount: finalCount, bytesPerIndex: MemoryLayout.size(ofValue: Int32(0)))
+        element.pointSize = 15
+        element.minimumPointScreenSpaceRadius = 2
+        element.maximumPointScreenSpaceRadius = 15
+        
+        
+        let newGeometry = SCNGeometry(sources: [color, vertex], elements: [element])
+        cloudPointNode.geometry = newGeometry
+        
     }
     
     func rig(cloudPointNode: SCNNode) -> Void

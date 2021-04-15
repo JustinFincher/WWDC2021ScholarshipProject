@@ -47,7 +47,7 @@ class OperationManager: RuntimeManagableSingleton
         loadSceneNode.load()
         humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "human", recursively: false)!)
         
-        let targetScan = loadSceneNode.childNode(withName: "human", recursively: false)!
+        let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
         scanNode.simdWorldTransform = targetScan.simdWorldTransform
         scanNode.geometry = targetScan.geometry
         
