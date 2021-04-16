@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var frameCount : Int = 0
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 8, content: {
@@ -23,6 +24,20 @@ struct ContentView: View {
                     
                 }, label: {
                     FilledButtonView(icon: "", text: "import scene", color: Color.accentColor, shadow: false, primary: false)
+                })
+                
+                TextField("Frame Count", value: $frameCount, formatter: NumberFormatter())
+                
+                Button(action: {
+                    OperationManager.shared.recordAnimation(framesCount: frameCount)
+                }, label: {
+                    FilledButtonView(icon: "", text: "record animation", color: Color.accentColor, shadow: false, primary: false)
+                })
+                
+                Button(action: {
+                    OperationManager.shared.exportAnimation()
+                }, label: {
+                    FilledButtonView(icon: "", text: "export animation", color: Color.accentColor, shadow: false, primary: false)
                 })
                 
             })

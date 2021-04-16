@@ -98,7 +98,6 @@ class HumanNode: SCNNode
     
     func setup() {
         name = "human"
-        
         skeleton = SCNNode()
         if let skeleton = skeleton {
             skeleton.name = "skeleton"
@@ -301,9 +300,7 @@ class HumanNode: SCNNode
         
         assert(MemoryLayout<SIMD4<UInt16>>.size == MemoryLayout<UInt16>.size * 4)
         
-        let bones : [SCNNode] = (0..<jointCount).map({ (boneIndex:Int) -> SCNNode in
-            joints[jointNames[boneIndex]]!
-        })
+        let bones : [SCNNode] = getBones()
 
         let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
             NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
@@ -311,11 +308,28 @@ class HumanNode: SCNNode
         
         let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
-        skinner.skeleton = joints["root"]
+        skinner.skeleton = joints["hips_joint"]
         cloudPointNode.skinner = skinner
     }
     
-    func animate(animation: SCNAnimation) -> Void {
-        
+    func getBones() -> [SCNNode] {
+        let bones : [SCNNode] = (0..<jointCount).map({ (boneIndex:Int) -> SCNNode in
+            joints[jointNames[boneIndex]]!
+        })
+        return bones
     }
+    
+    func apply(frame: ARKitSkeletonAnimationFrame) -> Void {
+        let hips = joints["hips_joint"]
+        frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
+            if let joint = joints[seg.key],
+               let hips = hips
+            {
+                joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
+            } else {
+                print("non exist joint")
+            }
+        }
+    }
+    
 }

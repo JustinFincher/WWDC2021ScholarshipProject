@@ -40,14 +40,18 @@ struct TestDebugView: View {
             })
             
             Button(action: {
-                let picker = DocumentPickerViewController(supportedExtensions: ["dae","scn","scnz"]) { (url: URL) in
+                let picker = DocumentPickerViewController(supportedExtensions: ["json"]) { (url: URL) in
                     print(url)
                     
                     do {
-                        let scene = try SCNScene(url: url, options: nil)
-                        scene.rootNode.examineAnimatable()
+                        let json = try String(contentsOf: url)
+                        if let data = json.data(using: .utf8)
+                        {
+                            let an = try JSONDecoder().decode(ARKitSkeletonAnimation.self, from: data)
+                            OperationManager.shared.animate(animation: an)
+                        }
+                        print(json)
                     } catch let err {
-                        print(err)
                     }
                 } onDismiss: {
                     

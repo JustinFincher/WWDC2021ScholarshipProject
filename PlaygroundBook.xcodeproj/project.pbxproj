@@ -76,6 +76,8 @@
 		0D8F981526294B8F0099753B /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
 		0D8F981A26294BAB0099753B /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D8F981F26294D080099753B /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
+		0D8F9824262956890099753B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
+		0D8F982A26295ACF0099753B /* bboy_hip_hop_move.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D8F982926295ACF0099753B /* bboy_hip_hop_move.json */; };
 		0DA26CC126256EC4008E6447 /* SCNScene+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */; };
 		0DA26CC526260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */; };
 		0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */; };
@@ -218,6 +220,7 @@
 		0D8F97F0262949E60099753B /* AnimationAuthorTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnimationAuthorTool.entitlements; sourceTree = "<group>"; };
 		0D8F97FA26294A860099753B /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D8F980A26294B180099753B /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
+		0D8F982926295ACF0099753B /* bboy_hip_hop_move.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bboy_hip_hop_move.json; sourceTree = "<group>"; };
 		0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNScene+Export.swift"; sourceTree = "<group>"; };
 		0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRemoveBgAndRigView.swift; sourceTree = "<group>"; };
 		0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRiggingView.swift; sourceTree = "<group>"; };
@@ -323,6 +326,7 @@
 				0D4B2F50262779230027A0F8 /* EnvironmentManager.swift */,
 				0D4B2F812627B2B70027A0F8 /* HumanHeadFloatingView.swift */,
 				0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */,
+				0D8F982926295ACF0099753B /* bboy_hip_hop_move.json */,
 				0D4B2EF526276EE20027A0F8 /* Assets.xcassets */,
 				0D4B2EFA26276EE20027A0F8 /* LaunchScreen.storyboard */,
 				0D4B2EFD26276EE20027A0F8 /* Info.plist */,
@@ -724,6 +728,7 @@
 			files = (
 				0D4B2EFC26276EE20027A0F8 /* LaunchScreen.storyboard in Resources */,
 				0D4B2EF926276EE20027A0F8 /* Preview Assets.xcassets in Resources */,
+				0D8F982A26295ACF0099753B /* bboy_hip_hop_move.json in Resources */,
 				0D4B2EF626276EE20027A0F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -870,6 +875,7 @@
 				0D8F981F26294D080099753B /* Data.swift in Sources */,
 				0D8F981026294B820099753B /* DocumentPickerViewController.swift in Sources */,
 				0D8F97FB26294A860099753B /* OperationManager.swift in Sources */,
+				0D8F9824262956890099753B /* Helpers.swift in Sources */,
 				0D8F980026294A9F0099753B /* RuntimeManager.swift in Sources */,
 				0D8F97DB262949DE0099753B /* ContentView.swift in Sources */,
 			);

@@ -15,6 +15,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
     let humanNode : HumanNode = HumanNode()
     let scanNode : SCNNode = SCNNode()
     let scene: SCNScene = SCNScene()
+    var animation : ARKitSkeletonAnimation? = nil
     
     static let shared: OperationManager = {
         let instance = OperationManager()
@@ -50,7 +51,20 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
         
         let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
         scanNode.simdWorldTransform = targetScan.simdWorldTransform
-        scanNode.geometry = targetScan.geometry
+        if let sources : [SCNGeometrySource] = targetScan.geometry?.sources,
+           let element : SCNGeometryElement = targetScan.geometry?.element(at: 0) {
+            element.pointSize = 15
+            element.minimumPointScreenSpaceRadius = 6
+            element.maximumPointScreenSpaceRadius = 15
+            scanNode.geometry = SCNGeometry(sources: sources, elements: [element])
+            scanNode.geometry?.firstMaterial?.lightingModel = .constant
+            scanNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        }
+        if let skinner = targetScan.skinner {
+            let newSkinner = SCNSkinner(baseGeometry: skinner.baseGeometry, bones: humanNode.getBones(), boneInverseBindTransforms: skinner.boneInverseBindTransforms, boneWeights: skinner.boneWeights, boneIndices: skinner.boneIndices)
+            newSkinner.skeleton = humanNode.joints["hips_joint"]
+            scanNode.skinner = newSkinner
+        }
         
         loadSceneNode.unload()
     }
@@ -64,7 +78,23 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
         }
     }
     
+    func animate(animation: ARKitSkeletonAnimation) -> Void {
+        self.animation = animation
+    }
+    
     func rig() -> Void {
         humanNode.rig(cloudPointNode: scanNode)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+        if animation?.frames.count ?? 0 > 0 {
+            print("frame \(animation?.frames.count ?? 0)")
+            humanNode.apply(frame: (animation?.frames[0])!)
+            animation?.removeFirstFrame()
+        }
     }
 }

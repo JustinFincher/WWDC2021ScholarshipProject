@@ -26,9 +26,15 @@ protocol RenderDestinationProvider {
 }
 
 struct ARKitSkeletonAnimationFrame : Codable {
-    var joints : Dictionary<String, simd_float3> = Dictionary<String, simd_float3>()
+    var joints : Dictionary<String, simd_float4x4> = Dictionary<String, simd_float4x4>()
 }
 
 struct ARKitSkeletonAnimation : Codable {
     var frames : [ARKitSkeletonAnimationFrame] = []
+    mutating func addFrame(frame: ARKitSkeletonAnimationFrame){
+        frames.append(frame)
+    }
+    mutating func removeFirstFrame() {
+        frames.removeFirst()
+    }
 }
