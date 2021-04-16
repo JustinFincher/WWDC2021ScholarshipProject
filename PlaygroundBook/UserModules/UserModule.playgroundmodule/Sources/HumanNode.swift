@@ -152,17 +152,10 @@ class HumanNode: SCNNode, SCNCustomNode
                         parentJoint.addChildNode(currentJoint)
                     }
                     currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
-                    let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
-                    currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
-                    currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-                    if !reuse {
-                        let markNode = SCNNode().withName(name: "mark")
-                        markNode.geometry = SCNSphere(radius: 0.01)
-                        currentJoint.addChildNode(markNode)
-                    }
                 }
-                
             }
+            
+            drawSkeleton()
             
             if let headsUp = headsUp,
                let headJoint = joints["head_joint"],
@@ -170,6 +163,27 @@ class HumanNode: SCNNode, SCNCustomNode
             {
                 headsUp.isHidden = joints.count == 0
                 headsUp.simdWorldPosition = headJoint.simdWorldPosition + rootJoint.simdWorldUp * 0.5
+            }
+        }
+    }
+    
+    func drawSkeleton() -> Void {
+        for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
+            let name : String = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+            let parentJointIndex : Int = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
+            if let currentJoint = joints[name],
+               let parentJoint = jointIndex == 0 ? skeleton : joints[ARSkeletonDefinition.defaultBody3D.jointNames[parentJointIndex]]
+            {
+                let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
+                currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
+                currentJoint.geometry?.firstMaterial?.lightingModel = .constant
+                currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+                let markNode : SCNNode = currentJoint.childNode(withName: "mark", recursively: false) ?? SCNNode().withName(name: "mark")
+                markNode.removeFromParentNode()
+                currentJoint.addChildNode(markNode)
+                markNode.geometry = SCNSphere(radius: 0.01)
+                markNode.geometry?.firstMaterial?.lightingModel = .constant
+                markNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
             }
         }
     }

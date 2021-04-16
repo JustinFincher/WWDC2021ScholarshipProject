@@ -60,13 +60,13 @@ class HumanNode: SCNNode
         (66, 66, 0.2), // right_hand_joint
     ]
     let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
-        (47, 51, 0.25), // "neck_1_joint" to "head_joint"
-        (51, 51, 0.2), // "head_joint" sphere
-        (19, 22, 0.25), // "left_shoulder_1_joint" to "left_hand_joint"
-        (29, 29, 0.16), // "left_handMid_1_joint" sphere
-        (63, 66, 0.25), // "right_shoulder_1_joint" to "right_hand_joint"
-        (73, 73, 0.16), // "right_handMid_1_joint" sphere
+        (1, 47, 0.25), // "hips_joint" to "neck_1_joint"
+        (47, 51, 0.15), // "neck_1_joint" to "head_joint"
+        (51, 51, 0.15), // "head_joint" sphere
+        (19, 22, 0.15), // "left_shoulder_1_joint" to "left_hand_joint"
+        (29, 29, 0.1), // "left_handMid_1_joint" sphere
+        (63, 66, 0.15), // "right_shoulder_1_joint" to "right_hand_joint"
+        (73, 73, 0.1), // "right_handMid_1_joint" sphere
         (2, 4, 0.1), // "left_upLeg_joint" to "left_foot_joint"
         (4, 6, 0.1), // ""left_foot_joint"" to "left_toesEnd_joint"
         (7, 9, 0.1), // "right_upLeg_joint" to "right_foot_joint"
@@ -320,14 +320,41 @@ class HumanNode: SCNNode
     }
     
     func apply(frame: ARKitSkeletonAnimationFrame) -> Void {
+        print("apply frame")
         let hips = joints["hips_joint"]
         frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
             if let joint = joints[seg.key],
                let hips = hips
             {
+                print("\(seg.key)")
                 joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
+                let hipRelativePos = hips.simdConvertPosition(joint.simdWorldPosition, from: nil) * 0.012
+                joint.simdWorldPosition = hips.simdConvertPosition(hipRelativePos, to: nil)
             } else {
                 print("non exist joint")
+            }
+        }
+        drawSkeleton()
+        
+    }
+    
+    func drawSkeleton() -> Void {
+        for jointIndex in 0..<jointCount { // ignore root
+            let name : String = jointNames[jointIndex]
+            let parentJointIndex : Int = parentIndices[jointIndex]
+            if let currentJoint = joints[name],
+               let parentJoint = jointIndex == 0 ? skeleton : joints[jointNames[parentJointIndex]]
+            {
+                let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
+                currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
+                currentJoint.geometry?.firstMaterial?.lightingModel = .constant
+                currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+                let markNode : SCNNode = currentJoint.childNode(withName: "mark", recursively: false) ?? SCNNode().withName(name: "mark")
+                markNode.removeFromParentNode()
+                currentJoint.addChildNode(markNode)
+                markNode.geometry = SCNSphere(radius: 0.01)
+                markNode.geometry?.firstMaterial?.lightingModel = .constant
+                markNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
             }
         }
     }
