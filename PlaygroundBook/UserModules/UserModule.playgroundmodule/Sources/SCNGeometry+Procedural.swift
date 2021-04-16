@@ -11,20 +11,23 @@ import SceneKit
 extension SCNGeometry {
     convenience init(buffer : MetalBuffer<ParticleUniforms>)
     {
+        let bufferoCount = buffer.count
+        let bufferStride = buffer.stride
         let positionOffset : Int = MemoryLayout.offset(of: \ParticleUniforms.position) ?? 0
         let vertexSource : SCNGeometrySource = SCNGeometrySource(buffer: buffer.getMTLBuffer(),
                                                                  vertexFormat: .float3,
                                                                  semantic: .vertex,
-                                                                 vertexCount: buffer.count,
+                                                                 vertexCount: bufferoCount,
                                                                  dataOffset: positionOffset,
-                                                                 dataStride: buffer.stride)
-        let colorOffset : Int = MemoryLayout.offset(of: \ParticleUniforms.color) ?? 12
+                                                                 dataStride: bufferStride)
+        let colorOffset : Int = MemoryLayout.offset(of: \ParticleUniforms.color) ?? 16 // simd_float3 actually has 4*4
         let colorSource : SCNGeometrySource = SCNGeometrySource(buffer: buffer.getMTLBuffer(),
                                                                 vertexFormat: .float3,
                                                                 semantic: .color,
-                                                                vertexCount: buffer.count,
+                                                                vertexCount: bufferoCount,
                                                                 dataOffset: colorOffset,
-                                                                dataStride: buffer.stride)
+                                                                dataStride: bufferStride)
+        
         let indices = Array(ClosedRange<Int32>.init(0..<Int32(buffer.count)))
         let indiceData = indices.withUnsafeBufferPointer { Data(buffer: $0) }
         let element = SCNGeometryElement(data: indiceData, primitiveType: .point, primitiveCount: buffer.count, bytesPerIndex: MemoryLayout.size(ofValue: Int32(0)))

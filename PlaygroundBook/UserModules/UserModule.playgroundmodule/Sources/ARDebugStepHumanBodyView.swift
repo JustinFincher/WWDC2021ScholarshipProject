@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct ARDebugStepHumanBodyView: View {
+    @EnvironmentObject var environment: DataEnvironment
     var body: some View {
         VStack {
             Text("Capture Skeleton")
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            EntityHierarchyView(entities: [
-                OperationManager.shared.scanNode.entity,
-                OperationManager.shared.humanNode.entity
-            ])
+            Button(action: {
+                environment.arOperationMode = .positionSekeleton
+            }, label: {
+                FilledButtonView(icon: "", text: "Fix Position", color: Color.accentColor, shadow: false, primary: true)
+            })
+            .padding(.horizontal)
+
         }
     }
 }

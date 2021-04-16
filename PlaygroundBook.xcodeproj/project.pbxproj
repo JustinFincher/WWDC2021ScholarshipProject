@@ -69,9 +69,10 @@
 		0DA26CD726260F3A008E6447 /* HumanHeadFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */; };
 		0DA26CDB26261165008E6447 /* SCNCustomNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */; };
 		0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDE262611E4008E6447 /* ScanNode.swift */; };
-		0DC98BBB2627CE6300A282B0 /* SDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC98BBA2627CE6300A282B0 /* SDF.swift */; };
 		0DC98BBF2627CFA900A282B0 /* SDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC98BBA2627CE6300A282B0 /* SDF.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
+		0DEEC4A626289D9B00B69FA6 /* ARDebugStepBodyPositioningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEEC49D26289D4900B69FA6 /* ARDebugStepBodyPositioningView.swift */; };
+		0DEEC4AD2628B8CD00B69FA6 /* SDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC98BBA2627CE6300A282B0 /* SDF.swift */; };
 		5E086DD32051E3A3004D8D25 /* Manifest.plist in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E086DCF2051DF0F004D8D25 /* Manifest.plist */; };
 		5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		5E6F7E592367B529008CC191 /* UserModules in Copy Book Contents */ = {isa = PBXBuildFile; fileRef = 5E6F7E582367B51E008CC191 /* UserModules */; };
@@ -196,6 +197,7 @@
 		0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNCustomNodeProtocol.swift; sourceTree = "<group>"; };
 		0DA26CDE262611E4008E6447 /* ScanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanNode.swift; sourceTree = "<group>"; };
 		0DC98BBA2627CE6300A282B0 /* SDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDF.swift; sourceTree = "<group>"; };
+		0DEEC49D26289D4900B69FA6 /* ARDebugStepBodyPositioningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepBodyPositioningView.swift; sourceTree = "<group>"; };
 		5E086DC02051C5A7004D8D25 /* AR.playgroundbook */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AR.playgroundbook; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E086DC72051DD03004D8D25 /* BookOverridingBuildSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BookOverridingBuildSettings.xcconfig; sourceTree = "<group>"; };
 		5E086DCF2051DF0F004D8D25 /* Manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Manifest.plist; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */,
 				0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */,
 				0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */,
+				0DEEC49D26289D4900B69FA6 /* ARDebugStepBodyPositioningView.swift */,
 				0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */,
 				0DA26CC426260694008E6447 /* ARDebugStepBoundingBoxView.swift */,
 				0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */,
@@ -690,6 +693,7 @@
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
 				0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */,
 				0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */,
+				0DEEC4A626289D9B00B69FA6 /* ARDebugStepBodyPositioningView.swift in Sources */,
 				0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */,
 				0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */,
 				0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */,
@@ -701,6 +705,7 @@
 				0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */,
 				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
 				0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */,
+				0DEEC4AD2628B8CD00B69FA6 /* SDF.swift in Sources */,
 				0D16C874261DB5E800B8BFBB /* FilledButtonView.swift in Sources */,
 				0DA26CC126256EC4008E6447 /* SCNScene+Export.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
@@ -753,7 +758,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EA2E3C02056F35A00416A35 /* AppDelegate.swift in Sources */,
-				0DC98BBB2627CE6300A282B0 /* SDF.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

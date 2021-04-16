@@ -59,11 +59,18 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         break
                     case .rigAnimation:
                         break
+                    case .positionSekeleton:
+                        manager.scene.background.intensity = 0.05
+                        let configuration = ARWorldTrackingConfiguration()
+                        configuration.frameSemantics = [.sceneDepth]
+                        manager.session.run(configuration)
+                        break
                     }})
         manager.session.delegate = manager
         manager.scanNode.setup()
         manager.humanNode.setup()
     }
+    
     
     
     //MARK: - ARSessionDelegate

@@ -37,6 +37,8 @@ class ScanNode: SCNNode, SCNCustomNode
             break
         case .rigAnimation:
             break
+        case .positionSekeleton:
+            break
         }
     }
     

@@ -27,11 +27,6 @@ struct ARDebugStepRiggingView: View {
             }, content: {
                 ActivityViewControllerView(activityItems: [OperationManager.shared.scene.exportAndReturnURL()!])
             })
-            
-            EntityHierarchyView(entities: [
-                OperationManager.shared.scanNode.entity,
-                OperationManager.shared.humanNode.entity
-            ])
         }
     }
 }

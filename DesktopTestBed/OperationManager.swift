@@ -46,7 +46,7 @@ class OperationManager: RuntimeManagableSingleton
         loadSceneNode.unload()
         loadSceneNode.referenceURL = url
         loadSceneNode.load()
-        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "root", recursively: false)!)
+        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "human", recursively: false)!)
         
         let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
         scanNode.simdWorldTransform = targetScan.simdWorldTransform
@@ -55,8 +55,13 @@ class OperationManager: RuntimeManagableSingleton
         loadSceneNode.unload()
     }
     
-    func filterPoints() -> Void {
-        humanNode.filterPoints(cloudPointNode: scanNode)
+    func filterPoints(callback: @escaping ()->Void) -> Void {
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.humanNode.filterPoints(cloudPointNode: self.scanNode)
+            DispatchQueue.main.async {
+                callback()
+            }
+        }
     }
     
     func rig() -> Void {

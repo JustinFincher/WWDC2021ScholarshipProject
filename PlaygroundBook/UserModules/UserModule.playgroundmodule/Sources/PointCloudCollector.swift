@@ -43,9 +43,9 @@ struct ParticleUniforms {
 
 final class PointCloudCollector {
     // Maximum number of points we store in the point cloud
-    private let maxPoints = 150000
+    private let maxPoints = 80000
     // Number of sample points on the grid
-    private let numGridPoints = 1000
+    private let numGridPoints = 500
     // Particle's size in pixels
     private let particleSize: Float = 10
     // We only use landscape orientation in this app

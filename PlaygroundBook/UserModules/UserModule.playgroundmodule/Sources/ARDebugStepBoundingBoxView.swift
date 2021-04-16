@@ -9,16 +9,27 @@ import SwiftUI
 
 struct ARDebugStepBoundingBoxView: View {
     @EnvironmentObject var environment: DataEnvironment
+    @State var waiting: Bool = false
     var body: some View {
         VStack {
             Text("Set Bounding Box")
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            EntityHierarchyView(entities: [
-                OperationManager.shared.scanNode.entity,
-                OperationManager.shared.humanNode.entity
-            ])
+            Button(action: {
+                waiting = true
+                DispatchQueue.global(qos: .userInteractive).async {
+                    let manager = OperationManager.shared
+                    manager.humanNode.filterPoints(cloudPointNode: manager.scanNode)
+                    DispatchQueue.main.async {
+                        waiting = false
+                    }
+                }
+            }, label: {
+                FilledButtonView(icon: "", text: (waiting ? "Waiting" : "Filter Points"), color: Color.accentColor, shadow: false, primary: true)
+            })
+            .disabled(waiting)
+            .padding(.horizontal)
         }
     }
 }

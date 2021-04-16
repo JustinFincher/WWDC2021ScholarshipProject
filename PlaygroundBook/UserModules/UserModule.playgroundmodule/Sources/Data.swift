@@ -10,8 +10,9 @@ import MetalKit
 
 enum AROperationMode {
     case captureSekeleton
-    case setBoundingBox
+    case positionSekeleton
     case attachPointCloud
+    case setBoundingBox
     case rigAnimation
 }
 

@@ -18,10 +18,6 @@ struct ARDebugStepPointCloudView: View {
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            EntityHierarchyView(entities: [
-                OperationManager.shared.scanNode.entity,
-                OperationManager.shared.humanNode.entity
-            ])
         }
     }
 }

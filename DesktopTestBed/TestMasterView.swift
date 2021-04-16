@@ -26,7 +26,9 @@ struct TestDebugView: View {
             })
             
             Button(action: {
-                OperationManager.shared.filterPoints()
+                OperationManager.shared.filterPoints {
+                    
+                }
             }, label: {
                 FilledButtonView(icon: "", text: "filter points", color: Color.accentColor, shadow: false, primary: false)
             })
