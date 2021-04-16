@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>ChapterOne</string>
+	<string>HumanScan</string>
 	<key>InitialUserPages</key>
 	<array>
 		<string>Page1.playgroundpage</string>

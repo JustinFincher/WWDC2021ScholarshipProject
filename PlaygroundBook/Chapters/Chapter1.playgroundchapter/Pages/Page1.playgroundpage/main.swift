@@ -2,4 +2,4 @@
 
 //#-end-hidden-code
 
-//: # 1
+//: # HumanScan: an interactive playground for scanning, rigging, and applying animations to real-life 3D human models

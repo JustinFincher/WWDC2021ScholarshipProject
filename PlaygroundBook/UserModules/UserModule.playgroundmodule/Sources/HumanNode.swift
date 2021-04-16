@@ -16,6 +16,7 @@ class HumanNode: SCNNode, SCNCustomNode
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
+    var animation : ARKitSkeletonAnimation? = nil
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
         joints.removeAll()
@@ -29,8 +30,8 @@ class HumanNode: SCNNode, SCNCustomNode
         skeleton = self.childNode(withName: "skeleton", recursively: true)
         headsUp = self.childNode(withName: "headsUp", recursively: true)
         boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
-        for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount {
-            let jointName = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+        for jointIndex in 0..<jointCount {
+            let jointName = jointNames[jointIndex]
             let node = skeleton?.childNode(withName: jointName, recursively: true)!
             joints[jointName] = node
         }
@@ -146,8 +147,8 @@ class HumanNode: SCNNode, SCNCustomNode
             }
             
             boundingBoxIndex.forEach { (item: (startJoint: Int, endJoint: Int, radius: Float)) in
-                let startJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[item.startJoint]
-                let endJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[item.endJoint]
+                let startJointName : String = jointNames[item.startJoint]
+                let endJointName : String = jointNames[item.endJoint]
                 let startJointNode : SCNNode = joints[startJointName]!
                 let endJointNode : SCNNode = joints[endJointName]!
                 let boxNode = SCNNode()
@@ -207,7 +208,7 @@ class HumanNode: SCNNode, SCNCustomNode
             let vertexWorldPosition : simd_float3 = cloudPointNode.simdConvertPosition(simd_float3(vertexArray[i]), to: nil)
             for b in 0..<boundingBoxIndex.count {
                 let bounding : (startJoint: Int, endJoint: Int, radius: Float) = boundingBoxIndex[b]
-                let startJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[bounding.startJoint]
+                let startJointName : String = jointNames[bounding.startJoint]
                 if let startJointNode : SCNNode = joints[startJointName]
                 {
                     let startJointWorldPosition = startJointNode.simdConvertPosition(simd_float3(0,0,0), to: nil)
@@ -217,7 +218,7 @@ class HumanNode: SCNNode, SCNCustomNode
                         withInSDF = withInSDF || (sdSphere(p: vertexWorldPosition, c: startJointWorldPosition, r: bounding.radius) <= 0)
                     } else {
                         // sdf cone
-                        let endJointName : String = ARSkeletonDefinition.defaultBody3D.jointNames[bounding.endJoint]
+                        let endJointName : String = jointNames[bounding.endJoint]
                         let endJointNode : SCNNode = joints[endJointName]!
                         let endJointWorldPosition = endJointNode.simdConvertPosition(simd_float3(0,0,0), to: nil)
                         withInSDF = withInSDF || (sdCapsule(p: vertexWorldPosition, a: startJointWorldPosition, b: endJointWorldPosition, r: bounding.radius) <= 0)
@@ -281,14 +282,14 @@ class HumanNode: SCNNode, SCNCustomNode
                         break
                     }
                     let volume:(startJoint: Int, endJoint: Int, radius: Float) = riggingVolumeIndex[rigVolumeIndex]
-                    let startJointNode : SCNNode = joints[ARSkeletonDefinition.defaultBody3D.jointNames[volume.startJoint]]!
+                    let startJointNode : SCNNode = joints[jointNames[volume.startJoint]]!
                     let startJointWorldPosition = startJointNode.convertPosition(SCNVector3(0,0,0), to: nil)
                     let startJointWorldPositionSIMD = simd_float3(startJointWorldPosition)
                     boneSet.insert(startJointNode)
                     var sdfRes : Float = 0.0
                     if (volume.startJoint == volume.endJoint)
                     {
-                        let endJointNode : SCNNode = joints[ARSkeletonDefinition.defaultBody3D.jointNames[volume.endJoint]]!
+                        let endJointNode : SCNNode = joints[jointNames[volume.endJoint]]!
                         let endJointWorldPosition = endJointNode.convertPosition(SCNVector3(0,0,0), to: nil)
                         let endJointWorldPositionSIMD = simd_float3(endJointWorldPosition)
                         boneSet.insert(endJointNode)
@@ -334,8 +335,8 @@ class HumanNode: SCNNode, SCNCustomNode
         
         assert(MemoryLayout<SIMD4<UInt16>>.size == MemoryLayout<UInt16>.size * 4)
         
-        let bones : [SCNNode] = (0..<ARSkeletonDefinition.defaultBody3D.jointCount).map({ (boneIndex:Int) -> SCNNode in
-            joints[ARSkeletonDefinition.defaultBody3D.jointNames[boneIndex]]!
+        let bones : [SCNNode] = (0..<jointCount).map({ (boneIndex:Int) -> SCNNode in
+            joints[jointNames[boneIndex]]!
         })
 
         let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
@@ -348,8 +349,65 @@ class HumanNode: SCNNode, SCNCustomNode
         cloudPointNode.skinner = skinner
     }
     
-    func animate(animation: SCNAnimation) -> Void {
+    func apply(frame: ARKitSkeletonAnimationFrame) -> Void {
+        print("apply frame")
+        let hips = joints["hips_joint"]
+        frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
+            if let joint = joints[seg.key],
+               let hips = hips
+            {
+                print("\(seg.key)")
+                joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
+                let hipRelativePos = hips.simdConvertPosition(joint.simdWorldPosition, from: nil) * 0.012
+                joint.simdWorldPosition = hips.simdConvertPosition(hipRelativePos, to: nil)
+            } else {
+                print("non exist joint")
+            }
+        }
+        drawSkeleton()
         
+    }
+    
+    func gather() -> ARKitSkeletonAnimationFrame {
+        print("gather frame")
+        var dict : Dictionary<String, simd_float4x4> = Dictionary<String, simd_float4x4>()
+        joints.forEach { (seg: (key: String, value: SCNNode)) in
+            dict[seg.key] = seg.value.simdTransform
+        }
+        return ARKitSkeletonAnimationFrame(joints: dict)
+    }
+    
+    func exportAnimationAndReturnURL() -> URL? {
+        do {
+            let jsonData = try JSONEncoder().encode(animation)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            
+            let tempDirPath = FileManager.default.temporaryDirectory
+            let tempFileURL = tempDirPath.appendingPathComponent("animation.json", isDirectory: false)
+            
+            try jsonString.write(to: tempFileURL, atomically: true, encoding: .utf8)
+            return tempFileURL
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
+    
+    func loadAnimation(url : URL) -> Void {
+        do {
+            let json = try String(contentsOf: url)
+            if let data = json.data(using: .utf8)
+            {
+                let an = try JSONDecoder().decode(ARKitSkeletonAnimation.self, from: data)
+                self.animation = an
+            }
+        } catch let err {
+            print(err)
+        }
+    }
+    
+    func toggleRecordAnimation() -> Void {
+        animation = ARKitSkeletonAnimation(frames: [])
     }
     
     //MARK: - SCNCustomNode
@@ -359,8 +417,29 @@ class HumanNode: SCNNode, SCNCustomNode
             headsUp.simdLook(at: pointOfView.simdWorldPosition)
         }
         
-        
+        switch EnvironmentManager.shared.env.arOperationMode {
+        case .attachPointCloud:
+            break
+        case .captureSekeleton:
+            break
+        case .removeBgAndRig:
+            break
+        case .animateSkeleton:
+            if animation?.frames.count ?? 0 > 0 {
+                print("frame \(animation?.frames.count ?? 0)")
+                apply(frame: (animation?.frames[0])!)
+                animation?.removeFirstFrame()
+            }
+            break
+        case .positionSekeleton:
+            break
+        case .recordAnimation:
+            print("frame \(animation?.frames.count ?? 0)")
+            animation?.addFrame(frame: self.gather())
+            break
+        }
     }
+    
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         switch EnvironmentManager.shared.env.arOperationMode {
         case .attachPointCloud:
@@ -377,6 +456,8 @@ class HumanNode: SCNNode, SCNCustomNode
                 Float(EnvironmentManager.shared.env.positionAddY * 0.005),
                 Float(EnvironmentManager.shared.env.positionAddZ * 0.005))
             break
+        case .recordAnimation:
+            break
         }
     }
     
@@ -389,7 +470,6 @@ class HumanNode: SCNNode, SCNCustomNode
                 anchor as? ARBodyAnchor
             }
             if let body = bodies.first {
-//                print("add body \(body)")
                 pose(bodyAnchor: body, reuse: false)
             }
             break
@@ -398,6 +478,8 @@ class HumanNode: SCNNode, SCNCustomNode
         case .animateSkeleton:
             break
         case .positionSekeleton:
+            break
+        case .recordAnimation:
             break
         }
     }
@@ -411,7 +493,6 @@ class HumanNode: SCNNode, SCNCustomNode
                 anchor as? ARBodyAnchor
             }
             if let body = bodies.first {
-//                print("update body \(body)")
                 pose(bodyAnchor: body, reuse: true)
             }
             break
@@ -420,6 +501,8 @@ class HumanNode: SCNNode, SCNCustomNode
         case .animateSkeleton:
             break
         case .positionSekeleton:
+            break
+        case .recordAnimation:
             break
         }
         

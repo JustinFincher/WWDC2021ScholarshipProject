@@ -25,7 +25,7 @@ struct ARDebugView: View {
         if isHorizontal(geometry: geometry) {
             multipler = expanded ? 0.4 : 0.3
         } else {
-            multipler = expanded ? 1 : 0.4
+            multipler = expanded ? 1 : 0.5
         }
         return geometry.size.width * multipler
     }
@@ -35,7 +35,7 @@ struct ARDebugView: View {
         if isHorizontal(geometry: geometry) {
             multipler = expanded ? 1.0 : 0.5
         } else {
-            multipler = expanded ? 0.4 : 0.6
+            multipler = expanded ? 0.4 : 0.5
         }
         return geometry.size.height * multipler
     }
@@ -51,6 +51,7 @@ struct ARDebugView: View {
                             }, label: {
                                 Image(systemName: getBarItemIconName())
                             }))
+                            .navigationBarTitleDisplayMode(.inline)
                     })
                     .onTapGesture(count: 2, perform: {
                         expanded.toggle()
@@ -77,7 +78,6 @@ struct ARDebugView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ARDebugView()
-                
         }
     }
 }

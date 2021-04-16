@@ -33,7 +33,7 @@ extension SCNGeometry {
         let element = SCNGeometryElement(data: indiceData, primitiveType: .point, primitiveCount: buffer.count, bytesPerIndex: MemoryLayout.size(ofValue: Int32(0)))
         element.pointSize = 15
         element.minimumPointScreenSpaceRadius = 2
-        element.maximumPointScreenSpaceRadius = 15
+        element.maximumPointScreenSpaceRadius = 20
         
         self.init(sources: [vertexSource, colorSource], elements: [element])
     }

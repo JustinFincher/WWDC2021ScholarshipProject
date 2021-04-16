@@ -11,7 +11,7 @@
 BUNDLE_IDENTIFIER_PREFIX = com.justzht
 
 // This is the base of the file name for the playground book produced by this project (e.g. "PlaygroundBook" in "PlaygroundBook.playgroundbook").
-PLAYGROUND_BOOK_FILE_NAME = AR
+PLAYGROUND_BOOK_FILE_NAME = HumanScan
 
 // This is the ContentIdentifier of the playground book.
 // This should be updated to something specific to your team and your specific content.

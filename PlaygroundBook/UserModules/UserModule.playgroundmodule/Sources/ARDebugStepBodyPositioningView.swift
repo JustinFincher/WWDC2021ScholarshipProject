@@ -11,47 +11,58 @@ struct ARDebugStepBodyPositioningView: View {
     @EnvironmentObject var environment: DataEnvironment
     
     var body: some View {
-        VStack {
-            Text("Skeleton Positioning")
-                .font(.subheadline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-           
-            HStack {
-                Text("X")
-                Slider(value: Binding<Double>(get: { () -> Double in
-                    environment.positionAddX
-                }, set: { (value:Double) in
-                    environment.positionAddX = value
-                }), in: -1...1, step: 1) { (editing:Bool) in
-                    if !editing { environment.positionAddX = 0.0 }
+        ScrollView(.vertical, showsIndicators: true, content: {
+            VStack(alignment: .leading, spacing: 8, content: {
+                Text("Skeleton Positioning")
+                    .font(.subheadline)
+                Text("Ask the person you wish to scan to maintain the T-pose or 大-pose.")
+                    .font(.caption)
+                Text("You may find that the captured skeleton is a bit off from the real position your buddy is standing at. Drag the sliders below to manually align it until you can see the skeleton prefectly embeded in the scanned point clouds. Then press next.")
+                    .font(.caption)
+                
+                HStack {
+                    Text("X")
+                    Slider(value: Binding<Double>(get: { () -> Double in
+                        environment.positionAddX
+                    }, set: { (value:Double) in
+                        environment.positionAddX = value
+                    }), in: -1...1, step: 1) { (editing:Bool) in
+                        if !editing { environment.positionAddX = 0.0 }
+                    }
                 }
-            }.padding(.horizontal)
-            
-            HStack {
-                Text("Y")
-                Slider(value: Binding<Double>(get: { () -> Double in
-                    environment.positionAddZ
-                }, set: { (value:Double) in
-                    environment.positionAddZ = value
-                }), in: -1...1, step: 1) { (editing:Bool) in
-                    if !editing { environment.positionAddZ = 0.0 }
+                
+                HStack {
+                    Text("Y")
+                    Slider(value: Binding<Double>(get: { () -> Double in
+                        environment.positionAddZ
+                    }, set: { (value:Double) in
+                        environment.positionAddZ = value
+                    }), in: -1...1, step: 1) { (editing:Bool) in
+                        if !editing { environment.positionAddZ = 0.0 }
+                    }
                 }
-            }.padding(.horizontal)
-            
-            
-            
-            HStack {
-                Text("Z")
-                Slider(value: Binding<Double>(get: { () -> Double in
-                    environment.positionAddY
-                }, set: { (value:Double) in
-                    environment.positionAddY = value
-                }), in: -1...1, step: 1) { (editing:Bool) in
-                    if !editing { environment.positionAddY = 0.0 }
+                
+                
+                
+                HStack {
+                    Text("Z")
+                    Slider(value: Binding<Double>(get: { () -> Double in
+                        environment.positionAddY
+                    }, set: { (value:Double) in
+                        environment.positionAddY = value
+                    }), in: -1...1, step: 1) { (editing:Bool) in
+                        if !editing { environment.positionAddY = 0.0 }
+                    }
                 }
-            }.padding(.horizontal)
-        }
+                
+                Button(action: {
+                    environment.arOperationMode = .positionSekeleton
+                }, label: {
+                    FilledButtonView(icon: "", text: "Next", color: Color.accentColor, shadow: false, primary: true)
+                })
+            })
+            .padding(.horizontal)
+        })
     }
 }
 

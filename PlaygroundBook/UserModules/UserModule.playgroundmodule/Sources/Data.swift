@@ -15,6 +15,7 @@ enum AROperationMode {
     case attachPointCloud
     case removeBgAndRig
     case animateSkeleton
+    case recordAnimation
 }
 
 protocol RenderDestinationProvider {
@@ -68,21 +69,21 @@ let jointNames : [String] = ["root", // 0
 ]
 
 let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-    (1, 1, 0.3), // hips_joint
+//    (1, 1, 0.24), // hips_joint
     
-    (2, 2, 0.25), // left_upLeg_joint
+    (2, 2, 0.2), // left_upLeg_joint
     (2, 3, 0.2), // left_upLeg_joint to left_leg_joint
     (3, 4, 0.2), // left_leg_joint to left_foot_joint
     (4, 5, 0.2), // left_foot_joint to left_toes_joint
     (5, 6, 0.15), // left_toes_joint to left_toesEnd_joint
     
-    (7, 7, 0.25), // right_upLeg_joint
+    (7, 7, 0.2), // right_upLeg_joint
     (7, 8, 0.2), // right_upLeg_joint to right_leg_joint
     (8, 9, 0.2), // right_leg_joint to right_foot_joint
     (9, 10, 0.2), // right_foot_joint to right_toes_joint
     (10, 11, 0.15), // right_toes_joint to right_toesEnd_joint
     
-    (12, 13, 0.25), // spine_1_joint to spine_4_joint
+    (12, 13, 0.2), // spine_1_joint to spine_4_joint
     (13, 14, 0.2), // spine_4_joint to spine_7_joint
     (14, 19, 0.15), // spine_7_joint to neck_3_joint
     

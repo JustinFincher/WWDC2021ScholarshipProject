@@ -13,6 +13,7 @@ struct ARDebugStepsView: View {
     func getContentView() -> AnyView {
         switch environment.arOperationMode {
         case .attachPointCloud: return AnyView(ARDebugStepPointCloudView())
+        case .recordAnimation: return AnyView(ARDebugStepRecordAnimationView())
         case .captureSekeleton: return AnyView(ARDebugStepHumanBodyView())
         case .positionSekeleton: return AnyView(ARDebugStepBodyPositioningView())
         case .removeBgAndRig: return AnyView(ARDebugStepRemoveBgAndRigView())
@@ -28,11 +29,12 @@ struct ARDebugStepsView: View {
                 Text("3").tag(AROperationMode.positionSekeleton)
                 Text("4").tag(AROperationMode.removeBgAndRig)
                 Text("5").tag(AROperationMode.animateSkeleton)
+                Text("6").tag(AROperationMode.recordAnimation)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .fixedSize(horizontal: false, vertical: true)
             .pickerStyle(SegmentedPickerStyle())
-            .padding([.horizontal])
+            .padding([.horizontal, .top])
             
             getContentView()
             .frame(maxHeight: .infinity, alignment: .center)

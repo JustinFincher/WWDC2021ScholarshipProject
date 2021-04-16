@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5E086DBF2051C5A7004D8D25"
-               BuildableName = "AR.playgroundbook"
+               BuildableName = "HumanScan.playgroundbook"
                BlueprintName = "PlaygroundBook"
                ReferencedContainer = "container:PlaygroundBook.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E086DBF2051C5A7004D8D25"
-            BuildableName = "AR.playgroundbook"
+            BuildableName = "HumanScan.playgroundbook"
             BlueprintName = "PlaygroundBook"
             ReferencedContainer = "container:PlaygroundBook.xcodeproj">
          </BuildableReference>

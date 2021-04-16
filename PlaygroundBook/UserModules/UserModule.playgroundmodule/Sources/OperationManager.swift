@@ -57,6 +57,13 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         manager.session.run(configuration)
                         manager.scanNode.setAlpha(alpha: 0.5)
                         break
+                    case .recordAnimation:
+                        manager.scene.background.intensity = 0.2
+                        let configuration = ARBodyTrackingConfiguration()
+                        configuration.frameSemantics = [.bodyDetection]
+                        manager.session.run(configuration)
+                        manager.scanNode.setAlpha(alpha: 0.5)
+                        break
                     case .removeBgAndRig:
                         manager.scanNode.setAlpha(alpha: 1.0)
                         break

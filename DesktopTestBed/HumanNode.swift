@@ -267,7 +267,7 @@ class HumanNode: SCNNode
             if let joint = joints[seg.key],
                let hips = hips
             {
-                print("\(seg.key)")
+//                print("\(seg.key)")
                 joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
                 let hipRelativePos = hips.simdConvertPosition(joint.simdWorldPosition, from: nil) * 0.012
                 joint.simdWorldPosition = hips.simdConvertPosition(hipRelativePos, to: nil)

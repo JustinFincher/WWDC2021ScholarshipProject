@@ -11,7 +11,6 @@ import ARKit
 
 class ScanNode: SCNNode, SCNCustomNode
 {
-    
     var pointCloudCollector: PointCloudCollector?
     
     func setup() {
@@ -45,6 +44,8 @@ class ScanNode: SCNNode, SCNCustomNode
         case .animateSkeleton:
             break
         case .positionSekeleton:
+            break
+        case .recordAnimation:
             break
         }
     }
