@@ -155,10 +155,11 @@ class HumanNode: SCNNode, SCNCustomNode
                     let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
                     currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)
                     currentJoint.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-                    
-                    let markNode = SCNNode().withName(name: "mark")
-                    markNode.geometry = SCNSphere(radius: 0.01)
-                    currentJoint.addChildNode(markNode)
+                    if !reuse {
+                        let markNode = SCNNode().withName(name: "mark")
+                        markNode.geometry = SCNSphere(radius: 0.01)
+                        currentJoint.addChildNode(markNode)
+                    }
                 }
                 
             }
@@ -298,7 +299,7 @@ class HumanNode: SCNNode, SCNCustomNode
         let vertex = geometry.sources(for: .vertex).first!
         var vertexData = vertex.data
         var boneWeightsArray : [simd_float4] = []
-        var boneIndicesArray : [SIMD4<uint16>] = []
+        var boneIndicesArray : [SIMD4<UInt16>] = []
         var boneSet : Set<SCNNode> = Set()
         
         vertexData.withUnsafeMutableBytes { (pointer : UnsafeMutableRawBufferPointer) -> Void in
@@ -364,9 +365,9 @@ class HumanNode: SCNNode, SCNCustomNode
         })
         
         let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: boneWeightsArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
-        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: boneIndicesArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<uint16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<uint16>>.size)
+        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: boneIndicesArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<UInt16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<UInt16>>.size)
         
-        assert(MemoryLayout<SIMD4<uint16>>.size == MemoryLayout<uint16>.size * 4)
+        assert(MemoryLayout<SIMD4<UInt16>>.size == MemoryLayout<UInt16>.size * 4)
         
         let bones : [SCNNode] = (0..<ARSkeletonDefinition.defaultBody3D.jointCount).map({ (boneIndex:Int) -> SCNNode in
             joints[ARSkeletonDefinition.defaultBody3D.jointNames[boneIndex]]!
@@ -401,9 +402,9 @@ class HumanNode: SCNNode, SCNCustomNode
             break
         case .captureSekeleton:
             break
-        case .setBoundingBox:
+        case .removeBgAndRig:
             break
-        case .rigAnimation:
+        case .animateSkeleton:
             break
         case .positionSekeleton:
             simdWorldPosition = simdWorldPosition + simd_float3(
@@ -423,13 +424,13 @@ class HumanNode: SCNNode, SCNCustomNode
                 anchor as? ARBodyAnchor
             }
             if let body = bodies.first {
-                print("add body \(body)")
-                pose(bodyAnchor: body)
+//                print("add body \(body)")
+                pose(bodyAnchor: body, reuse: false)
             }
             break
-        case .setBoundingBox:
+        case .removeBgAndRig:
             break
-        case .rigAnimation:
+        case .animateSkeleton:
             break
         case .positionSekeleton:
             break
@@ -445,13 +446,13 @@ class HumanNode: SCNNode, SCNCustomNode
                 anchor as? ARBodyAnchor
             }
             if let body = bodies.first {
-                print("update body \(body)")
-                pose(bodyAnchor: body)
+//                print("update body \(body)")
+                pose(bodyAnchor: body, reuse: true)
             }
             break
-        case .setBoundingBox:
+        case .removeBgAndRig:
             break
-        case .rigAnimation:
+        case .animateSkeleton:
             break
         case .positionSekeleton:
             break

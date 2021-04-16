@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ARDebugStepBoundingBoxView: View {
+struct ARDebugStepRemoveBgAndRigView: View {
     @EnvironmentObject var environment: DataEnvironment
     @State var waiting: Bool = false
     var body: some View {
@@ -34,8 +34,8 @@ struct ARDebugStepBoundingBoxView: View {
     }
 }
 
-struct ARDebugStepBoundingBoxView_Previews: PreviewProvider {
+struct ARDebugStepRemoveBgAndRigView_Previews: PreviewProvider {
     static var previews: some View {
-        ARDebugStepBoundingBoxView()
+        ARDebugStepRemoveBgAndRigView()
     }
 }

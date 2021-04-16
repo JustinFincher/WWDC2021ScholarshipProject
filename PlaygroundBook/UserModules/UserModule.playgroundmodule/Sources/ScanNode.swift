@@ -24,6 +24,13 @@ class ScanNode: SCNNode, SCNCustomNode
         }
     }
     
+    func setAlpha(alpha: Float) -> Void {
+        self.geometry?.firstMaterial?.transparencyMode = .singleLayer
+        self.geometry?.firstMaterial?.lightingModel = .constant
+        self.geometry?.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(CGFloat(alpha))
+        self.geometry?.firstMaterial?.transparency = CGFloat(alpha)
+    }
+    
     //MARK: - SCNCustomNode
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         pointCloudCollector?.drawRectResized(size: frame.camera.imageResolution)
@@ -33,9 +40,9 @@ class ScanNode: SCNNode, SCNCustomNode
             break
         case .captureSekeleton:
             break
-        case .setBoundingBox:
+        case .removeBgAndRig:
             break
-        case .rigAnimation:
+        case .animateSkeleton:
             break
         case .positionSekeleton:
             break

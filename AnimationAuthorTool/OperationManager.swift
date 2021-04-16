@@ -6,15 +6,16 @@
 //
 
 import SceneKit
+import MobileCoreServices
 import Combine
 
 class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
 {
     private var sceneLoadCancellable: AnyCancellable?
     let loadSceneNode : SCNReferenceNode = SCNReferenceNode()
-    let humanNode : HumanNode = HumanNode()
-    let scanNode : SCNNode = SCNNode()
     let scene: SCNScene = SCNScene()
+    var animationRecordCount = 0
+    var animation : ARKitSkeletonAnimation? = nil
     
     static let shared: OperationManager = {
         let instance = OperationManager()
@@ -37,34 +38,44 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
             }
         }
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.loadSceneNode)
-        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.humanNode)
-        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.scanNode.withName(name: "scan"))
     }
     
     func loadScene(url: URL) -> Void {
-        loadSceneNode.isHidden = true
         loadSceneNode.unload()
         loadSceneNode.referenceURL = url
         loadSceneNode.load()
-        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "human", recursively: false)!)
-        
-        let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
-        scanNode.simdWorldTransform = targetScan.simdWorldTransform
-        scanNode.geometry = targetScan.geometry
-        
-        loadSceneNode.unload()
+        scene.isPaused = false
     }
     
-    func filterPoints(callback: @escaping ()->Void) -> Void {
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.humanNode.filterPoints(cloudPointNode: self.scanNode)
-            DispatchQueue.main.async {
-                callback()
+    // MARK: - SCNSceneRendererDelegate
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+        print("\(time)")
+        if animationRecordCount > 0 {
+            animationRecordCount -= 1
+            loadSceneNode.enumerateChildNodes { (child:SCNNode, stop:UnsafeMutablePointer<ObjCBool>) in
+                
             }
         }
     }
     
-    func rig() -> Void {
-        humanNode.rig(cloudPointNode: scanNode)
+    func recordAnimation(framesCount: Int) -> Void {
+        animation = ARKitSkeletonAnimation(frames: [])
+        animationRecordCount = framesCount
+    }
+    
+    func exportAnimation() -> Void {
+        if let animation = animation {
+            do {
+                let jsonData = try JSONEncoder().encode(animation)
+                let jsonString = String(data: jsonData, encoding: .utf8)!
+                print(jsonString)
+                UIPasteboard.general.string = jsonString
+            } catch { print(error) }
+        }
     }
 }

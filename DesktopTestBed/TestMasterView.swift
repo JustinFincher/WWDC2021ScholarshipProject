@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct TestDebugView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8, content: {
 
             Button(action: {
-                
                 let picker = DocumentPickerViewController(supportedExtensions: ["scn"]) { (url: URL) in
                     print(url)
                     EnvironmentManager.shared.env.sceneURL = url
@@ -39,7 +39,21 @@ struct TestDebugView: View {
                 FilledButtonView(icon: "", text: "rig", color: Color.accentColor, shadow: false, primary: false)
             })
             
-            Button(action: {}, label: {
+            Button(action: {
+                let picker = DocumentPickerViewController(supportedExtensions: ["dae","scn","scnz"]) { (url: URL) in
+                    print(url)
+                    
+                    do {
+                        let scene = try SCNScene(url: url, options: nil)
+                        scene.rootNode.examineAnimatable()
+                    } catch let err {
+                        print(err)
+                    }
+                } onDismiss: {
+                    
+                }
+                UIApplication.shared.windows.first?.rootViewController?.present(picker, animated: true)
+            }, label: {
                 FilledButtonView(icon: "", text: "animate", color: Color.accentColor, shadow: false, primary: false)
             })
             

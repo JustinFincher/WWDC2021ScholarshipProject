@@ -231,7 +231,7 @@ class HumanNode: SCNNode
         let vertex = geometry.sources(for: .vertex).first!
         var vertexData = vertex.data
         var boneWeightsArray : [simd_float4] = []
-        var boneIndicesArray : [SIMD4<uint16>] = []
+        var boneIndicesArray : [SIMD4<UInt16>] = []
         var boneSet : Set<SCNNode> = Set()
         
         vertexData.withUnsafeMutableBytes { (pointer : UnsafeMutableRawBufferPointer) -> Void in
@@ -297,9 +297,9 @@ class HumanNode: SCNNode
         })
         
         let boneWeightsSource = SCNGeometrySource(data: boneWeightsData, semantic: .boneWeights, vectorCount: boneWeightsArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<Float>.size, dataOffset: 0, dataStride: MemoryLayout<simd_float4>.size)
-        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: boneIndicesArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<uint16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<uint16>>.size)
+        let boneIndicesSource = SCNGeometrySource(data: boneIndicesData, semantic: .boneIndices, vectorCount: boneIndicesArray.count, usesFloatComponents: true, componentsPerVector: 4, bytesPerComponent: MemoryLayout<UInt16>.size, dataOffset: 0, dataStride: MemoryLayout<SIMD4<UInt16>>.size)
         
-        assert(MemoryLayout<SIMD4<uint16>>.size == MemoryLayout<uint16>.size * 4)
+        assert(MemoryLayout<SIMD4<UInt16>>.size == MemoryLayout<UInt16>.size * 4)
         
         let bones : [SCNNode] = (0..<jointCount).map({ (boneIndex:Int) -> SCNNode in
             joints[jointNames[boneIndex]]!

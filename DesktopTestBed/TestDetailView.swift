@@ -15,6 +15,7 @@ class TestSceneView: SCNView {
         self.showsStatistics = true
         self.allowsCameraControl = true
         self.play(nil)
+        self.delegate = OperationManager.shared
     }
 }
 

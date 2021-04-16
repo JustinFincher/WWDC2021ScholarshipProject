@@ -48,22 +48,24 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         let configuration = ARWorldTrackingConfiguration()
                         configuration.frameSemantics = .sceneDepth
                         manager.session.run(configuration)
+                        manager.scanNode.setAlpha(alpha: 1.0)
                         break
                     case .captureSekeleton:
                         manager.scene.background.intensity = 0.2
                         let configuration = ARBodyTrackingConfiguration()
                         configuration.frameSemantics = [.bodyDetection]
                         manager.session.run(configuration)
+                        manager.scanNode.setAlpha(alpha: 0.5)
                         break
-                    case .setBoundingBox:
+                    case .removeBgAndRig:
+                        manager.scanNode.setAlpha(alpha: 1.0)
                         break
-                    case .rigAnimation:
+                    case .animateSkeleton:
+                        manager.scanNode.setAlpha(alpha: 1.0)
                         break
                     case .positionSekeleton:
                         manager.scene.background.intensity = 0.05
-                        let configuration = ARWorldTrackingConfiguration()
-                        configuration.frameSemantics = [.sceneDepth]
-                        manager.session.run(configuration)
+                        manager.scanNode.setAlpha(alpha: 0.9)
                         break
                     }})
         manager.session.delegate = manager

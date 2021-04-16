@@ -1,24 +1,15 @@
 //
 //  EnvironmentManager.swift
-//  Dynamic
+//  DesktopTestBed
 //
-//  Created by Fincher on 12/8/20.
+//  Created by fincher on 4/14/21.
 //
 
-import CoreLocation
 import Foundation
-import GameplayKit
-import UIKit
-import SwiftUI
-import Combine
-import ARKit
 
 class DataEnvironment: ObservableObject
 {
-    @Published var positionAddX : Double = 0.0
-    @Published var positionAddY : Double = 0.0
-    @Published var positionAddZ : Double = 0.0
-    @Published var arOperationMode : AROperationMode = AROperationMode.attachPointCloud
+    @Published var sceneURL : URL? = nil
     
     func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
         DispatchQueue.main.async {
@@ -31,8 +22,8 @@ class DataEnvironment: ObservableObject
     }
 }
 
-class EnvironmentManager : RuntimeManagableSingleton
-{
+class EnvironmentManager: RuntimeManagableSingleton {
+    
     static let shared: EnvironmentManager = {
         let instance = EnvironmentManager()
         return instance
@@ -45,5 +36,4 @@ class EnvironmentManager : RuntimeManagableSingleton
     override class func setup() {
         print("EnvironmentManager.setup")
     }
-
 }

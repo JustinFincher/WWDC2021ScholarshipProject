@@ -7,20 +7,14 @@
 
 import Foundation
 import MetalKit
+import SceneKit
 
 enum AROperationMode {
     case captureSekeleton
     case positionSekeleton
     case attachPointCloud
-    case setBoundingBox
-    case rigAnimation
-}
-
-struct EntityDisplayModel: Hashable, Identifiable {
-    var id: Self { self }
-    var key: String
-    var value: String
-    var children: [EntityDisplayModel]? = nil
+    case removeBgAndRig
+    case animateSkeleton
 }
 
 protocol RenderDestinationProvider {
@@ -29,4 +23,12 @@ protocol RenderDestinationProvider {
     var colorPixelFormat: MTLPixelFormat { get set }
     var depthStencilPixelFormat: MTLPixelFormat { get set }
     var sampleCount: Int { get set }
+}
+
+struct ARKitSkeletonAnimationFrame : Codable {
+    var joints : Dictionary<String, simd_float3> = Dictionary<String, simd_float3>()
+}
+
+struct ARKitSkeletonAnimation : Codable {
+    var frames : [ARKitSkeletonAnimationFrame] = []
 }
