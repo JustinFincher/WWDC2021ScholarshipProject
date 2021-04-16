@@ -16,52 +16,6 @@ class HumanNode: SCNNode, SCNCustomNode
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
-    let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 1, 0.3), // hips_joint
-        
-        (2, 2, 0.25), // left_upLeg_joint
-        (2, 3, 0.2), // left_upLeg_joint to left_leg_joint
-        (3, 4, 0.2), // left_leg_joint to left_foot_joint
-        (4, 5, 0.2), // left_foot_joint to left_toes_joint
-        (5, 6, 0.15), // left_toes_joint to left_toesEnd_joint
-        
-        (7, 7, 0.25), // right_upLeg_joint
-        (7, 8, 0.2), // right_upLeg_joint to right_leg_joint
-        (8, 9, 0.2), // right_leg_joint to right_foot_joint
-        (9, 10, 0.2), // right_foot_joint to right_toes_joint
-        (10, 11, 0.15), // right_toes_joint to right_toesEnd_joint
-        
-        (12, 15, 0.25), // spine_1_joint to spine_4_joint
-        (15, 18, 0.2), // spine_4_joint to spine_7_joint
-        (18, 47, 0.15), // spine_7_joint to neck_1_joint
-        
-        (47, 49, 0.12), // neck_1_joint to neck_3_joint
-        (49, 51, 0.12), // neck_3_joint to head_joint
-        (51, 51, 0.15), // head_joint
-        
-        (19, 20, 0.2), // left_shoulder_1_joint to left_arm_joint
-        (20, 21, 0.18), // left_arm_joint to left_forearm_joint
-        (21, 22, 0.16), // left_forearm_joint to left_hand_joint
-        (22, 22, 0.2), // left_hand_joint
-        
-        (63, 64, 0.2), // right_shoulder_1_joint to right_arm_joint
-        (64, 65, 0.18), // right_arm_joint to right_forearm_joint
-        (65, 66, 0.16), // right_forearm_joint to right_hand_joint
-        (66, 66, 0.2), // right_hand_joint
-    ]
-    let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 47, 0.5), // "hips_joint" to "neck_1_joint"
-        (47, 51, 0.25), // "neck_1_joint" to "head_joint"
-        (51, 51, 0.2), // "head_joint" sphere
-        (19, 22, 0.25), // "left_shoulder_1_joint" to "left_hand_joint"
-        (29, 29, 0.16), // "left_handMid_1_joint" sphere
-        (63, 66, 0.25), // "right_shoulder_1_joint" to "right_hand_joint"
-        (73, 73, 0.16), // "right_handMid_1_joint" sphere
-        (2, 4, 0.1), // "left_upLeg_joint" to "left_foot_joint"
-        (4, 6, 0.1), // ""left_foot_joint"" to "left_toesEnd_joint"
-        (7, 9, 0.1), // "right_upLeg_joint" to "right_foot_joint"
-        (9, 11, 0.1), // ""right_foot_joint"" to "right_toesEnd_joint"
-    ]
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
         joints.removeAll()
@@ -118,10 +72,6 @@ class HumanNode: SCNNode, SCNCustomNode
         renderingOrder = Int.max
     }
     
-    func getParentIndexOfJoint(index: Int) -> Int {
-        return ARSkeletonDefinition.defaultBody3D.parentIndices[index]
-    }
-    
     func pose(bodyAnchor: ARBodyAnchor, reuse: Bool = false) -> Void {
         if let skeleton = skeleton {
             if !reuse {
@@ -134,24 +84,25 @@ class HumanNode: SCNNode, SCNCustomNode
             self.simdTransform = bodyAnchor.transform
             
             if !reuse {
-                for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // with root
-                    let name = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
+                for jointIndex in 0..<jointCount { // with root
+                    let name = jointNames[jointIndex]
                     let jointNode : SCNNode = SCNNode()
                     jointNode.name = name
                     joints[name] = jointNode
                 }
             }
             
-            for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-                let name : String = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-                let parentJointIndex : Int = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
+            for jointIndex in 0..<jointCount { // ignore root
+                let name : String = jointNames[jointIndex]
+                let parentJointIndex : Int = jointParentIndices[jointIndex]
                 if let currentJoint = joints[name],
-                   let parentJoint = jointIndex == 0 ? skeleton : joints[ARSkeletonDefinition.defaultBody3D.jointNames[parentJointIndex]]
+                   let parentJoint = jointIndex == 0 ? skeleton : joints[jointNames[parentJointIndex]]
                 {
                     if !reuse {
                         parentJoint.addChildNode(currentJoint)
                     }
-                    currentJoint.simdTransform = bodyAnchor.skeleton.jointLocalTransforms[jointIndex]
+                    let extendedIndex = ARSkeletonDefinition.defaultBody3D.jointNames.firstIndex(of: name)
+                    currentJoint.simdWorldTransform = self.simdConvertTransform(bodyAnchor.skeleton.jointModelTransforms[extendedIndex!], to: nil)
                 }
             }
             
@@ -168,11 +119,11 @@ class HumanNode: SCNNode, SCNCustomNode
     }
     
     func drawSkeleton() -> Void {
-        for jointIndex in 0..<ARSkeletonDefinition.defaultBody3D.jointCount { // ignore root
-            let name : String = ARSkeletonDefinition.defaultBody3D.jointNames[jointIndex]
-            let parentJointIndex : Int = ARSkeletonDefinition.defaultBody3D.parentIndices[jointIndex]
+        for jointIndex in 0..<jointCount { // ignore root
+            let name : String = jointNames[jointIndex]
+            let parentJointIndex : Int = jointParentIndices[jointIndex]
             if let currentJoint = joints[name],
-               let parentJoint = jointIndex == 0 ? skeleton : joints[ARSkeletonDefinition.defaultBody3D.jointNames[parentJointIndex]]
+               let parentJoint = jointIndex == 0 ? skeleton : joints[jointNames[parentJointIndex]]
             {
                 let parentJoinPositionInLocal = currentJoint.convertPosition(SCNVector3.init(0, 0, 0), from: parentJoint)
                 currentJoint.geometry = SCNGeometry(line: SCNVector3(0,0,0), to: parentJoinPositionInLocal)

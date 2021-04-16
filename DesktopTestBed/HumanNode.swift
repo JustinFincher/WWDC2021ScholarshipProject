@@ -16,62 +16,7 @@ class HumanNode: SCNNode
     var boundingBoxNode : SCNNode? = nil
     var headsUp : SCNNode? = nil
     
-    var jointCount = 91
-    var jointNames : [String] = [
-        "root","hips_joint","left_upLeg_joint","left_leg_joint","left_foot_joint","left_toes_joint","left_toesEnd_joint","right_upLeg_joint","right_leg_joint","right_foot_joint","right_toes_joint","right_toesEnd_joint","spine_1_joint","spine_2_joint","spine_3_joint","spine_4_joint","spine_5_joint","spine_6_joint","spine_7_joint","left_shoulder_1_joint","left_arm_joint","left_forearm_joint","left_hand_joint","left_handIndexStart_joint","left_handIndex_1_joint","left_handIndex_2_joint","left_handIndex_3_joint","left_handIndexEnd_joint","left_handMidStart_joint","left_handMid_1_joint","left_handMid_2_joint","left_handMid_3_joint","left_handMidEnd_joint","left_handPinkyStart_joint","left_handPinky_1_joint","left_handPinky_2_joint","left_handPinky_3_joint","left_handPinkyEnd_joint","left_handRingStart_joint","left_handRing_1_joint","left_handRing_2_joint","left_handRing_3_joint","left_handRingEnd_joint","left_handThumbStart_joint","left_handThumb_1_joint","left_handThumb_2_joint","left_handThumbEnd_joint","neck_1_joint","neck_2_joint","neck_3_joint","neck_4_joint","head_joint","jaw_joint","chin_joint","left_eye_joint","left_eyeLowerLid_joint","left_eyeUpperLid_joint","left_eyeball_joint","nose_joint","right_eye_joint","right_eyeLowerLid_joint","right_eyeUpperLid_joint","right_eyeball_joint","right_shoulder_1_joint","right_arm_joint","right_forearm_joint","right_hand_joint","right_handIndexStart_joint","right_handIndex_1_joint","right_handIndex_2_joint","right_handIndex_3_joint","right_handIndexEnd_joint","right_handMidStart_joint","right_handMid_1_joint","right_handMid_2_joint","right_handMid_3_joint","right_handMidEnd_joint","right_handPinkyStart_joint","right_handPinky_1_joint","right_handPinky_2_joint","right_handPinky_3_joint","right_handPinkyEnd_joint","right_handRingStart_joint","right_handRing_1_joint","right_handRing_2_joint","right_handRing_3_joint","right_handRingEnd_joint","right_handThumbStart_joint","right_handThumb_1_joint","right_handThumb_2_joint","right_handThumbEnd_joint"
-    ]
-    
-    var parentIndices : [Int] = [
-        -1,0,1,2,3,4,5,1,7,8,9,10,1,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,22,28,29,30,31,22,33,34,35,36,22,38,39,40,41,22,43,44,45,18,47,48,49,50,51,52,51,54,54,54,51,51,59,59,59,18,63,64,65,66,67,68,69,70,66,72,73,74,75,66,77,78,79,80,66,82,83,84,85,66,87,88,89
-    ]
-    
     var joints: [String:SCNNode] = [String:SCNNode]()
-    let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 1, 0.3), // hips_joint
-        
-        (2, 2, 0.25), // left_upLeg_joint
-        (2, 3, 0.2), // left_upLeg_joint to left_leg_joint
-        (3, 4, 0.2), // left_leg_joint to left_foot_joint
-        (4, 5, 0.2), // left_foot_joint to left_toes_joint
-        (5, 6, 0.15), // left_toes_joint to left_toesEnd_joint
-        
-        (7, 7, 0.25), // right_upLeg_joint
-        (7, 8, 0.2), // right_upLeg_joint to right_leg_joint
-        (8, 9, 0.2), // right_leg_joint to right_foot_joint
-        (9, 10, 0.2), // right_foot_joint to right_toes_joint
-        (10, 11, 0.15), // right_toes_joint to right_toesEnd_joint
-        
-        (12, 15, 0.25), // spine_1_joint to spine_4_joint
-        (15, 18, 0.2), // spine_4_joint to spine_7_joint
-        (18, 47, 0.15), // spine_7_joint to neck_1_joint
-        
-        (47, 49, 0.12), // neck_1_joint to neck_3_joint
-        (49, 51, 0.12), // neck_3_joint to head_joint
-        (51, 51, 0.15), // head_joint
-        
-        (19, 20, 0.2), // left_shoulder_1_joint to left_arm_joint
-        (20, 21, 0.18), // left_arm_joint to left_forearm_joint
-        (21, 22, 0.16), // left_forearm_joint to left_hand_joint
-        (22, 22, 0.2), // left_hand_joint
-        
-        (63, 64, 0.2), // right_shoulder_1_joint to right_arm_joint
-        (64, 65, 0.18), // right_arm_joint to right_forearm_joint
-        (65, 66, 0.16), // right_forearm_joint to right_hand_joint
-        (66, 66, 0.2), // right_hand_joint
-    ]
-    let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-        (1, 47, 0.25), // "hips_joint" to "neck_1_joint"
-        (47, 51, 0.15), // "neck_1_joint" to "head_joint"
-        (51, 51, 0.15), // "head_joint" sphere
-        (19, 22, 0.15), // "left_shoulder_1_joint" to "left_hand_joint"
-        (29, 29, 0.1), // "left_handMid_1_joint" sphere
-        (63, 66, 0.15), // "right_shoulder_1_joint" to "right_hand_joint"
-        (73, 73, 0.1), // "right_handMid_1_joint" sphere
-        (2, 4, 0.1), // "left_upLeg_joint" to "left_foot_joint"
-        (4, 6, 0.1), // ""left_foot_joint"" to "left_toesEnd_joint"
-        (7, 9, 0.1), // "right_upLeg_joint" to "right_foot_joint"
-        (9, 11, 0.1), // ""right_foot_joint"" to "right_toesEnd_joint"
-    ]
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
         simdTransform = anotherHuman.simdTransform
@@ -128,10 +73,6 @@ class HumanNode: SCNNode
         }
         
         renderingOrder = Int.max
-    }
-    
-    func getParentIndexOfJoint(index: Int) -> Int {
-        return parentIndices[index]
     }
     
     func filterPoints(cloudPointNode: SCNNode) -> Void {
@@ -341,7 +282,7 @@ class HumanNode: SCNNode
     func drawSkeleton() -> Void {
         for jointIndex in 0..<jointCount { // ignore root
             let name : String = jointNames[jointIndex]
-            let parentJointIndex : Int = parentIndices[jointIndex]
+            let parentJointIndex : Int = jointParentIndices[jointIndex]
             if let currentJoint = joints[name],
                let parentJoint = jointIndex == 0 ? skeleton : joints[jointNames[parentJointIndex]]
             {

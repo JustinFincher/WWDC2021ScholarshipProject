@@ -29,6 +29,10 @@ extension simd_float4x4: Codable {
         var container = encoder.unkeyedContainer()
         try container.encode([columns.0,columns.1, columns.2, columns.3])
     }
+    func toPos() -> simd_float3 {
+        let c = self.columns.0
+        return simd_float3(c.x, c.y, c.z)
+    }
 }
 
 extension MTKView: RenderDestinationProvider {

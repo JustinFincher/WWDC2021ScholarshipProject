@@ -31,7 +31,7 @@ class ARCameraView: ARSCNView {
         self.delegate = OperationManager.shared
         self.session = OperationManager.shared.session
         self.scene = OperationManager.shared.scene
-        self.debugOptions = [.showSkeletons, .showWorldOrigin]
+        self.debugOptions = [.showSkeletons]
         self.play(nil)
     }
     

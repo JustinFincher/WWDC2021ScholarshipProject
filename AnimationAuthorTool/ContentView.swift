@@ -27,6 +27,7 @@ struct ContentView: View {
                 })
                 
                 TextField("Frame Count", value: $frameCount, formatter: NumberFormatter())
+                    .padding(.vertical)
                 
                 Button(action: {
                     OperationManager.shared.recordAnimation(framesCount: frameCount)

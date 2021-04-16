@@ -55,9 +55,6 @@
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
-		0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */; };
-		0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */; };
-		0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */; };
 		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
 		0D85295D26222992004DB4B0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
@@ -202,9 +199,6 @@
 		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
-		0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameplayKit+SwiftUI.swift"; sourceTree = "<group>"; };
-		0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityHierarchyView.swift; sourceTree = "<group>"; };
-		0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+SwiftUI.swift"; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
 		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
@@ -478,7 +472,6 @@
 				0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */,
 				0DA26CCE262608F2008E6447 /* ActivityViewControllerView.swift */,
 				0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */,
-				0D5B6F4F261FA21700EC7B18 /* EntityHierarchyView.swift */,
 				0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */,
 				0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */,
 				0D16C853261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift */,
@@ -488,8 +481,6 @@
 				0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */,
 				0DE9B59126293F0E002224EA /* SCNNode+Animation.swift */,
 				0DE9B59726294226002224EA /* SCNSceneSource+Animation.swift */,
-				0D5B6F53261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift */,
-				0D5B6F43261F70D200EC7B18 /* GameplayKit+SwiftUI.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
 				0DA26CD226260C66008E6447 /* HumanNode.swift */,
 				0DA26CDE262611E4008E6447 /* ScanNode.swift */,
@@ -805,7 +796,6 @@
 				0D16C7D6261CEF4900B8BFBB /* LiveViewController.swift in Sources */,
 				0D16C861261DB51800B8BFBB /* RuntimeHelper.swift in Sources */,
 				0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */,
-				0D5B6F50261FA21700EC7B18 /* EntityHierarchyView.swift in Sources */,
 				0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */,
 				0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */,
 				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
@@ -816,10 +806,8 @@
 				0DA26CC126256EC4008E6447 /* SCNScene+Export.swift in Sources */,
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
-				0D5B6F44261F70D200EC7B18 /* GameplayKit+SwiftUI.swift in Sources */,
 				0DA26CC526260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift in Sources */,
 				0D85295D26222992004DB4B0 /* Helpers.swift in Sources */,
-				0D5B6F54261FA2DE00EC7B18 /* SceneKit+SwiftUI.swift in Sources */,
 				0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */,
 				0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */,
 				0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */,

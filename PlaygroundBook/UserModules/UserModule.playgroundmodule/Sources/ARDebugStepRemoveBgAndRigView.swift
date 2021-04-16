@@ -12,7 +12,7 @@ struct ARDebugStepRemoveBgAndRigView: View {
     @State var waiting: Bool = false
     var body: some View {
         VStack {
-            Text("Set Bounding Box")
+            Text("Remove Background And Rig")
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -21,12 +21,13 @@ struct ARDebugStepRemoveBgAndRigView: View {
                 DispatchQueue.global(qos: .userInteractive).async {
                     let manager = OperationManager.shared
                     manager.humanNode.filterPoints(cloudPointNode: manager.scanNode)
+                    manager.humanNode.rig(cloudPointNode: manager.scanNode)
                     DispatchQueue.main.async {
                         waiting = false
                     }
                 }
             }, label: {
-                FilledButtonView(icon: "", text: (waiting ? "Waiting" : "Filter Points"), color: Color.accentColor, shadow: false, primary: true)
+                FilledButtonView(icon: "", text: (waiting ? "Waiting" : "Filter Points And Rig"), color: Color.accentColor, shadow: false, primary: true)
             })
             .disabled(waiting)
             .padding(.horizontal)
