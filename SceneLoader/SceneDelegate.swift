@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  AnimationRecorder
+//  SceneLoader
 //
-//  Created by fincher on 4/16/21.
+//  Created by fincher on 4/17/21.
 //
 
 import UIKit

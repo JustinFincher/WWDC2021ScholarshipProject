@@ -11,9 +11,8 @@ import Combine
 class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
 {
     private var sceneLoadCancellable: AnyCancellable?
-    let loadSceneNode : SCNReferenceNode = SCNReferenceNode()
     let humanNode : HumanNode = HumanNode()
-    let scanNode : SCNNode = SCNNode()
+    var scanNode : SCNNode? = nil
     let scene: SCNScene = SCNScene()
     var animation : ARKitSkeletonAnimation? = nil
     
@@ -37,35 +36,39 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
                 OperationManager.shared.loadScene(url: url)
             }
         }
-        OperationManager.shared.loadSceneNode.loadingPolicy = .onDemand
-        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.loadSceneNode)
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.humanNode)
-        OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.scanNode.withName(name: "scan"))
+    }
+    
+    func loadScene(ls: SCNScene) -> Void {
+        humanNode.reset()
+        let loadHumanNode = ls.rootNode.childNode(withName: "human", recursively: false)!
+        humanNode.simdWorldTransform = loadHumanNode.simdWorldTransform
+        loadHumanNode.childNodes.forEach { (child:SCNNode) in
+            humanNode.addChildNode(child)
+        }
+        humanNode.findDeps()
+        
+        scanNode?.removeFromParentNode()
+        scanNode = ls.rootNode.childNode(withName: "scan", recursively: false)!
+        scanNode?.geometry = scanNode?.geometry!.withPointSize(size: 30)
+        scene.rootNode.addChildNode(scanNode!)
     }
     
     func loadScene(url: URL) -> Void {
-        loadSceneNode.isHidden = true
-        loadSceneNode.unload()
-        loadSceneNode.referenceURL = url
-        loadSceneNode.load()
-        humanNode.cloneNode(anotherHuman: loadSceneNode.childNode(withName: "human", recursively: false)!)
-        
-        let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
-        scanNode.simdWorldTransform = targetScan.simdWorldTransform
-        scanNode.geometry = targetScan.geometry?.withPointSize(size: 50)
-        if let skinner = targetScan.skinner {
-            let newSkinner = SCNSkinner(baseGeometry: skinner.baseGeometry, bones: humanNode.getBones(), boneInverseBindTransforms: skinner.boneInverseBindTransforms, boneWeights: skinner.boneWeights, boneIndices: skinner.boneIndices)
-            newSkinner.skeleton = humanNode.joints["root"]
-            scanNode.skinner = newSkinner
-        } else {
+        var ls : SCNScene? = nil
+        do {
+            ls = try SCNScene(url: url, options: nil)
+        } catch let err {
+            print(err)
         }
-        
-        loadSceneNode.unload()
+        if let ls = ls {
+            loadScene(ls: ls)
+        }
     }
     
     func filterPoints(callback: @escaping ()->Void) -> Void {
         DispatchQueue.global(qos: .userInteractive).async {
-            self.humanNode.filterPoints(cloudPointNode: self.scanNode)
+            self.humanNode.filterPoints(cloudPointNode: self.scanNode!)
             DispatchQueue.main.async {
                 callback()
             }
@@ -77,7 +80,12 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
     }
     
     func rig() -> Void {
-        humanNode.rig(cloudPointNode: scanNode)
+        humanNode.name = "human"
+        humanNode.rig(cloudPointNode: scanNode!)
+        let sceneData = NSKeyedArchiver.archivedData(withRootObject: scene)
+        let source = SCNSceneSource(data: sceneData, options: nil)!
+        let newScene = source.scene(options: nil)!
+        loadScene(ls: newScene)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {

@@ -100,7 +100,7 @@ let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
     (7, 8, 0.2), // right_foot_joint to right_toesEnd_joint
     
     (0, 9, 0.3), // hips_joint to spine_7_joint
-    (9, 14, 0.15), // spine_7_joint to head_joint
+    (9, 14, 0.2), // spine_7_joint to head_joint
     
     (10, 11, 0.2), // left_shoulder_1_joint to left_arm_joint
     (11, 12, 0.18), // left_arm_joint to left_forearm_joint
@@ -114,13 +114,14 @@ let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
 ]
 
 let boundingBoxIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
-    (0, 9, 0.25), // "hips_joint" to "spine_7_joint"
-    (9, 14, 0.25), // "spine_7_joint" to "head_joint"
+    (0, 9, 0.3), // "hips_joint" to "spine_7_joint"
+    (9, 9, 0.3), // "spine_7_joint" sphere
+    (9, 14, 0.3), // "spine_7_joint" to "head_joint"
     (14, 14, 0.15), // "head_joint" sphere
     (10, 13, 0.15), // "left_shoulder_1_joint" to "left_hand_joint"
-    (13, 13, 0.1), // "left_hand_joint" sphere
+    (13, 13, 0.12), // "left_hand_joint" sphere
     (15, 18, 0.15), // "right_shoulder_1_joint" to "right_hand_joint"
-    (18, 18, 0.1), // "right_hand_joint" sphere
+    (18, 18, 0.12), // "right_hand_joint" sphere
     (1, 3, 0.1), // "left_upLeg_joint" to "left_foot_joint"
     (3, 4, 0.1), // ""left_foot_joint"" to "left_toesEnd_joint"
     (5, 7, 0.1), // "right_upLeg_joint" to "right_foot_joint"

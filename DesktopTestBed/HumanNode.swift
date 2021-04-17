@@ -11,34 +11,27 @@ import SwiftUI
 
 class HumanNode: SCNNode
 {
+    override class var supportsSecureCoding: Bool {
+        return true
+    }
     
     var skeleton : SCNNode? = nil
-    var boundingBoxNode : SCNNode? = nil
-    var headsUp : SCNNode? = nil
     
     var joints: [String:SCNNode] = [String:SCNNode]()
     
-    func cloneNode(anotherHuman: SCNNode) -> Void {
-        simdTransform = anotherHuman.simdTransform
+    func reset() -> Void {
         joints.removeAll()
         childNodes.forEach { (child: SCNNode) in
             child.removeFromParentNode()
         }
-        anotherHuman.childNodes.forEach { (child: SCNNode) in
-            let clone = child.clone()
-            addChildNode(clone)
-            clone.simdWorldTransform = child.simdWorldTransform
-        }
-        name = "human"
-        skeleton = self.childNode(withName: "skeleton", recursively: true)
-        headsUp = self.childNode(withName: "headsUp", recursively: true)
-        boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
+    }
+    
+    func findDeps() -> Void {
         for jointIndex in 0..<jointCount {
             let jointName = jointNames[jointIndex]
             let node = self.childNode(withName: jointName, recursively: true)!
             joints[jointName] = node
         }
-        renderingOrder = Int.max
     }
     
     func setup() {
@@ -48,28 +41,6 @@ class HumanNode: SCNNode
             skeleton.name = "skeleton"
             skeleton.renderingOrder = Int.max
             addChildNode(skeleton)
-        }
-        
-        headsUp = SCNNode()
-        if let headsUp = headsUp {
-            headsUp.name = "headsUp"
-            let view : UIView = UIHostingController(rootView: HumanHeadFloatingView().environmentObject(EnvironmentManager.shared.env)).view
-            view.backgroundColor = UIColor.clear
-            view.frame = CGRect.init(x: 0, y: 0, width: 600, height: 300)
-            let parentView = UIView(frame: view.bounds)
-            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            parentView.addSubview(view)
-            headsUp.geometry = SCNPlane(width: 0.3, height: 0.15)
-            headsUp.geometry?.firstMaterial?.diffuse.contents = parentView
-            headsUp.geometry?.firstMaterial?.isDoubleSided = true
-            headsUp.isHidden = true
-            addChildNode(headsUp)
-        }
-        
-        boundingBoxNode = SCNNode()
-        if let boundingBoxNode = boundingBoxNode {
-            boundingBoxNode.name = "boundingBox"
-            addChildNode(boundingBoxNode)
         }
         
         renderingOrder = Int.max
@@ -255,17 +226,13 @@ class HumanNode: SCNNode
             NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
         }
         
-        let newGeometry = geometry.withPointSize(size: 100)
+        let newGeometry = geometry.withPointSize(size: 30)
         
         let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
         skinner.skeleton = joints["root"]
-        cloudPointNode.skinner = nil
         cloudPointNode.geometry = newGeometry
-        DispatchQueue.global(qos: .userInteractive).async {
-            Thread.sleep(forTimeInterval: 3)
-            cloudPointNode.skinner = skinner
-        }
+        cloudPointNode.skinner = skinner
     }
     
     func removeMark() -> Void {
