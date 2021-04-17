@@ -44,7 +44,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                     print("mode now \(mode)")
                     switch mode {
                     case .attachPointCloud:
-                        manager.scene.background.intensity = 0.01
+                        manager.scene.background.intensity = 0.1
                         let configuration = ARWorldTrackingConfiguration()
                         configuration.frameSemantics = .sceneDepth
                         manager.session.run(configuration)
@@ -66,12 +66,14 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         break
                     case .removeBgAndRig:
                         manager.scanNode.setAlpha(alpha: 0.8)
+                        manager.scene.background.intensity = 0.2
                         break
                     case .animateSkeleton:
                         manager.scanNode.setAlpha(alpha: 1.0)
+                        manager.scene.background.intensity = 1
                         break
                     case .positionSekeleton:
-                        manager.scene.background.intensity = 0.05
+                        manager.scene.background.intensity = 0.1
                         manager.scanNode.setAlpha(alpha: 0.2)
                         break
                     }})

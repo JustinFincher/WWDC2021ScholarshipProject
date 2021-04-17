@@ -11,7 +11,7 @@
 //: Please make sure that you are using a Lidar-equipped iPad Pro (2020 model).
 //:
 //: # ✳️ Steps
-//: Follow the step-by-step guides (which is displayed in the live view). Between switching steps, please make sure that you are standing still so your iPad can calibrate between AR sessions.
+//: Follow the step-by-step guides (which is also displayed in the live view). Between switching steps, please make sure that you are standing still so your iPad can calibrate between AR sessions.
 //: ## Step 1: Scan Human Point Clouds
 //: ## Step 2: Capture Human Skeleton
 //: ## Step 3: Match Skeleton and Point Clouds
@@ -40,6 +40,6 @@
 //: ## Is there room for further improvement?
 //: Cloud points are still raw datasets and therefore lacks of smoothed detail required for a human model. I tried ARMeshAnchor with custom UV generation and camera feed ray-casting in hopes that I can un-project screen-space images into UV-space textures, but it failed due to inconsistent behaviour. (It is also worth noting Model I/O's `addUnwrappedTextureCoordinates` function is rather confusing with no documentation). Let's hope that in a year or two, there will be colored mesh scanning API for us to use.
 //:
-//: # ✍️ References
+//: # References
 //: - The [WWDC20 session 10611: Explore ARKit 4](https://developer.apple.com/videos/play/wwdc2020/10611/) sample project was used as a starter project for cloud-points accumulation.
-//: - The SDF implementation for union/boolean operations are partially influenced by inigo quilez's [distance functions](https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm) .
+//: - The SDF implementation for union/boolean operations are partially influenced by inigo quilez's [distance functions](https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm)

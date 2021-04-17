@@ -16,7 +16,11 @@ struct ARDebugStepRecordAnimationView: View {
             VStack(alignment: .leading, spacing: 8, content: {
                 Text("Record Animation")
                     .font(.subheadline)
-                
+                Button(action: {
+                    OperationManager.shared.humanNode.animation = ARKitSkeletonAnimation(frames: [])
+                }, label: {
+                    FilledButtonView(icon: "", text: "Record", color: Color.accentColor, shadow: false, primary: true)
+                })
                 Button(action: {
                     showExportSheet.toggle()
                 }, label: {

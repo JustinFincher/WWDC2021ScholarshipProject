@@ -56,7 +56,7 @@
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
-		0D68A54E262B40AD00947ADF /* Cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D68A54D262B40AD00947ADF /* Cover.jpg */; };
+		0D68A55F262B41E500947ADF /* Cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D68A55E262B41E500947ADF /* Cover.png */; };
 		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
 		0D85295D26222992004DB4B0 /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
@@ -218,7 +218,7 @@
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
-		0D68A54D262B40AD00947ADF /* Cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cover.jpg; sourceTree = "<group>"; };
+		0D68A55E262B41E500947ADF /* Cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cover.png; sourceTree = "<group>"; };
 		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
 		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
 		0D85295A26222992004DB4B0 /* Scalar+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scalar+Coding.swift"; sourceTree = "<group>"; };
@@ -602,7 +602,7 @@
 		5EF2F9792054B64800191409 /* PrivateResources */ = {
 			isa = PBXGroup;
 			children = (
-				0D68A54D262B40AD00947ADF /* Cover.jpg */,
+				0D68A55E262B41E500947ADF /* Cover.png */,
 				0D430652262AC3D600531B34 /* Shaders.txt */,
 				0D430612262AC23100531B34 /* Shaders.metal */,
 				5EF2F97E2054B6E400191409 /* ManifestPlist.strings */,
@@ -837,10 +837,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D43064C262AC3C900531B34 /* Shaders.metal in Resources */,
+				0D68A55F262B41E500947ADF /* Cover.png in Resources */,
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */,
 				0D430653262AC3D900531B34 /* Shaders.txt in Resources */,
-				0D68A54E262B40AD00947ADF /* Cover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -869,7 +869,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(PROJECT_DIR)/$(PLAYGROUND_BOOK_FILE_NAME).$WRAPPER_EXTENSION",
+				"$(PROJECT_DIR)/",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
