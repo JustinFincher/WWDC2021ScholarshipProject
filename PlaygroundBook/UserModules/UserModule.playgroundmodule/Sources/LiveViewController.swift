@@ -7,13 +7,17 @@
 
 import Foundation
 import UIKit
+import SceneKit
 import PlaygroundSupport
 import SwiftUI
 
 open class LiveViewController : UIViewController, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer
 {
     let debugViewController = UIHostingController(rootView: ARDebugView())
-    let cameraView : ARCameraView = ARCameraView()
+    let cameraView : ARCameraView = ARCameraView(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0), options:
+//                                                    [SCNView.Option.preferredRenderingAPI.rawValue : SCNRenderingAPI.openGLES2]
+                                                 nil
+    )
     
     public override func viewDidLoad() {
         cameraView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size:self.view.bounds.size)

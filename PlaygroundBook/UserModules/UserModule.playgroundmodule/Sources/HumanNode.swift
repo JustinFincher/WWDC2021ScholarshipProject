@@ -17,6 +17,7 @@ class HumanNode: SCNNode, SCNCustomNode
     var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
     var animation : ARKitSkeletonAnimation? = nil
+    var cachedSkinner : SCNSkinner? = nil
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
         simdTransform = anotherHuman.simdTransform
@@ -349,7 +350,10 @@ class HumanNode: SCNNode, SCNCustomNode
         let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
         skinner.skeleton = joints["root"]
-        cloudPointNode.skinner = skinner
+    }
+    
+    func toggleSkinner(cloudPointNode: SCNNode, enable: Bool) -> Void {
+        cloudPointNode.skinner = enable ? cachedSkinner : nil
     }
     
     func apply(frame: ARKitSkeletonAnimationFrame) -> Void {

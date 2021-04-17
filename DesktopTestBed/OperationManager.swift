@@ -52,19 +52,12 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
         
         let targetScan = loadSceneNode.childNode(withName: "scan", recursively: false)!
         scanNode.simdWorldTransform = targetScan.simdWorldTransform
-        if let sources : [SCNGeometrySource] = targetScan.geometry?.sources,
-           let element : SCNGeometryElement = targetScan.geometry?.element(at: 0) {
-            element.pointSize = 15
-            element.minimumPointScreenSpaceRadius = 6
-            element.maximumPointScreenSpaceRadius = 15
-            scanNode.geometry = SCNGeometry(sources: sources, elements: [element])
-            scanNode.geometry?.firstMaterial?.lightingModel = .constant
-            scanNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        }
+        scanNode.geometry = targetScan.geometry?.withPointSize(size: 50)
         if let skinner = targetScan.skinner {
             let newSkinner = SCNSkinner(baseGeometry: skinner.baseGeometry, bones: humanNode.getBones(), boneInverseBindTransforms: skinner.boneInverseBindTransforms, boneWeights: skinner.boneWeights, boneIndices: skinner.boneIndices)
-            newSkinner.skeleton = humanNode.joints["hips_joint"]
+            newSkinner.skeleton = humanNode.joints["root"]
             scanNode.skinner = newSkinner
+        } else {
         }
         
         loadSceneNode.unload()

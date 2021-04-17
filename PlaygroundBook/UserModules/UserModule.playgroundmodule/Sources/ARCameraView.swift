@@ -14,7 +14,6 @@ class ARCameraView: ARSCNView {
     
     init() {
         super.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
-        postInit()
     }
     
     required init?(coder: NSCoder) {
@@ -23,6 +22,7 @@ class ARCameraView: ARSCNView {
     
     override init(frame: CGRect, options: [String : Any]? = nil) {
         super.init(frame: frame, options: options)
+        postInit()
     }
     
     func postInit() -> Void {

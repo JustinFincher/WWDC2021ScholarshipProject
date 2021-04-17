@@ -9,7 +9,7 @@ import Foundation
 import MetalKit
 import SceneKit
 
-let arDebugMode = true
+let arDebugMode = false
 
 enum AROperationMode {
     case captureSekeleton

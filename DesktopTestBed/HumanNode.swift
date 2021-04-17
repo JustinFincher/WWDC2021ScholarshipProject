@@ -167,6 +167,7 @@ class HumanNode: SCNNode
         guard let geometry = cloudPointNode.geometry else {
             return
         }
+        removeMark()
         
         let vertex = geometry.sources(for: .vertex).first!
         var vertexData = vertex.data
@@ -212,7 +213,7 @@ class HumanNode: SCNNode
                 let weightSum = volumeValues.values.reduce(0, +)
 
                 let weight : simd_float4 = simd_float4(
-                    containBoneIndexes.count > 0 ? volumeValues[containBoneIndexes[0]]!/weightSum : 1.0,
+                    containBoneIndexes.count > 0 ? volumeValues[containBoneIndexes[0]]!/weightSum : 0.0,
                     containBoneIndexes.count > 1 ? volumeValues[containBoneIndexes[1]]!/weightSum : 0.0,
                     containBoneIndexes.count > 2 ? volumeValues[containBoneIndexes[2]]!/weightSum : 0.0,
                     containBoneIndexes.count > 3 ? volumeValues[containBoneIndexes[3]]!/weightSum : 0.0
@@ -223,8 +224,9 @@ class HumanNode: SCNNode
                     containBoneIndexes.count > 2 ? UInt16(containBoneIndexes[2]) : 0,
                     containBoneIndexes.count > 3 ? UInt16(containBoneIndexes[3]) : 0
                 )
-//                let weight : simd_float4 = simd_float4(0,0,0,0)
+//                let weight : simd_float4 = simd_float4(-1,0,0,0)
 //                let indice : SIMD4<UInt16> = SIMD4<UInt16>(0,0,0,0)
+                print("#\(i) weight \(weight) for indice \(indice)")
                 boneWeightsArray.append(weight)
                 boneIndicesArray.append(indice)
             }
@@ -258,9 +260,26 @@ class HumanNode: SCNNode
         let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
         skinner.skeleton = joints["root"]
-        cloudPointNode.geometry = newGeometry
         cloudPointNode.skinner = nil
-        cloudPointNode.skinner = skinner
+        cloudPointNode.geometry = newGeometry
+        DispatchQueue.global(qos: .userInteractive).async {
+            Thread.sleep(forTimeInterval: 3)
+            cloudPointNode.skinner = skinner
+        }
+    }
+    
+    func removeMark() -> Void {
+        self.enumerateChildNodes { (child:SCNNode, stop:UnsafeMutablePointer<ObjCBool>) in
+            if let name = child.name
+            {
+                if joints.keys.contains(name)
+                {
+                    child.geometry = nil
+                } else if name == "mark" {
+                    child.removeFromParentNode()
+                }
+            }
+        }
     }
     
     func getBones() -> [SCNNode] {

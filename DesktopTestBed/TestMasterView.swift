@@ -15,6 +15,7 @@ struct TestDebugView: View {
             Button(action: {
                 let picker = DocumentPickerViewController(supportedExtensions: ["scn"]) { (url: URL) in
                     print(url)
+                    url.startAccessingSecurityScopedResource()
                     EnvironmentManager.shared.env.sceneURL = url
                 } onDismiss: {
                     

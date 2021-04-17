@@ -29,7 +29,11 @@ struct TestDetailView : View {
 
 struct TestSceneSwiftUIView : UIViewRepresentable {
     func makeUIView(context: Context) -> TestSceneView {
-        let view = TestSceneView()
+        let view = TestSceneView(frame: .zero, options:
+//                                    [SCNView.Option.preferredRenderingAPI.rawValue : NSNumber(value: SCNRenderingAPI.openGLES2.rawValue)]
+                                 nil
+        )
+//        let view = TestSceneView()
         view.postInit()
         return view
     }
