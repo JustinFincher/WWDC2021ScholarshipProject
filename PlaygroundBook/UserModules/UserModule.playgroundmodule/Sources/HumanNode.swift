@@ -13,8 +13,6 @@ import SwiftUI
 class HumanNode: SCNNode, SCNCustomNode
 {
     var skeleton : SCNNode? = nil
-    var boundingBoxNode : SCNNode? = nil
-    var headsUp : SCNNode? = nil
     var joints: [String:SCNNode] = [String:SCNNode]()
     var animation : ARKitSkeletonAnimation? = nil
     var cachedSkinner : SCNSkinner? = nil
@@ -32,8 +30,6 @@ class HumanNode: SCNNode, SCNCustomNode
         }
         name = "human"
         skeleton = self.childNode(withName: "skeleton", recursively: true)
-        headsUp = self.childNode(withName: "headsUp", recursively: true)
-        boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
         for jointIndex in 0..<jointCount {
             let jointName = jointNames[jointIndex]
             let node = self.childNode(withName: jointName, recursively: true)!
@@ -50,28 +46,6 @@ class HumanNode: SCNNode, SCNCustomNode
             skeleton.name = "skeleton"
             skeleton.renderingOrder = Int.max
             addChildNode(skeleton)
-        }
-        
-        headsUp = SCNNode()
-        if let headsUp = headsUp {
-            headsUp.name = "headsUp"
-            let view : UIView = UIHostingController(rootView: HumanHeadFloatingView().environmentObject(EnvironmentManager.shared.env)).view
-            view.backgroundColor = UIColor.clear
-            view.frame = CGRect.init(x: 0, y: 0, width: 600, height: 300)
-            let parentView = UIView(frame: view.bounds)
-            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            parentView.addSubview(view)
-            headsUp.geometry = SCNPlane(width: 0.3, height: 0.15)
-            headsUp.geometry?.firstMaterial?.diffuse.contents = parentView
-            headsUp.geometry?.firstMaterial?.isDoubleSided = true
-            headsUp.isHidden = true
-            addChildNode(headsUp)
-        }
-        
-        boundingBoxNode = SCNNode()
-        if let boundingBoxNode = boundingBoxNode {
-            boundingBoxNode.name = "boundingBox"
-            addChildNode(boundingBoxNode)
         }
         
         renderingOrder = Int.max
@@ -112,14 +86,6 @@ class HumanNode: SCNNode, SCNCustomNode
             }
             
             drawSkeleton()
-            
-            if let headsUp = headsUp,
-               let headJoint = joints["head_joint"],
-               let rootJoint = joints["root"]
-            {
-                headsUp.isHidden = joints.count == 0
-                headsUp.simdWorldPosition = headJoint.simdWorldPosition + rootJoint.simdWorldUp * 0.5
-            }
         }
     }
     
@@ -140,33 +106,6 @@ class HumanNode: SCNNode, SCNCustomNode
                 markNode.geometry = SCNSphere(radius: 0.01)
                 markNode.geometry?.firstMaterial?.lightingModel = .constant
                 markNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-            }
-        }
-    }
-    
-    func generateBoundingBoxes() -> Void {
-        if let boundingBoxNode = boundingBoxNode {
-            boundingBoxNode.childNodes.forEach { (child: SCNNode) in
-                child.removeFromParentNode()
-            }
-            
-            boundingBoxIndex.forEach { (item: (startJoint: Int, endJoint: Int, radius: Float)) in
-                let startJointName : String = jointNames[item.startJoint]
-                let endJointName : String = jointNames[item.endJoint]
-                let startJointNode : SCNNode = joints[startJointName]!
-                let endJointNode : SCNNode = joints[endJointName]!
-                let boxNode = SCNNode()
-                boundingBoxNode.addChildNode(boxNode)
-                if (item.startJoint == item.endJoint)
-                {
-                    boxNode.geometry = SCNSphere(radius: CGFloat(item.radius))
-                    boxNode.simdWorldPosition = startJointNode.simdWorldPosition
-                } else {
-                    let distance = simd_distance(startJointNode.simdPosition, endJointNode.simdPosition)
-                    boxNode.geometry = SCNCylinder(radius: CGFloat(item.radius), height: CGFloat(distance))
-                    boxNode.simdWorldPosition = startJointNode.simdWorldPosition
-                    boxNode.simdLook(at: endJointNode.simdWorldPosition)
-                }
             }
         }
     }
@@ -409,11 +348,6 @@ class HumanNode: SCNNode, SCNCustomNode
     
     //MARK: - SCNCustomNode
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if let pointOfView = renderer.pointOfView,
-           let headsUp = headsUp {
-            headsUp.simdLook(at: pointOfView.simdWorldPosition)
-        }
-        
         switch EnvironmentManager.shared.env.arOperationMode {
         case .attachPointCloud:
             break
