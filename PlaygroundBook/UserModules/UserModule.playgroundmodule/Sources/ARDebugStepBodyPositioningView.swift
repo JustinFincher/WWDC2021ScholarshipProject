@@ -62,15 +62,18 @@ struct ARDebugStepBodyPositioningView: View {
                     FilledButtonView(icon: "", text: "Next", color: Color.accentColor, shadow: false, primary: true)
                 })
                 
-                Button(action: {
-                    showExportSheet.toggle()
-                }, label: {
-                    FilledButtonView(icon: "", text: "Export", color: Color.accentColor, shadow: false, primary: true)
-                })
-                .sheet(isPresented: $showExportSheet, onDismiss: {
-                }, content: {
-                    ActivityViewControllerView(activityItems: [OperationManager.shared.scene.exportAndReturnURL()!])
-                })
+                if arDebugMode
+                {
+                    Button(action: {
+                        showExportSheet.toggle()
+                    }, label: {
+                        FilledButtonView(icon: "", text: "Export", color: Color.accentColor, shadow: false, primary: true)
+                    })
+                    .sheet(isPresented: $showExportSheet, onDismiss: {
+                    }, content: {
+                        ActivityViewControllerView(activityItems: [OperationManager.shared.scene.exportAndReturnURL()!])
+                    })
+                }
             })
             .padding(.horizontal)
         })

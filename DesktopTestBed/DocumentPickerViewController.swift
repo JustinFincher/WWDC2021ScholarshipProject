@@ -36,6 +36,7 @@ class DocumentPickerViewController: UIDocumentPickerViewController, UIDocumentPi
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        urls.first!.startAccessingSecurityScopedResource()
         onPick(urls.first!)
     }
 

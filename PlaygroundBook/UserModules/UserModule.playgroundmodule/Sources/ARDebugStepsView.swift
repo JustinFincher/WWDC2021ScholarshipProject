@@ -19,8 +19,8 @@ struct ARDebugStepsView: View {
         case .removeBgAndRig: return AnyView(ARDebugStepRemoveBgAndRigView())
         case .animateSkeleton: return AnyView(ARDebugStepRiggingView())
         }
-   }
-        
+    }
+    
     var body: some View {
         VStack(content: {
             Picker(selection: $environment.arOperationMode, label: Text("Step")) {
@@ -29,7 +29,10 @@ struct ARDebugStepsView: View {
                 Text("3").tag(AROperationMode.positionSekeleton)
                 Text("4").tag(AROperationMode.removeBgAndRig)
                 Text("5").tag(AROperationMode.animateSkeleton)
-                Text("6").tag(AROperationMode.recordAnimation)
+                
+                if arDebugMode {
+                    Text("6").tag(AROperationMode.recordAnimation)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .fixedSize(horizontal: false, vertical: true)
@@ -37,7 +40,7 @@ struct ARDebugStepsView: View {
             .padding([.horizontal, .top])
             
             getContentView()
-            .frame(maxHeight: .infinity, alignment: .center)
+                .frame(maxHeight: .infinity, alignment: .center)
         })
         .navigationTitle("Steps")
     }

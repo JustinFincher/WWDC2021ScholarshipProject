@@ -9,6 +9,8 @@ import Foundation
 import MetalKit
 import SceneKit
 
+let arDebugMode = true
+
 enum AROperationMode {
     case captureSekeleton
     case positionSekeleton

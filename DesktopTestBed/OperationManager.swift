@@ -37,6 +37,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
                 OperationManager.shared.loadScene(url: url)
             }
         }
+        OperationManager.shared.loadSceneNode.loadingPolicy = .onDemand
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.loadSceneNode)
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.humanNode)
         OperationManager.shared.scene.rootNode.addChildNode(OperationManager.shared.scanNode.withName(name: "scan"))
@@ -84,7 +85,6 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
     
     func rig() -> Void {
         humanNode.rig(cloudPointNode: scanNode)
-        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
