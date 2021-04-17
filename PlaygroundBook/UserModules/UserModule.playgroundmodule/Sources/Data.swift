@@ -83,8 +83,8 @@ let riggingVolumeIndex : [(startJoint: Int, endJoint: Int, radius: Float)] = [
     (9, 10, 0.2), // right_foot_joint to right_toes_joint
     (10, 11, 0.15), // right_toes_joint to right_toesEnd_joint
     
-    (12, 13, 0.2), // spine_1_joint to spine_4_joint
-    (13, 14, 0.2), // spine_4_joint to spine_7_joint
+    (12, 13, 0.3), // spine_1_joint to spine_4_joint
+    (13, 14, 0.25), // spine_4_joint to spine_7_joint
     (14, 19, 0.15), // spine_7_joint to neck_3_joint
     
     (19, 20, 0.12), // neck_3_joint to head_joint

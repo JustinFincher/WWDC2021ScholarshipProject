@@ -18,7 +18,7 @@ class DataEnvironment: ObservableObject
     @Published var positionAddX : Double = 0.0
     @Published var positionAddY : Double = 0.0
     @Published var positionAddZ : Double = 0.0
-    @Published var arOperationMode : AROperationMode = AROperationMode.attachPointCloud
+    @Published var arOperationMode : AROperationMode = AROperationMode.recordAnimation
     
     func triggerUpdate(content: @escaping (_ env: DataEnvironment) -> Void) {
         DispatchQueue.main.async {

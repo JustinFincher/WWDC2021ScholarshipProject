@@ -10,6 +10,7 @@ import SwiftUI
 struct ARDebugStepBodyPositioningView: View {
     @EnvironmentObject var environment: DataEnvironment
     
+    @State private var showExportSheet: Bool = false
     var body: some View {
         ScrollView(.vertical, showsIndicators: true, content: {
             VStack(alignment: .leading, spacing: 8, content: {
@@ -56,9 +57,19 @@ struct ARDebugStepBodyPositioningView: View {
                 }
                 
                 Button(action: {
-                    environment.arOperationMode = .positionSekeleton
+                    environment.arOperationMode = .removeBgAndRig
                 }, label: {
                     FilledButtonView(icon: "", text: "Next", color: Color.accentColor, shadow: false, primary: true)
+                })
+                
+                Button(action: {
+                    showExportSheet.toggle()
+                }, label: {
+                    FilledButtonView(icon: "", text: "Export", color: Color.accentColor, shadow: false, primary: true)
+                })
+                .sheet(isPresented: $showExportSheet, onDismiss: {
+                }, content: {
+                    ActivityViewControllerView(activityItems: [OperationManager.shared.scene.exportAndReturnURL()!])
                 })
             })
             .padding(.horizontal)

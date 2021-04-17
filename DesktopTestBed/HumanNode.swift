@@ -180,7 +180,7 @@ class HumanNode: SCNNode
                 let vertex = pointer.load(fromByteOffset: i * vertex.dataStride + vertex.dataOffset, as: SCNVector3.self)
                 let vertexWorldPosition = cloudPointNode.convertPosition(vertex, to: nil)
                 let vertexWorldPositionSIMD = simd_float3(vertexWorldPosition)
-                
+
                 var volumeValues : Dictionary<Int,Float> = Dictionary()
                 for rigVolumeIndex in 0..<riggingVolumeIndex.count
                 {
@@ -210,7 +210,7 @@ class HumanNode: SCNNode
                 }
                 let containBoneIndexes : [Int] = Array(volumeValues.keys).sorted(by: {volumeValues[$0]! < volumeValues[$1]!}) // sdf values are negative, so smallest actually is deepest
                 let weightSum = volumeValues.values.reduce(0, +)
-                
+
                 let weight : simd_float4 = simd_float4(
                     containBoneIndexes.count > 0 ? volumeValues[containBoneIndexes[0]]!/weightSum : 1.0,
                     containBoneIndexes.count > 1 ? volumeValues[containBoneIndexes[1]]!/weightSum : 0.0,
@@ -223,6 +223,8 @@ class HumanNode: SCNNode
                     containBoneIndexes.count > 2 ? UInt16(containBoneIndexes[2]) : 0,
                     containBoneIndexes.count > 3 ? UInt16(containBoneIndexes[3]) : 0
                 )
+//                let weight : simd_float4 = simd_float4(1,0,0,0)
+//                let indice : SIMD4<UInt16> = SIMD4<UInt16>(0,0,0,0)
                 boneWeightsArray.append(weight)
                 boneIndicesArray.append(indice)
             }
@@ -247,9 +249,12 @@ class HumanNode: SCNNode
             NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
         }
         
-        let skinner = SCNSkinner(baseGeometry: geometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
+        let newGeometry = geometry.withPointSize(size: 15)
         
-        skinner.skeleton = joints["hips_joint"]
+        let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
+        
+//        skinner.skeleton = joints["root"]
+        cloudPointNode.geometry = newGeometry
         cloudPointNode.skinner = skinner
     }
     
@@ -262,21 +267,12 @@ class HumanNode: SCNNode
     
     func apply(frame: ARKitSkeletonAnimationFrame) -> Void {
         print("apply frame")
-        let hips = joints["hips_joint"]
         frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
-            if let joint = joints[seg.key],
-               let hips = hips
-            {
-//                print("\(seg.key)")
-                joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
-                let hipRelativePos = hips.simdConvertPosition(joint.simdWorldPosition, from: nil) * 0.012
-                joint.simdWorldPosition = hips.simdConvertPosition(hipRelativePos, to: nil)
-            } else {
-                print("non exist joint")
+            if seg.key != "root", let joint = joints[seg.key] {
+                joint.simdTransform = seg.value
             }
         }
         drawSkeleton()
-        
     }
     
     func drawSkeleton() -> Void {

@@ -84,6 +84,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
     
     func rig() -> Void {
         humanNode.rig(cloudPointNode: scanNode)
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {

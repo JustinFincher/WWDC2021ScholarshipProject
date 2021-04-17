@@ -24,7 +24,7 @@ struct ARDebugStepRecordAnimationView: View {
                 })
                 .sheet(isPresented: $showExportSheet, onDismiss: {
                 }, content: {
-                    ActivityViewControllerView(activityItems: [OperationManager.shared.scene.exportAndReturnURL()!])
+                    ActivityViewControllerView(activityItems: [OperationManager.shared.humanNode.exportAnimationAndReturnURL()!])
                 })
             })
             .padding(.horizontal)

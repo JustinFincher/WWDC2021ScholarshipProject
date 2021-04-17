@@ -14,7 +14,7 @@ class TestSceneView: SCNView {
         self.scene = OperationManager.shared.scene
         self.showsStatistics = true
         self.allowsCameraControl = true
-        self.debugOptions = [.showCameras, .showSkeletons, .showWorldOrigin, .showBoundingBoxes, .showWireframe]
+        self.debugOptions = [.showCameras, .showSkeletons, .showWireframe, .showBoundingBoxes]
         self.play(nil)
         self.delegate = OperationManager.shared
     }

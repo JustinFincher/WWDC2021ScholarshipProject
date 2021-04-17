@@ -65,14 +65,14 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         manager.scanNode.setAlpha(alpha: 0.5)
                         break
                     case .removeBgAndRig:
-                        manager.scanNode.setAlpha(alpha: 1.0)
+                        manager.scanNode.setAlpha(alpha: 0.8)
                         break
                     case .animateSkeleton:
                         manager.scanNode.setAlpha(alpha: 1.0)
                         break
                     case .positionSekeleton:
                         manager.scene.background.intensity = 0.05
-                        manager.scanNode.setAlpha(alpha: 0.9)
+                        manager.scanNode.setAlpha(alpha: 0.2)
                         break
                     }})
         manager.session.delegate = manager

@@ -50,8 +50,8 @@ struct TestDebugView: View {
                             let an = try JSONDecoder().decode(ARKitSkeletonAnimation.self, from: data)
                             OperationManager.shared.animate(animation: an)
                         }
-                        print(json)
                     } catch let err {
+                        print(err)
                     }
                 } onDismiss: {
                     

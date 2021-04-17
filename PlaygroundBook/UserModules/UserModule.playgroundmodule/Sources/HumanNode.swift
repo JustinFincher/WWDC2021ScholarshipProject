@@ -19,12 +19,15 @@ class HumanNode: SCNNode, SCNCustomNode
     var animation : ARKitSkeletonAnimation? = nil
     
     func cloneNode(anotherHuman: SCNNode) -> Void {
+        simdTransform = anotherHuman.simdTransform
         joints.removeAll()
         childNodes.forEach { (child: SCNNode) in
             child.removeFromParentNode()
         }
         anotherHuman.childNodes.forEach { (child: SCNNode) in
-            addChildNode(child.clone())
+            let clone = child.clone()
+            addChildNode(clone)
+            clone.simdWorldTransform = child.simdWorldTransform
         }
         name = "human"
         skeleton = self.childNode(withName: "skeleton", recursively: true)
@@ -32,7 +35,7 @@ class HumanNode: SCNNode, SCNCustomNode
         boundingBoxNode = self.childNode(withName: "boundingBox", recursively: true)
         for jointIndex in 0..<jointCount {
             let jointName = jointNames[jointIndex]
-            let node = skeleton?.childNode(withName: jointName, recursively: true)!
+            let node = self.childNode(withName: jointName, recursively: true)!
             joints[jointName] = node
         }
         renderingOrder = Int.max
@@ -338,7 +341,7 @@ class HumanNode: SCNNode, SCNCustomNode
         let bones : [SCNNode] = (0..<jointCount).map({ (boneIndex:Int) -> SCNNode in
             joints[jointNames[boneIndex]]!
         })
-
+        
         let boneInverseBindTransforms : [NSValue] = bones.map { (joint: SCNNode) -> NSValue in
             NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
         }
@@ -351,17 +354,9 @@ class HumanNode: SCNNode, SCNCustomNode
     
     func apply(frame: ARKitSkeletonAnimationFrame) -> Void {
         print("apply frame")
-        let hips = joints["hips_joint"]
         frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
-            if let joint = joints[seg.key],
-               let hips = hips
-            {
-                print("\(seg.key)")
-                joint.simdWorldTransform = hips.simdConvertTransform(seg.value, to: nil)
-                let hipRelativePos = hips.simdConvertPosition(joint.simdWorldPosition, from: nil) * 0.012
-                joint.simdWorldPosition = hips.simdConvertPosition(hipRelativePos, to: nil)
-            } else {
-                print("non exist joint")
+            if seg.key != "root", let joint = joints[seg.key] {
+                joint.simdTransform = seg.value
             }
         }
         drawSkeleton()
@@ -372,7 +367,9 @@ class HumanNode: SCNNode, SCNCustomNode
         print("gather frame")
         var dict : Dictionary<String, simd_float4x4> = Dictionary<String, simd_float4x4>()
         joints.forEach { (seg: (key: String, value: SCNNode)) in
-            dict[seg.key] = seg.value.simdTransform
+            if seg.key != "root" {
+                dict[seg.key] = seg.value.simdTransform
+            }
         }
         return ARKitSkeletonAnimationFrame(joints: dict)
     }
@@ -406,10 +403,6 @@ class HumanNode: SCNNode, SCNCustomNode
         }
     }
     
-    func toggleRecordAnimation() -> Void {
-        animation = ARKitSkeletonAnimation(frames: [])
-    }
-    
     //MARK: - SCNCustomNode
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if let pointOfView = renderer.pointOfView,
@@ -434,6 +427,9 @@ class HumanNode: SCNNode, SCNCustomNode
         case .positionSekeleton:
             break
         case .recordAnimation:
+            if animation == nil {
+                animation = ARKitSkeletonAnimation(frames: [])
+            }
             print("frame \(animation?.frames.count ?? 0)")
             animation?.addFrame(frame: self.gather())
             break
@@ -480,6 +476,12 @@ class HumanNode: SCNNode, SCNCustomNode
         case .positionSekeleton:
             break
         case .recordAnimation:
+            let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+                anchor as? ARBodyAnchor
+            }
+            if let body = bodies.first {
+                pose(bodyAnchor: body, reuse: false)
+            }
             break
         }
     }
@@ -503,6 +505,12 @@ class HumanNode: SCNNode, SCNCustomNode
         case .positionSekeleton:
             break
         case .recordAnimation:
+            let bodies : [ARBodyAnchor] = anchors.compactMap { anchor -> ARBodyAnchor? in
+                anchor as? ARBodyAnchor
+            }
+            if let body = bodies.first {
+                pose(bodyAnchor: body, reuse: true)
+            }
             break
         }
         

@@ -35,6 +35,23 @@ extension SCNGeometry
         ]
         return self
     }
+    
+    func withPointSize(size: CGFloat) -> SCNGeometry {
+        let sources = self.sources
+        var elements = self.elements
+        elements.forEach { (ele:SCNGeometryElement) in
+            ele.pointSize = size
+            ele.maximumPointScreenSpaceRadius = size
+        }
+        
+        let geo = SCNGeometry(sources: sources, elements: elements)
+        geo.firstMaterial?.fillMode = .fill
+        geo.firstMaterial?.cullMode = .back
+        geo.firstMaterial?.isDoubleSided = true
+        geo.firstMaterial?.lightingModel = .constant
+        geo.firstMaterial?.diffuse.contents = UIColor.white
+        return geo
+    }
 }
 
 extension  SCNGeometrySource {

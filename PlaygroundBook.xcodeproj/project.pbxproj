@@ -87,6 +87,8 @@
 		0D93FC97262A24E3002ED84C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D93FC9D262A24EB002ED84C /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D93FCA4262A2716002ED84C /* ARDebugStepRecordAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D93FCA3262A2716002ED84C /* ARDebugStepRecordAnimationView.swift */; };
+		0D93FCAB262A2F3E002ED84C /* chenxi.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FCAA262A2F3E002ED84C /* chenxi.json */; };
+		0D93FCAC262A2F3E002ED84C /* chenxi.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FCAA262A2F3E002ED84C /* chenxi.json */; };
 		0DA26CC126256EC4008E6447 /* SCNScene+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */; };
 		0DA26CC526260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */; };
 		0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */; };
@@ -236,6 +238,7 @@
 		0D93FC85262A24A4002ED84C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0D93FC87262A24A4002ED84C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D93FCA3262A2716002ED84C /* ARDebugStepRecordAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRecordAnimationView.swift; sourceTree = "<group>"; };
+		0D93FCAA262A2F3E002ED84C /* chenxi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chenxi.json; path = ../../../../../Downloads/chenxi.json; sourceTree = "<group>"; };
 		0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNScene+Export.swift"; sourceTree = "<group>"; };
 		0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRemoveBgAndRigView.swift; sourceTree = "<group>"; };
 		0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRiggingView.swift; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				0D93FC56262A13DD002ED84C /* moonwalk.json */,
+				0D93FCAA262A2F3E002ED84C /* chenxi.json */,
 				0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */,
 				0D4B2F7226278C220027A0F8 /* JointList */,
 			);
@@ -822,6 +826,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */,
+				0D93FCAB262A2F3E002ED84C /* chenxi.json in Resources */,
 				0D93FC66262A13FE002ED84C /* moonwalk.json in Resources */,
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */,
@@ -834,6 +839,7 @@
 			files = (
 				0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */,
 				5EA2E3CA2056F35B00416A35 /* LiveViewTestAppLaunchScreen.storyboard in Resources */,
+				0D93FCAC262A2F3E002ED84C /* chenxi.json in Resources */,
 				0D93FC57262A13DD002ED84C /* moonwalk.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

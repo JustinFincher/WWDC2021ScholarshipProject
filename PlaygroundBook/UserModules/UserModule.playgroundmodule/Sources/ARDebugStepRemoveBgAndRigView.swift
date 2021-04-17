@@ -21,10 +21,20 @@ struct ARDebugStepRemoveBgAndRigView: View {
                     .font(.caption)
                 
                 Button(action: {
-                    environment.arOperationMode = .positionSekeleton
+                    waiting = true
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        let manager = OperationManager.shared
+                        manager.humanNode.filterPoints(cloudPointNode: manager.scanNode)
+                        manager.humanNode.rig(cloudPointNode: manager.scanNode)
+                        DispatchQueue.main.async {
+                            waiting = false
+                            environment.arOperationMode = .animateSkeleton
+                        }
+                    }
                 }, label: {
-                    FilledButtonView(icon: "", text: "Next", color: Color.accentColor, shadow: false, primary: true)
+                    FilledButtonView(icon: "", text: (waiting ? "Processing" : "Next"), color: Color.accentColor, shadow: false, primary: true)
                 })
+                .disabled(waiting)
             })
             .padding(.horizontal)
         })
