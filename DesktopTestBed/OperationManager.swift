@@ -50,7 +50,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
         
         scanNode?.removeFromParentNode()
         scanNode = ls.rootNode.childNode(withName: "scan", recursively: false)!
-        scanNode?.geometry = scanNode?.geometry!.withPointSize(size: 30)
+        scanNode?.geometry = scanNode?.geometry!.withPointSize(size: 15)
         scene.rootNode.addChildNode(scanNode!)
     }
     

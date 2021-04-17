@@ -10,8 +10,6 @@
 		0D0B6A7826225EFC001104E3 /* SCNGeometry+Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7726225EFC001104E3 /* SCNGeometry+Procedural.swift */; };
 		0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7F2622A53D001104E3 /* SCNNode+Utils.swift */; };
 		0D0B6A882622A6D7001104E3 /* ARDebugStepHumanBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */; };
-		0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
-		0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */; };
 		0D0DA9022622D335001D5CB9 /* PlaygroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */; };
 		0D16C7CA261CEF2600B8BFBB /* UserModuleFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16C7C3261CEF2600B8BFBB /* UserModuleFramework.framework */; };
 		0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */; };
@@ -26,6 +24,9 @@
 		0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D16C884261DEF2000B8BFBB /* ARDebugStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */; };
 		0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */; };
+		0D430618262AC25000531B34 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0D430612262AC23100531B34 /* Shaders.metal */; };
+		0D43064C262AC3C900531B34 /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0D430612262AC23100531B34 /* Shaders.metal */; };
+		0D430653262AC3D900531B34 /* Shaders.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0D430652262AC3D600531B34 /* Shaders.txt */; };
 		0D4B2EF026276EE10027A0F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2EEF26276EE10027A0F8 /* AppDelegate.swift */; };
 		0D4B2EF226276EE10027A0F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2EF126276EE10027A0F8 /* SceneDelegate.swift */; };
 		0D4B2EF626276EE20027A0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4B2EF526276EE20027A0F8 /* Assets.xcassets */; };
@@ -49,7 +50,7 @@
 		0D4B2F902627B2E90027A0F8 /* SCNGeometry+Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6A7726225EFC001104E3 /* SCNGeometry+Procedural.swift */; };
 		0D4B2F9B2627B30D0027A0F8 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
 		0D4B2FA22627B32A0027A0F8 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
-		0D4B2FA62627B3440027A0F8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
+		0D4B2FA62627B3440027A0F8 /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0D4B2FAD2627B4470027A0F8 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D4B2FB22627B80E0027A0F8 /* HumanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */; };
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
@@ -57,7 +58,7 @@
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
 		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
-		0D85295D26222992004DB4B0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
+		0D85295D26222992004DB4B0 /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0D8F97D7262949DE0099753B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8F97D6262949DE0099753B /* AppDelegate.swift */; };
 		0D8F97D9262949DE0099753B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8F97D8262949DE0099753B /* SceneDelegate.swift */; };
 		0D8F97DB262949DE0099753B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8F97DA262949DE0099753B /* ContentView.swift */; };
@@ -73,12 +74,8 @@
 		0D8F981526294B8F0099753B /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
 		0D8F981A26294BAB0099753B /* View+Conditional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C877261DB60200B8BFBB /* View+Conditional.swift */; };
 		0D8F981F26294D080099753B /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
-		0D8F9824262956890099753B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
-		0D93FC57262A13DD002ED84C /* moonwalk.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FC56262A13DD002ED84C /* moonwalk.json */; };
-		0D93FC66262A13FE002ED84C /* moonwalk.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FC56262A13DD002ED84C /* moonwalk.json */; };
+		0D8F9824262956890099753B /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0D93FCA4262A2716002ED84C /* ARDebugStepRecordAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D93FCA3262A2716002ED84C /* ARDebugStepRecordAnimationView.swift */; };
-		0D93FCAB262A2F3E002ED84C /* chenxi.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FCAA262A2F3E002ED84C /* chenxi.json */; };
-		0D93FCAC262A2F3E002ED84C /* chenxi.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D93FCAA262A2F3E002ED84C /* chenxi.json */; };
 		0DA26CC126256EC4008E6447 /* SCNScene+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */; };
 		0DA26CC526260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */; };
 		0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */; };
@@ -102,7 +99,7 @@
 		0DBC0BAD262AA144005776FC /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */; };
 		0DBC0BB3262AA1CD005776FC /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16C873261DB5E800B8BFBB /* FilledButtonView.swift */; };
 		0DBC0BB9262AA1E3005776FC /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2F31262774170027A0F8 /* DocumentPickerViewController.swift */; };
-		0DBC0BBF262AA1F5005776FC /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Helpers.swift */; };
+		0DBC0BBF262AA1F5005776FC /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0DC98BBF2627CFA900A282B0 /* SDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC98BBA2627CE6300A282B0 /* SDF.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		0DE9B59226293F0E002224EA /* SCNNode+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE9B59126293F0E002224EA /* SCNNode+Animation.swift */; };
@@ -184,8 +181,6 @@
 		0D0B6A7F2622A53D001104E3 /* SCNNode+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Utils.swift"; sourceTree = "<group>"; };
 		0D0B6A872622A6D7001104E3 /* ARDebugStepHumanBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepHumanBodyView.swift; sourceTree = "<group>"; };
 		0D0DA8D12622C613001D5CB9 /* PrivateResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PrivateResources; sourceTree = "<group>"; };
-		0D0DA8DB2622C6DA001D5CB9 /* PublicResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PublicResources; sourceTree = "<group>"; };
-		0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0D0DA9012622D335001D5CB9 /* PlaygroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundManager.swift; sourceTree = "<group>"; };
 		0D16C7B2261CED9600B8BFBB /* ARDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugView.swift; sourceTree = "<group>"; };
 		0D16C7B6261CEDAC00B8BFBB /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
@@ -199,6 +194,9 @@
 		0D16C877261DB60200B8BFBB /* View+Conditional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Conditional.swift"; sourceTree = "<group>"; };
 		0D16C883261DEF2000B8BFBB /* ARDebugStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepsView.swift; sourceTree = "<group>"; };
 		0D16C889261DF29700B8BFBB /* ARDebugStepPointCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepPointCloudView.swift; sourceTree = "<group>"; };
+		0D430612262AC23100531B34 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0D43062A262AC2C700531B34 /* PublicResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PublicResources; sourceTree = "<group>"; };
+		0D430652262AC3D600531B34 /* Shaders.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Shaders.txt; sourceTree = "<group>"; };
 		0D4B2EED26276EE10027A0F8 /* DesktopTestBed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesktopTestBed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4B2EEF26276EE10027A0F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D4B2EF126276EE10027A0F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 		0D4B2F31262774170027A0F8 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
 		0D4B2F4B2627784F0027A0F8 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D4B2F50262779230027A0F8 /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
-		0D4B2F7226278C220027A0F8 /* JointList */ = {isa = PBXFileReference; lastKnownFileType = text; path = JointList; sourceTree = "<group>"; };
 		0D4B2F812627B2B70027A0F8 /* HumanHeadFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanHeadFloatingView.swift; sourceTree = "<group>"; };
 		0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanNode.swift; sourceTree = "<group>"; };
 		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
@@ -222,7 +219,7 @@
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
 		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
-		0D85295A26222992004DB4B0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		0D85295A26222992004DB4B0 /* Scalar+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scalar+Coding.swift"; sourceTree = "<group>"; };
 		0D8F97D4262949DE0099753B /* AnimationAuthorTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationAuthorTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8F97D6262949DE0099753B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D8F97D8262949DE0099753B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,9 +231,7 @@
 		0D8F97F0262949E60099753B /* AnimationAuthorTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnimationAuthorTool.entitlements; sourceTree = "<group>"; };
 		0D8F97FA26294A860099753B /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D8F980A26294B180099753B /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
-		0D93FC56262A13DD002ED84C /* moonwalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = moonwalk.json; path = ../../../../../Downloads/moonwalk.json; sourceTree = "<group>"; };
 		0D93FCA3262A2716002ED84C /* ARDebugStepRecordAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRecordAnimationView.swift; sourceTree = "<group>"; };
-		0D93FCAA262A2F3E002ED84C /* chenxi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chenxi.json; path = ../../../../../Downloads/chenxi.json; sourceTree = "<group>"; };
 		0DA26CC026256EC4008E6447 /* SCNScene+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNScene+Export.swift"; sourceTree = "<group>"; };
 		0DA26CC426260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRemoveBgAndRigView.swift; sourceTree = "<group>"; };
 		0DA26CCA262606C0008E6447 /* ARDebugStepRiggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepRiggingView.swift; sourceTree = "<group>"; };
@@ -326,10 +321,6 @@
 		0D0DA8DF2622C6FA001D5CB9 /* PublicResources */ = {
 			isa = PBXGroup;
 			children = (
-				0D93FC56262A13DD002ED84C /* moonwalk.json */,
-				0D93FCAA262A2F3E002ED84C /* chenxi.json */,
-				0D0DA8E02622C6FA001D5CB9 /* Shaders.metal */,
-				0D4B2F7226278C220027A0F8 /* JointList */,
 			);
 			path = PublicResources;
 			sourceTree = "<group>";
@@ -449,9 +440,9 @@
 				5E086DCF2051DF0F004D8D25 /* Manifest.plist */,
 				5E7067A023678DED0094BDEF /* UserModules */,
 				0D0DA8DF2622C6FA001D5CB9 /* PublicResources */,
+				0D43062A262AC2C700531B34 /* PublicResources */,
 				5EF2F9792054B64800191409 /* PrivateResources */,
 				0D0DA8D12622C613001D5CB9 /* PrivateResources */,
-				0D0DA8DB2622C6DA001D5CB9 /* PublicResources */,
 				5EF2F9B62054E6F900191409 /* Chapters */,
 				5EF2F9A42054BB9500191409 /* Supporting Content */,
 			);
@@ -555,7 +546,7 @@
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
 				0DA26CD226260C66008E6447 /* HumanNode.swift */,
 				0DA26CDE262611E4008E6447 /* ScanNode.swift */,
-				0D85295A26222992004DB4B0 /* Helpers.swift */,
+				0D85295A26222992004DB4B0 /* Scalar+Coding.swift */,
 				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
 				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
 				0D16C860261DB51800B8BFBB /* RuntimeHelper.swift */,
@@ -609,6 +600,8 @@
 		5EF2F9792054B64800191409 /* PrivateResources */ = {
 			isa = PBXGroup;
 			children = (
+				0D430652262AC3D600531B34 /* Shaders.txt */,
+				0D430612262AC23100531B34 /* Shaders.metal */,
 				5EF2F97E2054B6E400191409 /* ManifestPlist.strings */,
 				5E551EC42371FC3F00784365 /* Assets.xcassets */,
 			);
@@ -711,6 +704,7 @@
 			buildPhases = (
 				5E086DD22051E35D004D8D25 /* Copy Book Contents */,
 				5E086DC62051DB17004D8D25 /* Resources */,
+				0D43066A262AC70700531B34 /* ShellScript */,
 			);
 			buildRules = (
 				5E086DD42051E415004D8D25 /* PBXBuildRule */,
@@ -839,11 +833,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D0DA8FE2622D242001D5CB9 /* Shaders.metal in Resources */,
-				0D93FCAB262A2F3E002ED84C /* chenxi.json in Resources */,
-				0D93FC66262A13FE002ED84C /* moonwalk.json in Resources */,
+				0D43064C262AC3C900531B34 /* Shaders.metal in Resources */,
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */,
+				0D430653262AC3D900531B34 /* Shaders.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,14 +846,31 @@
 			files = (
 				0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */,
 				5EA2E3CA2056F35B00416A35 /* LiveViewTestAppLaunchScreen.storyboard in Resources */,
-				0D93FCAC262A2F3E002ED84C /* chenxi.json in Resources */,
-				0D93FC57262A13DD002ED84C /* moonwalk.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0D43066A262AC70700531B34 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TARGET_BUILD_DIR/$(PLAYGROUND_BOOK_FILE_NAME).$WRAPPER_EXTENSION",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(PROJECT_DIR)/$(PLAYGROUND_BOOK_FILE_NAME).$WRAPPER_EXTENSION",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho $SCRIPT_INPUT_FILE_0\necho $SCRIPT_OUTPUT_FILE_0\nrsync -a --delete $SCRIPT_INPUT_FILE_0 $SCRIPT_OUTPUT_FILE_0\n";
+		};
 		5EA2E3DD2056FB2900416A35 /* Embed Playground Book PublicResources & PrivateResources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -904,7 +914,6 @@
 				0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */,
 				0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */,
 				0D0B6A802622A53D001104E3 /* SCNNode+Utils.swift in Sources */,
-				0D0DA8EB2622CE57001D5CB9 /* Shaders.metal in Sources */,
 				0DE9B59826294226002224EA /* SCNSceneSource+Animation.swift in Sources */,
 				0DA26CCB262606C0008E6447 /* ARDebugStepRiggingView.swift in Sources */,
 				0DEEC4AD2628B8CD00B69FA6 /* SDF.swift in Sources */,
@@ -913,7 +922,7 @@
 				0D16C7D5261CEF4900B8BFBB /* ARDebugView.swift in Sources */,
 				0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */,
 				0DA26CC526260694008E6447 /* ARDebugStepRemoveBgAndRigView.swift in Sources */,
-				0D85295D26222992004DB4B0 /* Helpers.swift in Sources */,
+				0D85295D26222992004DB4B0 /* Scalar+Coding.swift in Sources */,
 				0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */,
 				0D16C859261DB49F00B8BFBB /* RuntimeManager.swift in Sources */,
 				0D16C878261DB60200B8BFBB /* View+Conditional.swift in Sources */,
@@ -947,7 +956,7 @@
 				0D4B2FA22627B32A0027A0F8 /* PointCloudCollector.swift in Sources */,
 				0D4B2F902627B2E90027A0F8 /* SCNGeometry+Procedural.swift in Sources */,
 				0D4B2F8D2627B2E90027A0F8 /* Scalar+Lerp.swift in Sources */,
-				0D4B2FA62627B3440027A0F8 /* Helpers.swift in Sources */,
+				0D4B2FA62627B3440027A0F8 /* Scalar+Coding.swift in Sources */,
 				0D4B2F32262774170027A0F8 /* DocumentPickerViewController.swift in Sources */,
 				0D4B2F4C2627784F0027A0F8 /* OperationManager.swift in Sources */,
 				0D4B2F5926277BD10027A0F8 /* View+Conditional.swift in Sources */,
@@ -969,7 +978,7 @@
 				0D8F981F26294D080099753B /* Data.swift in Sources */,
 				0D8F981026294B820099753B /* DocumentPickerViewController.swift in Sources */,
 				0D8F97FB26294A860099753B /* OperationManager.swift in Sources */,
-				0D8F9824262956890099753B /* Helpers.swift in Sources */,
+				0D8F9824262956890099753B /* Scalar+Coding.swift in Sources */,
 				0D8F980026294A9F0099753B /* RuntimeManager.swift in Sources */,
 				0D8F97DB262949DE0099753B /* ContentView.swift in Sources */,
 			);
@@ -989,7 +998,7 @@
 				0DBC0B9B262AA132005776FC /* RuntimeManager.swift in Sources */,
 				0DBC0BA7262AA13E005776FC /* View+Conditional.swift in Sources */,
 				0DBC0B8E262AA0EE005776FC /* OperationManager.swift in Sources */,
-				0DBC0BBF262AA1F5005776FC /* Helpers.swift in Sources */,
+				0DBC0BBF262AA1F5005776FC /* Scalar+Coding.swift in Sources */,
 				0DBC0B87262AA0BB005776FC /* SceneView.swift in Sources */,
 				0DBC0BA1262AA13B005776FC /* Data.swift in Sources */,
 			);
@@ -999,6 +1008,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D430618262AC25000531B34 /* Shaders.metal in Sources */,
 				5EA2E3C02056F35A00416A35 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

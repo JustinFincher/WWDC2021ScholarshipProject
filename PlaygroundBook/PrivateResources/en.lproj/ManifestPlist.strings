@@ -6,10 +6,3 @@ Contains English localizations of values in Manifest.plist files in the playgrou
 */
 
 /* The localized name of the playground book. */
-//"PlaygroundBookName" = "Shader Node Editor";
-
-//"ChapterOneName" = "Shader Node Editor";
-//"ChapterOnePageOneName" = "Introduction";
-//"ChapterOnePageTwoName" = "Getting Started in Shader";
-//"ChapterOnePageThreeName" = "Advanced Usage with Node Editor";
-//"ChapterOnePageFourName" = "Becoming a VJ";

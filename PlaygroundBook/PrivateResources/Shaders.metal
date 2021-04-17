@@ -1,10 +1,3 @@
-/*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-The sample app's shaders.
-*/
-
 #include <metal_stdlib>
 #include <simd/simd.h>
 

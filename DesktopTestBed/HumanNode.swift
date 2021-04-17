@@ -195,9 +195,6 @@ class HumanNode: SCNNode
                     containBoneIndexes.count > 2 ? UInt16(containBoneIndexes[2]) : 0,
                     containBoneIndexes.count > 3 ? UInt16(containBoneIndexes[3]) : 0
                 )
-//                let weight : simd_float4 = simd_float4(-1,0,0,0)
-//                let indice : SIMD4<UInt16> = SIMD4<UInt16>(0,0,0,0)
-                print("#\(i) weight \(weight) for indice \(indice)")
                 boneWeightsArray.append(weight)
                 boneIndicesArray.append(indice)
             }
@@ -226,7 +223,7 @@ class HumanNode: SCNNode
             NSValue(scnMatrix4: SCNMatrix4Invert(self.convertTransform(SCNMatrix4Identity, from: joint)))
         }
         
-        let newGeometry = geometry.withPointSize(size: 30)
+        let newGeometry = geometry.withPointSize(size: 15)
         
         let skinner = SCNSkinner(baseGeometry: newGeometry, bones: bones, boneInverseBindTransforms: boneInverseBindTransforms, boneWeights: boneWeightsSource, boneIndices: boneIndicesSource)
         
