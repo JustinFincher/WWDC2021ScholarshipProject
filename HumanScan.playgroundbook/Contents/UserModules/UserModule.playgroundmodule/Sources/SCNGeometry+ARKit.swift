@@ -27,19 +27,27 @@ extension SCNGeometry
         return self
     }
     
-    func withAlphaMaterial() -> SCNGeometry {
-        self.firstMaterial?.fillMode = .fill
+//    func withAlphaMaterial() -> SCNGeometry {
+//        self.firstMaterial?.fillMode = .fill
+//        self.firstMaterial?.lightingModel = .constant
+//        self.firstMaterial?.shaderModifiers = [
+//            SCNShaderModifierEntryPoint.fragment : """
+//                float4 color = _surface.diffuse;
+//                if (color.a == 0)
+//                {
+//                    discard_fragment();
+//                }
+//                _output.color.rgba = color;
+//                """
+//        ]
+//        return self
+//    }
+    
+    func withAlphaMaterial(alpha: Float) -> SCNGeometry {
+        self.firstMaterial?.transparencyMode = .singleLayer
         self.firstMaterial?.lightingModel = .constant
-        self.firstMaterial?.shaderModifiers = [
-            SCNShaderModifierEntryPoint.fragment : """
-                float4 color = _surface.diffuse;
-                if (color.a == 0)
-                {
-                    discard_fragment();
-                }
-                _output.color.rgba = color;
-                """
-        ]
+        self.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(CGFloat(alpha))
+        self.firstMaterial?.transparency = CGFloat(alpha)
         return self
     }
     

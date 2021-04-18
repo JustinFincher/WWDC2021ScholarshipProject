@@ -7,16 +7,23 @@
 //: # 👀 Welcome
 //: Welcome to **HumanScan**. Ever wondered if you can create a digital clone of yourself? Now it is possible with ARKit and Lidar-enabled devices. In this playground, we are gonna scan a point-cloud map of the environment you and your buddy is in, extract feature points around the tracked skeleton of your buddy, then make the scanned 3D human model animatable!
 //:
+//: ![](Steps.png)
+//:
 //: # ‼️ Requirements
 //: Please make sure that you are using a Lidar-equipped iPad Pro (2020 model).
 //:
 //: # ✳️ Steps
 //: Follow the step-by-step guides (which is displayed in the live view). Between switching steps, please make sure that you are standing still so your iPad can calibrate between AR sessions.
 //: ## Step 1: Scan Human Point Clouds
+//: > Ask your friend to stand in a T-pose or a 大-pose. The pose needs to be maintained throughout the process. Now walk around and use the iPad to scan your friends until the body are covered with enough point clouds.
 //: ## Step 2: Capture Human Skeleton
+//: > Now stand right before your friend and keep your friend's whole body within the viewport. Your iPad will display a skeleton based on your friends's T-pose / 大-pose. Make sure it is matching the point cloud (you can still make small adjustments later).
 //: ## Step 3: Match Skeleton and Point Clouds
+//: > Your friend is now free to leave as we have captured enough information. But the skeleton might be a little bit off. Walk around and check if the skeleton is actually matched with the point cloud, and use sliders to move it until it is as fit as possible.
 //: ## Step 4: Generate Skinning Data
+//: > Now we need to wait for iPad to process the dataset. Press the button to remove background, auto-rigging and skinning the 3D model. After it is done you will be automatically moved the next step.
 //: ## Step 5: Apply Animation
+//: > Fun time! If you did a great job in scanning and adjusting skeleton positions, now is the time to see a fully rigged 3D model capable of playing custom animations! Press play to see your friend in different postures that are actually pre-recorded by myself. You now have a digital clone in the AR space, thnk about all silly things you can do with this technology!
 //:
 //: # 🤖 Technical Explaination
 //: ## What is a point cloud and why use it?
@@ -43,3 +50,6 @@
 //: # ✍️ References
 //: - The [WWDC20 session 10611: Explore ARKit 4](https://developer.apple.com/videos/play/wwdc2020/10611/) sample project was used as a starter project for cloud-points accumulation.
 //: - The SDF implementation for union/boolean operations are partially influenced by inigo quilez's [distance functions](https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm) .
+//:
+//: # 👨‍💻 Author
+//: Haotian Zheng, a CMU MSMITE student ([Website](https://haotianzheng.com) ).

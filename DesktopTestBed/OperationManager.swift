@@ -46,7 +46,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
         loadHumanNode.childNodes.forEach { (child:SCNNode) in
             humanNode.addChildNode(child)
         }
-        humanNode.findDeps()
+        humanNode.setup()
         
         scanNode?.removeFromParentNode()
         scanNode = ls.rootNode.childNode(withName: "scan", recursively: false)!
@@ -95,7 +95,7 @@ class OperationManager: RuntimeManagableSingleton, SCNSceneRendererDelegate
     func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
         if animation?.frames.count ?? 0 > 0 {
             print("frame \(animation?.frames.count ?? 0)")
-            humanNode.apply(frame: (animation?.frames[0])!)
+            humanNode.setPose(frame: (animation?.frames[0])!)
             animation?.removeFirstFrame()
         }
     }

@@ -279,8 +279,8 @@ class HumanNode: SCNNode, SCNCustomNode
     
     func setPose(frame: ARKitSkeletonAnimationFrame) -> Void {
         print("apply frame")
-        frame.joints.forEach { (seg:(key: String, value: simd_float4x4)) in
-            if seg.key != "root", let joint = joints[seg.key] {
+        frame.joints.forEach { (seg:(key: Int, value: simd_float4x4)) in
+            if let joint = joints[jointNames[seg.key]] {
                 joint.simdTransform = seg.value
             }
         }
@@ -288,10 +288,11 @@ class HumanNode: SCNNode, SCNCustomNode
     
     func getPose() -> ARKitSkeletonAnimationFrame {
         print("gather frame")
-        var dict : Dictionary<String, simd_float4x4> = Dictionary<String, simd_float4x4>()
-        joints.forEach { (seg: (key: String, value: SCNNode)) in
-            if seg.key != "root" {
-                dict[seg.key] = seg.value.simdTransform
+        var dict : Dictionary<Int, simd_float4x4> = Dictionary<Int, simd_float4x4>()
+        for jointIndex in 0..<jointCount {
+            if let node = joints[jointNames[jointIndex]]
+            {
+                dict[jointIndex] = node.simdTransform
             }
         }
         return ARKitSkeletonAnimationFrame(joints: dict)

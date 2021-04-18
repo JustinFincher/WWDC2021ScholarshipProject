@@ -29,7 +29,7 @@ protocol RenderDestinationProvider {
 }
 
 struct ARKitSkeletonAnimationFrame : Codable {
-    var joints : Dictionary<String, simd_float4x4> = Dictionary<String, simd_float4x4>()
+    var joints : Dictionary<Int, simd_float4x4> = Dictionary<Int, simd_float4x4>()
 }
 
 struct ARKitSkeletonAnimation : Codable {

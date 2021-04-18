@@ -20,7 +20,7 @@ struct ARDebugStepRiggingView: View {
                     .font(.caption)
                 
                 Button(action: {
-                    OperationManager.shared.humanNode.loadAnimation(url: Bundle.main.url(forResource: "chenxi", withExtension: "json")!)
+                    OperationManager.shared.humanNode.loadAnimation(url: Bundle.main.url(forResource: "record", withExtension: "json")!)
                 }, label: {
                     FilledButtonView(icon: "", text: "Play", color: Color.accentColor, shadow: false, primary: true)
                 })

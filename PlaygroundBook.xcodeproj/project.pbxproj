@@ -52,11 +52,11 @@
 		0D4B2FA22627B32A0027A0F8 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D4B2FA62627B3440027A0F8 /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0D4B2FAD2627B4470027A0F8 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
-		0D4B2FB22627B80E0027A0F8 /* HumanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */; };
 		0D591F9D262008D900EE4286 /* Scalar+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */; };
 		0D5B6F31261E799B00EC7B18 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F30261E799B00EC7B18 /* Data.swift */; };
 		0D5B6F35261E9D5900EC7B18 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */; };
 		0D68A55F262B41E500947ADF /* Cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D68A55E262B41E500947ADF /* Cover.png */; };
+		0D68A581262B5FF900947ADF /* Steps.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D68A580262B5FF900947ADF /* Steps.png */; };
 		0D85295B26222992004DB4B0 /* PointCloudCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295826222992004DB4B0 /* PointCloudCollector.swift */; };
 		0D85295C26222992004DB4B0 /* MetalBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295926222992004DB4B0 /* MetalBuffer.swift */; };
 		0D85295D26222992004DB4B0 /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
@@ -84,7 +84,6 @@
 		0DA26CD326260C66008E6447 /* HumanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD226260C66008E6447 /* HumanNode.swift */; };
 		0DA26CD726260F3A008E6447 /* HumanHeadFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */; };
 		0DA26CDB26261165008E6447 /* SCNCustomNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */; };
-		0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDE262611E4008E6447 /* ScanNode.swift */; };
 		0DBC0B6A262AA064005776FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC0B69262AA064005776FC /* AppDelegate.swift */; };
 		0DBC0B6C262AA064005776FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC0B6B262AA064005776FC /* SceneDelegate.swift */; };
 		0DBC0B6E262AA064005776FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC0B6D262AA064005776FC /* ContentView.swift */; };
@@ -102,6 +101,10 @@
 		0DBC0BB9262AA1E3005776FC /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B2F31262774170027A0F8 /* DocumentPickerViewController.swift */; };
 		0DBC0BBF262AA1F5005776FC /* Scalar+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D85295A26222992004DB4B0 /* Scalar+Coding.swift */; };
 		0DC98BBF2627CFA900A282B0 /* SDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC98BBA2627CE6300A282B0 /* SDF.swift */; };
+		0DC9C134262B679C00DB4D10 /* record.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DC9C133262B679C00DB4D10 /* record.json */; };
+		0DC9C135262B679C00DB4D10 /* record.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DC9C133262B679C00DB4D10 /* record.json */; };
+		0DC9C140262B73D100DB4D10 /* HumanNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CD226260C66008E6447 /* HumanNode.swift */; };
+		0DC9C146262B749E00DB4D10 /* SCNCustomNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */; };
 		0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E551EC42371FC3F00784365 /* Assets.xcassets */; };
 		0DE9B59226293F0E002224EA /* SCNNode+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE9B59126293F0E002224EA /* SCNNode+Animation.swift */; };
 		0DE9B59326293F0E002224EA /* SCNNode+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE9B59126293F0E002224EA /* SCNNode+Animation.swift */; };
@@ -213,12 +216,12 @@
 		0D4B2F4B2627784F0027A0F8 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D4B2F50262779230027A0F8 /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		0D4B2F812627B2B70027A0F8 /* HumanHeadFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanHeadFloatingView.swift; sourceTree = "<group>"; };
-		0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanNode.swift; sourceTree = "<group>"; };
 		0D591F9C262008D900EE4286 /* Scalar+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scalar+Lerp.swift"; sourceTree = "<group>"; };
 		0D5B6F30261E799B00EC7B18 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0D5B6F34261E9D5900EC7B18 /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0D5F84962469905900050D49 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		0D68A55E262B41E500947ADF /* Cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cover.png; sourceTree = "<group>"; };
+		0D68A580262B5FF900947ADF /* Steps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Steps.png; sourceTree = "<group>"; };
 		0D85295826222992004DB4B0 /* PointCloudCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloudCollector.swift; sourceTree = "<group>"; };
 		0D85295926222992004DB4B0 /* MetalBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalBuffer.swift; sourceTree = "<group>"; };
 		0D85295A26222992004DB4B0 /* Scalar+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scalar+Coding.swift"; sourceTree = "<group>"; };
@@ -241,7 +244,6 @@
 		0DA26CD226260C66008E6447 /* HumanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanNode.swift; sourceTree = "<group>"; };
 		0DA26CD626260F3A008E6447 /* HumanHeadFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanHeadFloatingView.swift; sourceTree = "<group>"; };
 		0DA26CDA26261165008E6447 /* SCNCustomNodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNCustomNodeProtocol.swift; sourceTree = "<group>"; };
-		0DA26CDE262611E4008E6447 /* ScanNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanNode.swift; sourceTree = "<group>"; };
 		0DBC0B67262AA064005776FC /* SceneLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DBC0B69262AA064005776FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DBC0B6B262AA064005776FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		0DBC0B8D262AA0EE005776FC /* OperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 		0DBC0B94262AA0F4005776FC /* EnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentManager.swift; sourceTree = "<group>"; };
 		0DC98BBA2627CE6300A282B0 /* SDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDF.swift; sourceTree = "<group>"; };
+		0DC9C133262B679C00DB4D10 /* record.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = record.json; sourceTree = "<group>"; };
 		0DE9B59126293F0E002224EA /* SCNNode+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Animation.swift"; sourceTree = "<group>"; };
 		0DE9B59726294226002224EA /* SCNSceneSource+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNSceneSource+Animation.swift"; sourceTree = "<group>"; };
 		0DEEC49D26289D4900B69FA6 /* ARDebugStepBodyPositioningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDebugStepBodyPositioningView.swift; sourceTree = "<group>"; };
@@ -355,7 +358,6 @@
 				0D4B2F4B2627784F0027A0F8 /* OperationManager.swift */,
 				0D4B2F50262779230027A0F8 /* EnvironmentManager.swift */,
 				0D4B2F812627B2B70027A0F8 /* HumanHeadFloatingView.swift */,
-				0D4B2FB12627B80E0027A0F8 /* HumanNode.swift */,
 				0D4B2EF526276EE20027A0F8 /* Assets.xcassets */,
 				0D4B2EFA26276EE20027A0F8 /* LaunchScreen.storyboard */,
 				0D4B2EFD26276EE20027A0F8 /* Info.plist */,
@@ -547,7 +549,6 @@
 				0DE9B59726294226002224EA /* SCNSceneSource+Animation.swift */,
 				0D16C877261DB60200B8BFBB /* View+Conditional.swift */,
 				0DA26CD226260C66008E6447 /* HumanNode.swift */,
-				0DA26CDE262611E4008E6447 /* ScanNode.swift */,
 				0D85295A26222992004DB4B0 /* Scalar+Coding.swift */,
 				0D85295926222992004DB4B0 /* MetalBuffer.swift */,
 				0D85295826222992004DB4B0 /* PointCloudCollector.swift */,
@@ -602,6 +603,8 @@
 		5EF2F9792054B64800191409 /* PrivateResources */ = {
 			isa = PBXGroup;
 			children = (
+				0DC9C133262B679C00DB4D10 /* record.json */,
+				0D68A580262B5FF900947ADF /* Steps.png */,
 				0D68A55E262B41E500947ADF /* Cover.png */,
 				0D430652262AC3D600531B34 /* Shaders.txt */,
 				0D430612262AC23100531B34 /* Shaders.metal */,
@@ -838,9 +841,11 @@
 			files = (
 				0D43064C262AC3C900531B34 /* Shaders.metal in Resources */,
 				0D68A55F262B41E500947ADF /* Cover.png in Resources */,
+				0DC9C134262B679C00DB4D10 /* record.json in Resources */,
 				5EF2F97C2054B6E400191409 /* ManifestPlist.strings in Resources */,
 				5E551EC52371FC3F00784365 /* Assets.xcassets in Resources */,
 				0D430653262AC3D900531B34 /* Shaders.txt in Resources */,
+				0D68A581262B5FF900947ADF /* Steps.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,6 +853,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DC9C135262B679C00DB4D10 /* record.json in Resources */,
 				0DDC9ACD2620D23400C3A212 /* Assets.xcassets in Resources */,
 				5EA2E3CA2056F35B00416A35 /* LiveViewTestAppLaunchScreen.storyboard in Resources */,
 			);
@@ -905,7 +911,6 @@
 				0D0B6A7826225EFC001104E3 /* SCNGeometry+Procedural.swift in Sources */,
 				0DA26CCF262608F2008E6447 /* ActivityViewControllerView.swift in Sources */,
 				0D16C854261CF7EC00B8BFBB /* SCNGeometry+ARKit.swift in Sources */,
-				0DA26CDF262611E4008E6447 /* ScanNode.swift in Sources */,
 				0D16C88A261DF29700B8BFBB /* ARDebugStepPointCloudView.swift in Sources */,
 				0D93FCA4262A2716002ED84C /* ARDebugStepRecordAnimationView.swift in Sources */,
 				0DEEC4A626289D9B00B69FA6 /* ARDebugStepBodyPositioningView.swift in Sources */,
@@ -944,9 +949,9 @@
 				0DE9B59326293F0E002224EA /* SCNNode+Animation.swift in Sources */,
 				0DE9B59926294226002224EA /* SCNSceneSource+Animation.swift in Sources */,
 				0D4B2F47262778410027A0F8 /* RuntimeHelper.swift in Sources */,
-				0D4B2FB22627B80E0027A0F8 /* HumanNode.swift in Sources */,
 				0D4B2F5526277B780027A0F8 /* FilledButtonView.swift in Sources */,
 				0D4B2F8F2627B2E90027A0F8 /* SCNGeometry+ARKit.swift in Sources */,
+				0DC9C140262B73D100DB4D10 /* HumanNode.swift in Sources */,
 				0D4B2F1626276F500027A0F8 /* TestMasterView.swift in Sources */,
 				0D4B2FAD2627B4470027A0F8 /* Data.swift in Sources */,
 				0D4B2F1E2627707A0027A0F8 /* TestRootView.swift in Sources */,
@@ -962,6 +967,7 @@
 				0D4B2F8D2627B2E90027A0F8 /* Scalar+Lerp.swift in Sources */,
 				0D4B2FA62627B3440027A0F8 /* Scalar+Coding.swift in Sources */,
 				0D4B2F32262774170027A0F8 /* DocumentPickerViewController.swift in Sources */,
+				0DC9C146262B749E00DB4D10 /* SCNCustomNodeProtocol.swift in Sources */,
 				0D4B2F4C2627784F0027A0F8 /* OperationManager.swift in Sources */,
 				0D4B2F5926277BD10027A0F8 /* View+Conditional.swift in Sources */,
 				0D4B2F8B2627B2E90027A0F8 /* SCNNode+Utils.swift in Sources */,

@@ -18,9 +18,10 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     
     let session: ARSession = ARSession()
     let scene: SCNScene = SCNScene()
-    let scanNode : ScanNode = ScanNode()
+    var scanNode : SCNNode = SCNNode()
     let humanNode : HumanNode = HumanNode()
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
+    var pointCloudCollector: PointCloudCollector?
     
     static let shared: OperationManager = {
         let instance = OperationManager()
@@ -28,7 +29,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     }()
     
     private override init() {
-        scene.rootNode.addChildNode(scanNode)
+        scene.rootNode.addChildNode(scanNode.withName(name: "scan"))
         scene.rootNode.addChildNode(humanNode)
     }
     
@@ -48,44 +49,50 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                         let configuration = ARWorldTrackingConfiguration()
                         configuration.frameSemantics = .sceneDepth
                         manager.session.run(configuration)
-                        manager.scanNode.setAlpha(alpha: 1.0)
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 1.0)
                         break
                     case .captureSekeleton:
-                        manager.scene.background.intensity = 0.2
+                        manager.scene.background.intensity = 0.4
                         let configuration = ARBodyTrackingConfiguration()
                         configuration.frameSemantics = [.bodyDetection]
                         manager.session.run(configuration)
-                        manager.scanNode.setAlpha(alpha: 0.5)
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 0.2)
                         break
                     case .recordAnimation:
                         manager.scene.background.intensity = 0.2
                         let configuration = ARBodyTrackingConfiguration()
                         configuration.frameSemantics = [.bodyDetection]
                         manager.session.run(configuration)
-                        manager.scanNode.setAlpha(alpha: 0.5)
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 0.5)
                         break
                     case .removeBgAndRig:
-                        manager.scanNode.setAlpha(alpha: 0.8)
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 0.5)
                         manager.scene.background.intensity = 0.2
                         break
                     case .animateSkeleton:
-                        manager.scanNode.setAlpha(alpha: 1.0)
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 1.0)
                         manager.scene.background.intensity = 1
                         break
                     case .positionSekeleton:
-                        manager.scene.background.intensity = 0.1
-                        manager.scanNode.setAlpha(alpha: 0.2)
+                        manager.scene.background.intensity = 0.3
+                        manager.scanNode.geometry = manager.scanNode.geometry?.withAlphaMaterial(alpha: 0.6)
                         break
                     }})
         manager.session.delegate = manager
-        manager.scanNode.setup()
+        manager.pointCloudCollector = PointCloudCollector(session: OperationManager.shared.session, metalDevice: OperationManager.shared.device)
+        manager.pointCloudCollector?.pointCloudsUpdated = {() in
+            if let pointCloudCollector = manager.pointCloudCollector {
+                manager.scanNode.geometry = SCNGeometry(buffer: pointCloudCollector.particlesBuffer).withAlphaMaterial(alpha: 1)
+            }
+        }
         manager.humanNode.setup()
     }
     
-    func applyScene(scene: SCNScene) -> Void {
-        humanNode.reset()
-        if let loadHumanNode = scene.rootNode.childNode(withName: "human", recursively: false)
+    func applyScene(newScene: SCNScene) -> Void {
+        
+        if let loadHumanNode = newScene.rootNode.childNode(withName: "human", recursively: false)
         {
+            humanNode.reset()
             humanNode.simdWorldTransform = loadHumanNode.simdWorldTransform
             loadHumanNode.childNodes.forEach { (child:SCNNode) in
                 humanNode.addChildNode(child)
@@ -93,11 +100,13 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
             humanNode.setup()
         }
         
-        if let loadScanNode = scene.rootNode.childNode(withName: "scan", recursively: false)
+        if let loadScanNode = newScene.rootNode.childNode(withName: "scan", recursively: false)
         {
+            scanNode.removeFromParentNode()
+            scanNode = loadScanNode
             scanNode.simdWorldTransform = loadScanNode.simdWorldTransform
             scanNode.geometry = scanNode.geometry?.withPointSize(size: 15)
-            scanNode.setup()
+            scene.rootNode.addChildNode(scanNode)
         }
     }
     
@@ -114,7 +123,7 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
                 let sceneData = NSKeyedArchiver.archivedData(withRootObject: self.scene)
                 if let source = SCNSceneSource(data: sceneData, options: nil),
                    let savedScene = source.scene(options: nil) {
-                    self.applyScene(scene: savedScene)
+                    self.applyScene(newScene: savedScene)
                 }
                 DispatchQueue.main.async {
                     callback()
@@ -127,8 +136,23 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     
     //MARK: - ARSessionDelegate
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        scanNode.session(session, didUpdate: frame)
+        pointCloudCollector?.drawRectResized(size: frame.camera.imageResolution)
         humanNode.session(session, didUpdate: frame)
+        switch EnvironmentManager.shared.env.arOperationMode {
+        case .attachPointCloud:
+            pointCloudCollector?.draw()
+            break
+        case .captureSekeleton:
+            break
+        case .removeBgAndRig:
+            break
+        case .animateSkeleton:
+            break
+        case .positionSekeleton:
+            break
+        case .recordAnimation:
+            break
+        }
     }
     
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
@@ -149,7 +173,6 @@ class OperationManager: RuntimeManagableSingleton, ARSCNViewDelegate, ARSessionD
     
     //MARK: - ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        scanNode.renderer(renderer, updateAtTime: time)
         humanNode.renderer(renderer, updateAtTime: time)
     }
 }
