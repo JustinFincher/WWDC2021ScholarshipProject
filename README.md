@@ -1,8 +1,7 @@
-#  WWDC 20 PROJECT
+#  WWDC 2021 Student Challenge
 
-A continuation of the Shader Node Editor project which failed the last WWDC (19) scholarship.  
-Now fixed for iOS 13 (Dark Mode, Swift UI, Context Menu, Combine).
+> 🧍 HumanScan: an interactive playground for scanning, rigging, and applying animations to real-life 3D human models
 
-#### [Download Playground File 🥳](https://github.com/JustinFincher/WWDC20Playground/releases/download/1.0.0/ShaderNodeEditor.zip)
+[YouTube](https://youtu.be/AT6XDYx_aRg) | [Playground Book](https://github.com/JustinFincher/WWDC2021ScholarshipProject/raw/master/Submission/HumanScan.zip)
 
-![](Download/Screenshot.jpeg)
+![](Submission/Banner.jpg)
