@@ -1,0 +1,4 @@
+framework module UserModuleFramework {
+  header "UserModuleFramework-Swift.h"
+  requires objc
+}

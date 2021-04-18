@@ -188,9 +188,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import ARKit;
-@import CoreGraphics;
-@import MetalKit;
 @import ObjectiveC;
 @import UIKit;
 #endif
@@ -209,8 +206,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="UserModuleFramework",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
-
-
 
 @class NSBundle;
 @class NSCoder;
@@ -236,30 +231,6 @@ SWIFT_CLASS("_TtC19UserModuleFramework25RuntimeManagableSingleton")
 
 
 
-
-
-
-@class ARSession;
-@class ARFrame;
-
-SWIFT_CLASS("_TtC19UserModuleFramework14ViewController")
-@interface ViewController : UIViewController <ARSessionDelegate>
-- (void)viewDidLoad;
-- (void)session:(ARSession * _Nonnull)session didUpdateFrame:(ARFrame * _Nonnull)frame;
-- (void)viewWillAppear:(BOOL)animated;
-@property (nonatomic, readonly) BOOL prefersHomeIndicatorAutoHidden;
-@property (nonatomic, readonly) BOOL prefersStatusBarHidden;
-- (void)session:(ARSession * _Nonnull)session didFailWithError:(NSError * _Nonnull)error;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class MTKView;
-
-@interface ViewController (SWIFT_EXTENSION(UserModuleFramework)) <MTKViewDelegate>
-- (void)mtkView:(MTKView * _Nonnull)view drawableSizeWillChange:(CGSize)size;
-- (void)drawInMTKView:(MTKView * _Nonnull)view;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
